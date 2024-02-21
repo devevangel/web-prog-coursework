@@ -1,0 +1,297 @@
+[
+    {
+      "name": "Jumping Jacks",
+      "difficulty": "Beginner",
+      "description": "A basic calisthenics exercise performed by jumping to a position with legs spread wide and hands touching overhead, then returning to a position with the feet together and the arms at the sides.",
+      "url": ""
+    },
+    {
+      "name": "Burpees",
+      "difficulty": "Intermediate",
+      "description": "A full-body exercise that involves a squat, a push-up, and a jump. It's performed in a continuous motion.",
+      "url": ""
+    },
+    {
+      "name": "High Knees",
+      "difficulty": "Beginner",
+      "description": "A cardiovascular exercise where a person raises their knees high alternatively while standing in place.",
+      "url": ""
+    },
+    {
+      "name": "Mountain Climbers",
+      "difficulty": "Intermediate",
+      "description": "A dynamic exercise that targets multiple muscle groups, including the core, shoulders, and legs. It mimics the motion of climbing a mountain.",
+      "url": ""
+    },
+    {
+      "name": "Squat Jumps",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise that combines a squat with an explosive jump, targeting the legs and glutes.",
+      "url": ""
+    },
+    {
+      "name": "Plank Jacks",
+      "difficulty": "Intermediate",
+      "description": "A variation of the plank exercise where the legs are alternately moved out and in, similar to the motion of doing jumping jacks.",
+      "url": ""
+    },
+    {
+      "name": "Jump Lunges",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise that combines a lunge with a jump, targeting the legs and improving explosive strength.",
+      "url": ""
+    },
+    {
+      "name": "Push-ups",
+      "difficulty": "Intermediate",
+      "description": "A classic bodyweight exercise that targets the chest, shoulders, and triceps.",
+      "url": ""
+    },
+    {
+      "name": "Bicycle Crunches",
+      "difficulty": "Intermediate",
+      "description": "A core-strengthening exercise that involves bringing the knees in while simultaneously twisting the torso.",
+      "url": ""
+    },
+    {
+      "name": "Box Jumps",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise where a person jumps onto a box or platform, targeting the legs and improving explosive power.",
+      "url": ""
+    },
+    {
+      "name": "Russian Twists",
+      "difficulty": "Intermediate",
+      "description": "A core exercise that involves twisting the torso from side to side while holding a weight or keeping the hands clasped together.",
+      "url": ""
+    },
+    {
+      "name": "Sprinting in Place",
+      "difficulty": "Intermediate",
+      "description": "A high-intensity cardiovascular exercise performed by running in place at maximum speed.",
+      "url": ""
+    },
+    {
+      "name": "Jump Rope",
+      "difficulty": "Intermediate",
+      "description": "A cardiovascular exercise involving jumping over a rope as it passes under your feet.",
+      "url": ""
+    },
+    {
+      "name": "Wall Sits",
+      "difficulty": "Beginner",
+      "description": "A static exercise where a person sits against a wall with knees bent at a 90-degree angle, holding the position for a period of time.",
+      "url": ""
+    },
+    {
+      "name": "Skater Jumps",
+      "difficulty": "Intermediate",
+      "description": "A lateral plyometric exercise that mimics the motion of a speed skater, targeting the legs and improving balance.",
+      "url": ""
+    },
+    {
+      "name": "Alternating Side Lunges",
+      "difficulty": "Intermediate",
+      "description": "A lower-body exercise that involves stepping to the side and lowering the body into a lunge position, alternating sides.",
+      "url": ""
+    },
+    {
+      "name": "Tricep Dips",
+      "difficulty": "Intermediate",
+      "description": "An exercise that targets the triceps by using a bench or chair to support the body while dipping down and pushing back up.",
+      "url": ""
+    },
+    {
+      "name": "Plyometric Push-ups",
+      "difficulty": "Intermediate",
+      "description": "A variation of the traditional push-up that includes an explosive push-off from the ground, increasing power and strength.",
+      "url": ""
+    },
+    {
+      "name": "Sit-ups",
+      "difficulty": "Beginner",
+      "description": "A classic abdominal exercise that involves lying on the back, bending the knees, and sitting up to touch the elbows to the knees.",
+      "url": ""
+    },
+    {
+      "name": "Speed Skaters",
+      "difficulty": "Intermediate",
+      "description": "A dynamic exercise that mimics the motion of a speed skater, involving lateral jumps from side to side.",
+      "url": ""
+    },
+    {
+      "name": "Side Plank with Hip Dip",
+      "difficulty": "Intermediate",
+      "description": "A variation of the side plank exercise where the hips are dipped up and down to engage the obliques.",
+      "url": ""
+    },
+    {
+      "name": "Jump Squats",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise combining a squat with an explosive jump, targeting the legs and improving lower body power.",
+      "url": ""
+    },
+    {
+      "name": "Lateral Bounds",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise that involves jumping laterally from side to side, improving agility and leg strength.",
+      "url": ""
+    },
+    {
+      "name": "Superman Holds",
+      "difficulty": "Beginner",
+      "description": "A core-strengthening exercise that involves lying face down and lifting the arms and legs off the ground, resembling the flying position of Superman.",
+      "url": ""
+    },
+    {
+      "name": "Inchworms",
+      "difficulty": "Intermediate",
+      "description": "A dynamic stretching exercise that involves walking the hands out into a plank position, then walking the feet towards the hands to return to a standing position.",
+      "url": ""
+    },
+    {
+      "name": "Alternating Reverse Lunges",
+      "difficulty": "Intermediate",
+      "description": "A lower-body exercise that involves stepping back into a lunge position, alternating legs.",
+      "url": ""
+    },
+    {
+      "name": "Fast Feet Drill",
+      "difficulty": "Intermediate",
+      "description": "A cardio drill involving rapid movement of the feet while staying in place, typically performed for a short duration.",
+      "url": ""
+    },
+    {
+      "name": "Plank with Shoulder Taps",
+      "difficulty": "Intermediate",
+      "description": "A core-stabilizing exercise performed in a plank position with alternating shoulder taps.",
+      "url": ""
+    },
+    {
+      "name": "Tuck Jumps",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise that involves jumping up while bringing the knees towards the chest.",
+      "url": ""
+    },
+    {
+      "name": "Crab Walks",
+      "difficulty": "Intermediate",
+      "description": "A functional exercise that targets the entire body, involving walking on hands and feet with the hips lifted off the ground.",
+      "url": ""
+    },
+    {
+      "name": "Single-Leg Deadlifts",
+      "difficulty": "Intermediate",
+      "description": "A unilateral lower-body exercise that targets the hamstrings, glutes, and lower back.",
+      "url": ""
+    },
+    {
+      "name": "Power Push-ups",
+      "difficulty": "Intermediate",
+      "description": "An explosive variation of the push-up exercise, performed with enough force to lift the hands off the ground.",
+      "url": ""
+    },
+    {
+      "name": "V-ups",
+      "difficulty": "Intermediate",
+      "description": "A challenging core exercise where the body forms a V shape by lifting the legs and upper body simultaneously.",
+      "url": ""
+    },
+    {
+      "name": "Spider Lunges",
+      "difficulty": "Intermediate",
+      "description": "A dynamic lower-body exercise that combines a lunge with a rotation, mimicking the movement of a spider crawling.",
+      "url": ""
+    },
+    {
+      "name": "Star Jumps",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise that involves jumping up with arms and legs spread wide, resembling the shape of a star.",
+      "url": ""
+    },
+    {
+      "name": "Alternating Jump Lunges",
+      "difficulty": "Intermediate",
+      "description": "A dynamic lower-body exercise that combines a lunge with a jump, alternating legs with each repetition.",
+      "url": ""
+    },
+    {
+      "name": "Bear Crawls",
+      "difficulty": "Intermediate",
+      "description": "A functional exercise that mimics the movement of a bear, involving crawling forward and backward on hands and feet.",
+      "url": ""
+    },
+    {
+      "name": "Pike Push-ups",
+      "difficulty": "Intermediate",
+      "description": "A bodyweight exercise that targets the shoulders and triceps, performed with the hips raised in a pike position.",
+      "url": ""
+    },
+    {
+      "name": "Flutter Kicks",
+      "difficulty": "Intermediate",
+      "description": "A core exercise performed by lying on the back and alternately fluttering the legs up and down without touching the ground.",
+      "url": ""
+    },
+    {
+      "name": "Donkey Kicks",
+      "difficulty": "Intermediate",
+      "description": "A lower-body exercise that targets the glutes and hamstrings, involving kicking the legs back while in a quadruped position.",
+      "url": ""
+    },
+    {
+      "name": "Side-to-Side Jump Lunges",
+      "difficulty": "Intermediate",
+      "description": "A dynamic lower-body exercise that combines a lateral jump with a lunge, alternating sides.",
+      "url": ""
+    },
+    {
+      "name": "Alternating Single Leg V-ups",
+      "difficulty": "Intermediate",
+      "description": "A core exercise that targets the abdominals and hip flexors, involving lifting one leg and reaching for it with the opposite hand while lying on the back.",
+      "url": ""
+    },
+    {
+      "name": "Explosive Step-ups",
+      "difficulty": "Intermediate",
+      "description": "A plyometric exercise that involves stepping up onto a platform with enough force to propel the body off the ground.",
+      "url": ""
+    },
+    {
+      "name": "Commando Plank",
+      "difficulty": "Intermediate",
+      "description": "A variation of the plank exercise that involves transitioning between forearm and extended arm positions.",
+      "url": ""
+    },
+    {
+      "name": "Side Plank with Leg Lift",
+      "difficulty": "Intermediate",
+      "description": "A variation of the side plank exercise that involves lifting the top leg to engage the abductors and glutes.",
+      "url": ""
+    },
+    {
+      "name": "Squat Thrusts",
+      "difficulty": "Intermediate",
+      "description": "A full-body exercise that combines a squat with a plank, performed in a fast-paced manner.",
+      "url": ""
+    },
+    {
+      "name": "Fast Punches (shadow boxing)",
+      "difficulty": "Intermediate",
+      "description": "A cardiovascular exercise involving rapid punches thrown in the air, simulating a boxing motion.",
+      "url": ""
+    },
+    {
+      "name": "Reverse Crunches",
+      "difficulty": "Intermediate",
+      "description": "A core exercise that targets the lower abs, involving lifting the hips off the ground while lying on the back.",
+      "url": ""
+    },
+    {
+      "name": "Plank to Push-up",
+      "difficulty": "Intermediate",
+      "description": "A dynamic exercise that involves moving from a plank position to a push-up position and back again.",
+      "url": ""
+    }
+  ]
+  
