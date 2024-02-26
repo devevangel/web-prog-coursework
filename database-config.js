@@ -11,6 +11,6 @@ async function init() {
   return db;
 }
 
-const dbConnection = init();
+const dbConn = init();
 
-export default dbConnection;
+export default dbConn;
