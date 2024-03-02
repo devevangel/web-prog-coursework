@@ -32,6 +32,10 @@ function mountAccounts(accounts) {
     followersPara.textContent = `Followers: ${getRandomNumber(1, 5)} K`;
     workoutsPara.textContent = `${getRandomNumber(8, 10)}`;
 
+    // Adding unique id's
+
+    profileContainer.id = account.id;
+
     // Adding css class names
     profileContainer.classList.add("profile-card");
     profileImg.classList.add("profile-img");
