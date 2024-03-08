@@ -1,19 +1,14 @@
 import appState from "../state.mjs";
-import { getRandomNumber } from "./utils.mjs";
+import { getRandomNumber, fetchData } from "./utils.mjs";
 
 // HTML handles
 const profilesListContainer = document.querySelector(
   ".profiles-list-container"
 );
-const themeBtn = document.querySelector("#theme-btn");
+
+const profileCards = [];
 
 // Functions
-async function getAccounts(url) {
-  const res = await fetch(url);
-  const data = res.json();
-  return data;
-}
-
 function mountAccounts(accounts) {
   accounts.map((account) => {
     const profileContainer = document.createElement("span");
@@ -30,10 +25,9 @@ function mountAccounts(accounts) {
     namePara.textContent = `Name: ${account.first_name} ${account.last_name}`;
     emailPara.textContent = `Email: ${account.email}`;
     followersPara.textContent = `Followers: ${getRandomNumber(1, 5)} K`;
-    workoutsPara.textContent = `${getRandomNumber(8, 10)}`;
+    workoutsPara.textContent = `Total Workouts: ${getRandomNumber(8, 10)}`;
 
     // Adding unique id's
-
     profileContainer.id = account.id;
 
     // Adding css class names
@@ -53,19 +47,22 @@ function mountAccounts(accounts) {
     profileContainer.appendChild(profileImg);
     profileContainer.appendChild(profileDetailsContainer);
     profilesListContainer.appendChild(profileContainer);
+
+    // Adding containers
+    profileContainer.addEventListener("click", function (e) {
+      const keys = Object.keys(account);
+      for (let key of keys) {
+        appState.upateState(key, account[key]);
+      }
+      window.location.href = "main.html";
+    });
   });
 }
 
-function changeTheme(e) {
-  if (e.target.textContent === "☀️") {
-    themeBtn.textContent = "🌑";
-  } else {
-    themeBtn.textContent = "☀️";
-  }
-}
-
-// Event listeners
-themeBtn.addEventListener("click", changeTheme);
-
-const accountsData = await getAccounts(`http://localhost:8080/accounts`);
+// Network requests
+const accountsData = await fetchData(`http://10.128.33.185:8080/accounts`);
 mountAccounts(accountsData.accounts);
+
+// urls
+// http://localhost:8080/accounts
+// http://10.128.33.185:8080/accounts

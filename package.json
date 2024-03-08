@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/devevangel/web-prog-coursework#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uuid-random": "^1.3.2"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

@@ -1,34 +1,30 @@
 [
     {
-        "id": "01HQV9V6CF7B0A8XPR2BZHND1G",
+        "id": "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
         "first_name": "Monti",
         "last_name": "Burchall",
         "email": "mburchall0@dedecms.com",
-        "profile_img": "https://robohash.org/dfgsgd",
-        "account_type": 0
+        "profile_img": "https://robohash.org/dfgsgd"
     },
     {
-        "id": "01HQV9V6CFQ8DE1FN57ZN5VNRP",
+        "id": "6f732ee0-3b51-48bb-a710-511f7258613e",
         "first_name": "Susanna",
         "last_name": "Hazelgrove",
         "email": "shazelgrove1@walmart.com",
-        "profile_img": "https://robohash.org/dfg8gh",
-        "account_type": 0
+        "profile_img": "https://robohash.org/dfg8gh"
     },
     {
-        "id": "01HQV9V6CFD1Q5FES1YYJ03K75",
+        "id": "315e6d1a-e8da-4683-bd9a-b0b25138476c",
         "first_name": "Jaynell",
         "last_name": "Behnke",
         "email": "jbehnke2@nymag.com",
-        "profile_img": "https://robohash.org/34235rtegv",
-        "account_type": 0
+        "profile_img": "https://robohash.org/34235rtegv"
     },
     {
-        "id": "01HQV9V6CFC3QK7VGP0TZDD8RT",
-        "first_name": "Marv",
-        "last_name": "Crone",
-        "email": "mcrone3@fc2.com",
-        "profile_img": "https://robohash.org/3ewdw",
-        "account_type": 1
+        "id": "81d809b4-3937-4cd2-a398-146ad0592721",
+        "first_name": "Evangel",
+        "last_name": "Iheukwumere",
+        "email": "chidi@gmail.com",
+        "profile_img": "https://robohash.org/3ewerfd"
     }
 ]

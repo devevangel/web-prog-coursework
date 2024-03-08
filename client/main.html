@@ -11,9 +11,14 @@
 <link rel="stylesheet" href="styles.css" />
 <title>HIIT Workout App</title>
 <script type="module" src="scripts/utils.mjs" defer></script>
-<script type="module" src="scripts/index.mjs" defer></script>
+<script type="module" src="scripts/main.mjs" defer></script>
 
-<section class="profile-section-container">
-  <p class="heading-text">Select a user account profile</p>
-  <main class="profiles-list-container"></main>
+<section class="user-section-container">
+  <nav class="user-tabs-container">
+    <span class="in-page-tab active">Explore</span>
+    <span class="in-page-tab">For You</span>
+    <span class="in-page-tab">Your Workouts</span>
+  </nav>
+
+  <section class="user-feeds-container"></section>
 </section>

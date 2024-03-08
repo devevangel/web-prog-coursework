@@ -1,15 +1,15 @@
 import fs from "fs";
 
-export async function listAccounts(req, res) {
+export async function listWorkouts(req, res) {
   try {
     const data = fs.readFileSync(
-      "../web-prog-coursework/data/accounts.json",
+      "../web-prog-coursework/data/workouts.json",
       "utf8"
     );
     const jsonData = JSON.parse(data);
     res.status(200).json({
       status: "success",
-      accounts: jsonData,
+      feeds: jsonData,
     });
   } catch (err) {
     console.error("Error reading file:", err);
