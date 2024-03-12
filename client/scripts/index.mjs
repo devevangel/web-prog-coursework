@@ -5,7 +5,7 @@ import { getRandomNumber, fetchData } from "./utils.mjs";
 const profilesListContainer = document.querySelector(
   ".profiles-list-container"
 );
-
+const APIURL = "192.168.0.16";
 const profileCards = [];
 
 // Functions
@@ -60,7 +60,7 @@ function mountAccounts(accounts) {
 }
 
 // Network requests
-const accountsData = await fetchData(`http://10.128.33.185:8080/accounts`);
+const accountsData = await fetchData(`http://${APIURL}:8080/accounts`);
 mountAccounts(accountsData.accounts);
 
 // urls

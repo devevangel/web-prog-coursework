@@ -4,9 +4,18 @@ import { fetchData } from "./utils.mjs";
 // HTML handles
 const links = document.querySelectorAll(".in-page-tab");
 const userFeedsContainer = document.querySelector(".user-feeds-container");
+const appProfileImg = document.querySelector("#user-app-bar-profile-img");
+
+const APIURL = "http://192.168.0.16:8080";
 
 // Functions
-function handleClickedTab(e) {
+function clearFeeds() {
+  while (userFeedsContainer.firstChild) {
+    userFeedsContainer.removeChild(userFeedsContainer.firstChild);
+  }
+}
+
+async function handleClickedTab(e) {
   const textContent = e.target.textContent;
   for (let link of links) {
     if (link.textContent === textContent) {
@@ -14,6 +23,23 @@ function handleClickedTab(e) {
     } else {
       link.classList.remove("active");
     }
+  }
+
+  switch (textContent) {
+    case "Explore":
+      const exploreFeeds = await fetchData(`${APIURL}/workouts`);
+      mountFeeds(exploreFeeds.feeds);
+      break;
+    case "Your Workouts":
+      const yourWorkoutFeeds = await fetchData(
+        `${APIURL}/workouts/me/${appState.state.id}`
+      );
+      clearFeeds();
+      mountFeeds(yourWorkoutFeeds.feeds);
+      break;
+
+    default:
+      break;
   }
 }
 
@@ -23,22 +49,15 @@ function mountFeeds(feeds) {
     const cardSpan = document.createElement("span");
     const cardHeaderSpan = document.createElement("span");
     const feedTitle = document.createElement("h4");
-
     const userProfileImg = document.createElement("img");
     const feedImg = document.createElement("img");
-
     const cardContentHolder = document.createElement("aside");
-
     const descPara = document.createElement("p");
-    const descHeader = document.createElement("span");
     const targetAreasPara = document.createElement("p");
-    const targetAreasHeader = document.createElement("span");
     const durationPara = document.createElement("p");
-    const durationHeader = document.createElement("span");
     const levelPara = document.createElement("p");
-    const levelHeader = document.createElement("span");
     const authorPara = document.createElement("p");
-    const authorHeader = document.createElement("span");
+    const likesPara = document.createElement("p");
 
     // Adding class names
     cardSpan.classList.add("user-feed-card");
@@ -48,15 +67,11 @@ function mountFeeds(feeds) {
     feedImg.classList.add("feed-card-img");
     cardContentHolder.classList.add("feed-card-content-container");
     descPara.classList.add("feed-card-text-content");
-    descHeader.classList.add("sub-title");
     targetAreasPara.classList.add("feed-card-text-content");
-    targetAreasHeader.classList.add("sub-title");
     durationPara.classList.add("feed-card-text-content");
-    durationHeader.classList.add("sub-title");
     levelPara.classList.add("feed-card-text-content");
-    levelHeader.classList.add("sub-title");
     authorPara.classList.add("feed-card-text-content");
-    authorHeader.classList.add("sub-title");
+    likesPara.classList.add("feed-card-text-content");
 
     // Adding attributes
     userProfileImg.src = feed.owner.profile_img;
@@ -66,30 +81,27 @@ function mountFeeds(feeds) {
 
     // adding content
     feedTitle.textContent = feed.title;
-    descHeader.textContent = "About: ";
-    descPara.textContent = feed.description;
-    targetAreasHeader.textContent = "Target-Areas: ";
     targetAreasPara.textContent = feed.targeted_areas.toString();
-    durationHeader.textContent = "Duration: ";
     durationPara.textContent = feed.duration;
-    levelHeader.textContent = "Level: ";
     levelPara.textContent = feed.level;
-    authorHeader.textContent = "Author: ";
     authorPara.textContent = `${feed.owner.first_name} ${feed.owner.last_name}`;
 
     // Appending html elements
     cardHeaderSpan.appendChild(feedTitle);
     cardHeaderSpan.appendChild(userProfileImg);
-    descPara.appendChild(descHeader);
-    targetAreasPara.appendChild(targetAreasHeader);
-    durationPara.appendChild(durationHeader);
-    levelPara.appendChild(levelHeader);
-    authorPara.appendChild(authorHeader);
+    descPara.innerHTML = ` <span class='sub-title'>About: </span>${feed.description}`;
+    targetAreasPara.innerHTML = `<span class='sub-title'>Target-Areas: </span>${feed.targeted_areas.toString()}`;
+    durationPara.innerHTML = `<span class='sub-title'>Duration: </span>${feed.duration} mins`;
+    levelPara.innerHTML = `<span class='sub-title'>Level: </span>${feed.level}`;
+    authorPara.innerHTML = `<span class='sub-title'>Author: </span>${feed.owner.first_name} ${feed.owner.last_name}`;
+    likesPara.innerHTML = `<span class='sub-title'>Likes: </span>${feed.likes.length}`;
+
     cardContentHolder.appendChild(descPara);
     cardContentHolder.appendChild(targetAreasPara);
     cardContentHolder.appendChild(durationPara);
     cardContentHolder.appendChild(levelPara);
     cardContentHolder.appendChild(authorPara);
+    cardContentHolder.appendChild(likesPara);
     cardHeaderSpan.appendChild(feedTitle);
     cardHeaderSpan.appendChild(userProfileImg);
 
@@ -102,14 +114,17 @@ function mountFeeds(feeds) {
   });
 }
 
+// main
 for (let link of links) {
   link.addEventListener("click", handleClickedTab);
 }
+appProfileImg.src = appState.state.profile_img;
 
 // Network requests
-const userFeeds = await fetchData(`http://10.128.33.185:8080/workouts`);
+const userFeeds = await fetchData(`${APIURL}/workouts`);
+clearFeeds();
 mountFeeds(userFeeds.feeds);
-console.log(appState);
+console.log(appState.state);
 
 //urls
 // http://10.128.33.185:8080/workouts
