@@ -34,6 +34,4 @@ This project is a simple prototype for a High-Intensity Interval Training (HIIT)
 ### Additional Notes
 
 - Make sure you have Node.js and npm installed on your machine before running the installation commands.
-- This prototype is designed to provide a basic demonstration of a HIIT workout application. Further enhancements and features can be added based on specific requirements.
 
-Feel free to reach out for any questions or support. Happy exercising! 🏋️‍♂️🏃‍♀️
