@@ -6,7 +6,7 @@ const links = document.querySelectorAll(".in-page-tab");
 const userFeedsContainer = document.querySelector(".user-feeds-container");
 const appProfileImg = document.querySelector("#user-app-bar-profile-img");
 
-const APIURL = "http://192.168.0.16:8080";
+const APIURL = "localhost";
 
 // Functions
 function clearFeeds() {
@@ -27,12 +27,13 @@ async function handleClickedTab(e) {
 
   switch (textContent) {
     case "Explore":
-      const exploreFeeds = await fetchData(`${APIURL}/workouts`);
+      const exploreFeeds = await fetchData(`http://${APIURL}:8080/workouts`);
+      clearFeeds();
       mountFeeds(exploreFeeds.feeds);
       break;
     case "Your Workouts":
       const yourWorkoutFeeds = await fetchData(
-        `${APIURL}/workouts/me/${appState.state.id}`
+        `http://${APIURL}:8080/workouts/me/${appState.state.id}`
       );
       clearFeeds();
       mountFeeds(yourWorkoutFeeds.feeds);
@@ -121,7 +122,7 @@ for (let link of links) {
 appProfileImg.src = appState.state.profile_img;
 
 // Network requests
-const userFeeds = await fetchData(`${APIURL}/workouts`);
+const userFeeds = await fetchData(`http://${APIURL}:8080/workouts`);
 clearFeeds();
 mountFeeds(userFeeds.feeds);
 console.log(appState.state);

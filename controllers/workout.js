@@ -6,10 +6,13 @@ export async function listWorkouts(req, res) {
       "../web-prog-coursework/data/workouts.json",
       "utf8"
     );
-    const jsonData = JSON.parse(data);
+    const workouts = JSON.parse(data);
+    const publicWorkouts = workouts.filter(
+      (workout) => workout.is_public === true
+    );
     res.status(200).json({
       status: "success",
-      feeds: jsonData,
+      feeds: publicWorkouts,
     });
   } catch (err) {
     console.error("Error reading file:", err);

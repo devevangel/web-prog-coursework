@@ -5,7 +5,7 @@ import { getRandomNumber, fetchData } from "./utils.mjs";
 const profilesListContainer = document.querySelector(
   ".profiles-list-container"
 );
-const APIURL = "192.168.0.16";
+const APIURL = "localhost";
 const profileCards = [];
 
 // Functions
