@@ -5,6 +5,7 @@ import { fetchData } from "./utils.mjs";
 const links = document.querySelectorAll(".in-page-tab");
 const userFeedsContainer = document.querySelector(".user-feeds-container");
 const appProfileImg = document.querySelector("#user-app-bar-profile-img");
+const creatWorkoutBtn = document.querySelector(".create-workout-btn");
 
 const APIURL = "localhost";
 
@@ -51,7 +52,6 @@ function mountFeeds(feeds) {
     const cardHeaderSpan = document.createElement("span");
     const feedTitle = document.createElement("h4");
     const userProfileImg = document.createElement("img");
-    const feedImg = document.createElement("img");
     const cardContentHolder = document.createElement("aside");
     const descPara = document.createElement("p");
     const targetAreasPara = document.createElement("p");
@@ -65,7 +65,6 @@ function mountFeeds(feeds) {
     cardHeaderSpan.classList.add("user-feed-header");
     feedTitle.classList.add("feed-card-text-content");
     userProfileImg.classList.add("user-feed-card-profile-img");
-    feedImg.classList.add("feed-card-img");
     cardContentHolder.classList.add("feed-card-content-container");
     descPara.classList.add("feed-card-text-content");
     targetAreasPara.classList.add("feed-card-text-content");
@@ -77,8 +76,6 @@ function mountFeeds(feeds) {
     // Adding attributes
     userProfileImg.src = feed.owner.profile_img;
     userProfileImg.alt = `${feed.owner.first_name}-${feed.owner.last_name}`;
-    feedImg.src = feed.url;
-    feedImg.alt = feed.title;
 
     // adding content
     feedTitle.textContent = feed.title;
@@ -107,7 +104,6 @@ function mountFeeds(feeds) {
     cardHeaderSpan.appendChild(userProfileImg);
 
     cardSpan.appendChild(cardHeaderSpan);
-    cardSpan.appendChild(feedImg);
     cardSpan.appendChild(cardContentHolder);
 
     // Rendering html
@@ -119,14 +115,15 @@ function mountFeeds(feeds) {
 for (let link of links) {
   link.addEventListener("click", handleClickedTab);
 }
+
 appProfileImg.src = appState.state.profile_img;
+
+// Event listeners
+creatWorkoutBtn.addEventListener("click", function (e) {
+  console.log("will create workout");
+});
 
 // Network requests
 const userFeeds = await fetchData(`http://${APIURL}:8080/workouts`);
 clearFeeds();
 mountFeeds(userFeeds.feeds);
-console.log(appState.state);
-
-//urls
-// http://10.128.33.185:8080/workouts
-// http://localhost:8080/workouts

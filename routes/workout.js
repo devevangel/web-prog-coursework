@@ -1,9 +1,13 @@
 import express from "express";
-import { listWorkouts, listMyWorkouts } from "../controllers/workout.js";
+import {
+  listWorkouts,
+  listMyWorkouts,
+  createWorkout,
+} from "../controllers/workout.js";
 
 const workoutRouter = express.Router();
 
-workoutRouter.route("/").get(listWorkouts);
+workoutRouter.route("/").get(listWorkouts).post(createWorkout);
 workoutRouter.route("/me/:id").get(listMyWorkouts);
 
 export default workoutRouter;
