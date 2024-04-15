@@ -7,8 +7,6 @@
             "315e6d1a-e8da-4683-bd9a-b0b25138476c",
             "81d809b4-3937-4cd2-a398-146ad0592721"
         ],
-        "thumbs_up": [],
-        "thumps_down": [],
         "description": "HIIT workouts designed to improve heart health, increase cardiovascular endurance, and enhance overall cardiovascular fitness. These workouts typically involve alternating between periods of high-intensity exercise and short rest or low-intensity recovery periods.",
         "targeted_areas": [
             "Heart",
@@ -38,8 +36,6 @@
             "315e6d1a-e8da-4683-bd9a-b0b25138476c",
             "81d809b4-3937-4cd2-a398-146ad0592721"
         ],
-        "thumbs_up": [],
-        "thumps_down": [],
         "description": "HIIT workouts focused on building muscular strength and endurance. These workouts often incorporate bodyweight exercises, resistance training, or weightlifting movements performed at high intensity with short rest periods in between sets.",
         "targeted_areas": [
             "Muscles",
@@ -69,8 +65,6 @@
             "315e6d1a-e8da-4683-bd9a-b0b25138476c",
             "81d809b4-3937-4cd2-a398-146ad0592721"
         ],
-        "thumbs_up": [],
-        "thumps_down": [],
         "description": "HIIT workouts specifically designed to maximize calorie burn and promote fat loss. These workouts typically involve high-intensity exercises that elevate heart rate and metabolism, leading to increased energy expenditure both during and after the workout.",
         "targeted_areas": [
             "Fat",
@@ -100,8 +94,6 @@
             "315e6d1a-e8da-4683-bd9a-b0b25138476c",
             "81d809b4-3937-4cd2-a398-146ad0592721"
         ],
-        "thumbs_up": [],
-        "thumps_down": [],
         "description": "HIIT workouts targeting the muscles of the core, including the abdominals, obliques, and lower back. These workouts aim to improve core strength, stability, and posture through a combination of dynamic core exercises and isometric holds performed at high intensity.",
         "targeted_areas": [
             "Core Muscles",
@@ -132,8 +124,6 @@
             "6f732ee0-3b51-48bb-a710-511f7258613e",
             "81d809b4-3937-4cd2-a398-146ad0592721"
         ],
-        "thumbs_up": [],
-        "thumps_down": [],
         "description": "HIIT workouts incorporating dynamic stretches and mobility exercises to improve flexibility, range of motion, and joint mobility. These workouts focus on enhancing overall flexibility and mobility while also providing a cardiovascular and strength-training stimulus.",
         "targeted_areas": [
             "Flexibility",
@@ -154,153 +144,6 @@
         ],
         "duration": 90,
         "level": "easy",
-        "is_public": true
-    },
-    {
-        "id": "9a4dfc96-2ade-4be2-abbc-f7480f52cc76",
-        "title": "Agility and Coordination",
-        "likes": [
-            "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
-            "6f732ee0-3b51-48bb-a710-511f7258613e"
-        ],
-        "thumbs_up": [],
-        "thumps_down": [],
-        "description": "HIIT workouts emphasizing agility drills, balance exercises, and coordination challenges to enhance agility, balance, coordination, and proprioception. These workouts often include quick, explosive movements and multidirectional exercises to improve overall athleticism.",
-        "targeted_areas": [
-            "Agility",
-            "Balance",
-            "Coordination",
-            "Proprioception"
-        ],
-        "owner": {
-            "id": "81d809b4-3937-4cd2-a398-146ad0592721",
-            "first_name": "Evangel",
-            "last_name": "Iheukwumere",
-            "email": "chidi@gmail.com",
-            "profile_img": "https://robohash.org/3ewerfd"
-        },
-        "tags": [
-            "Agility",
-            "Balance",
-            "Coordination"
-        ],
-        "duration": 110,
-        "level": "medium",
-        "is_public": false
-    },
-    {
-        "id": "e5aedc6c-954e-4775-8718-02ed36e343dd",
-        "title": "Endurance",
-        "likes": [
-            "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
-            "315e6d1a-e8da-4683-bd9a-b0b25138476c"
-        ],
-        "thumbs_up": [],
-        "thumps_down": [],
-        "description": "HIIT workouts designed to improve muscular and cardiovascular endurance. These workouts involve high-intensity intervals interspersed with short rest or active recovery periods, helping to increase the body's ability to sustain prolonged physical activity.",
-        "targeted_areas": [
-            "Muscular Endurance",
-            "Cardiovascular Endurance"
-        ],
-        "owner": {
-            "id": "81d809b4-3937-4cd2-a398-146ad0592721",
-            "first_name": "Evangel",
-            "last_name": "Iheukwumere",
-            "email": "chidi@gmail.com",
-            "profile_img": "https://robohash.org/3ewerfd"
-        },
-        "tags": [
-            "Endurance",
-            "Muscle Endurance",
-            "Cardiovascular Endurance"
-        ],
-        "duration": 130,
-        "level": "hard",
-        "is_public": false
-    },
-    {
-        "id": "0a4bd3f8-a802-460e-9f0a-ffb40c00fccc",
-        "title": "Shoulders",
-        "likes": [
-            "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
-            "6f732ee0-3b51-48bb-a710-511f7258613e"
-        ],
-        "thumbs_up": [],
-        "thumps_down": [],
-        "targeted_areas": [
-            "Deltoid Muscles"
-        ],
-        "owner": {
-            "id": "81d809b4-3937-4cd2-a398-146ad0592721",
-            "first_name": "Evangel",
-            "last_name": "Iheukwumere",
-            "email": "chidi@gmail.com",
-            "profile_img": "https://robohash.org/3ewerfd"
-        },
-        "tags": [
-            "Shoulders",
-            "Deltoids",
-            "Upper Body"
-        ],
-        "duration": 140,
-        "level": "medium",
-        "is_public": true
-    },
-    {
-        "id": "8f69649d-58e3-455b-924c-2c8d8b3b0195",
-        "title": "Back",
-        "likes": [
-            "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
-            "315e6d1a-e8da-4683-bd9a-b0b25138476c"
-        ],
-        "thumbs_up": [],
-        "thumps_down": [],
-        "description": "HIIT workouts focusing on strengthening and toning the muscles of the back, including the latissimus dorsi, rhomboids, and trapezius. These workouts help improve posture, stability, and overall back health through a combination of pulling and rowing exercises performed at high intensity.",
-        "targeted_areas": [
-            "Latissimus Dorsi",
-            "Rhomboids",
-            "Trapezius"
-        ],
-        "owner": {
-            "id": "81d809b4-3937-4cd2-a398-146ad0592721",
-            "first_name": "Evangel",
-            "last_name": "Iheukwumere",
-            "email": "chidi@gmail.com",
-            "profile_img": "https://robohash.org/3ewerfd"
-        },
-        "tags": [
-            "Back",
-            "Upper Body",
-            "Posture"
-        ],
-        "duration": 160,
-        "level": "hard",
-        "is_public": false
-    },
-    {
-        "id": "d18a4e8e-69b9-4581-a06e-8d4d65807020",
-        "title": "Some Test 0000",
-        "likes": [],
-        "thumbs_up": [],
-        "thumps_down": [],
-        "description": "Some Desc",
-        "targeted_areas": [
-            "Heart",
-            "Lungs"
-        ],
-        "owner": {
-            "id": "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
-            "first_name": "Monti",
-            "last_name": "Burchall",
-            "email": "mburchall0@dedecms.com",
-            "profile_img": "https://robohash.org/dfgsgd"
-        },
-        "tags": [
-            "Test01",
-            "Test02"
-        ],
-        "duration": 120,
-        "level": "hard",
         "is_public": true
     }
 ]
