@@ -10,10 +10,34 @@
 />
 <link rel="stylesheet" href="styles.css" />
 <title>HIIT Workout App</title>
-<script type="module" src="scripts/utils.mjs" defer></script>
 <script type="module" src="scripts/index.mjs" defer></script>
 
-<section class="profile-section-container">
-  <p class="heading-text">Select a user account profile</p>
-  <main class="profiles-list-container"></main>
-</section>
+<section class="page-container user-accounts hide"></section>
+<section class="page-container public-user-workouts hide"></section>
+
+<template id="workout-card-template">
+  <aside class="workout-card">
+    <p class="workout-card-data-item workout-card-title"></p>
+    <p class="workout-card-data-item workout-card-about"></p>
+    <p class="workout-card-data-item workout-card-tags"></p>
+    <p class="workout-card-data-item workout-card-target-areas"></p>
+    <p class="workout-card-data-item workout-card-duration"></p>
+    <p class="workout-card-data-item workout-card-level"></p>
+    <p class="workout-card-data-item workout-card-likes"></p>
+    <p class="workout-card-btn-list">
+      <button class="workout-card-btn workout-card-like-btn"></button>
+      <button class="workout-card-btn workout-card-open-btn"></button>
+      <button class="workout-card-btn workout-card-delete-btn"></button>
+      <button class="workout-card-btn workout-card-public-btn"></button>
+    </p>
+  </aside>
+</template>
+
+<template id="workout-page-nav">
+  <nav class="workout-nav">
+    <span id="public-workouts" class="nav-link-item select-nav"
+      >Public workouts</span
+    >
+    <span id="private-workouts" class="nav-link-item">Private workouts</span>
+  </nav>
+</template>

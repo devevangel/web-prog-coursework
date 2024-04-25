@@ -1,25 +1,26 @@
-import fs from "fs/promises";
-import uuid from "uuid-random";
+import fs from 'fs/promises';
+import uuid from 'uuid-random';
 
 export async function listWorkouts(req, res) {
   try {
     const data = await fs.readFile(
-      "../web-prog-coursework/data/workouts.json",
-      "utf8"
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
     );
     const workouts = JSON.parse(data);
     const publicWorkouts = workouts.filter(
-      (workout) => workout.is_public === true
+      (workout) => workout.is_public === true,
     );
+
     res.status(200).json({
-      status: "success",
-      feeds: publicWorkouts,
+      status: 'success',
+      workouts: publicWorkouts,
     });
   } catch (err) {
-    console.error("Error reading file:", err);
+    console.error('Error reading file:', err);
     res.status(400).json({
-      status: "error",
-      message: "Unable to retrieve profiles",
+      status: 'error',
+      message: 'Unable to retrieve profiles',
     });
   }
 }
@@ -29,20 +30,20 @@ export async function listMyWorkouts(req, res) {
     const { id } = req.params;
 
     const data = await fs.readFile(
-      "../web-prog-coursework/data/workouts.json",
-      "utf8"
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
     );
     const jsonData = JSON.parse(data);
     const userWorkouts = jsonData.filter((workout) => workout.owner.id === id);
     res.status(200).json({
-      status: "success",
-      feeds: userWorkouts,
+      status: 'success',
+      workouts: userWorkouts,
     });
   } catch (err) {
-    console.error("Error reading file:", err);
+    console.error('Error reading file:', err);
     res.status(400).json({
-      status: "error",
-      message: "Unable to retrieve profiles",
+      status: 'error',
+      message: 'Unable to retrieve profiles',
     });
   }
 }
@@ -51,8 +52,8 @@ export async function createWorkout(req, res) {
   try {
     const id = uuid();
     const data = await fs.readFile(
-      "../web-prog-coursework/data/workouts.json",
-      "utf8"
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
     );
     const workouts = JSON.parse(data);
     const {
@@ -84,19 +85,19 @@ export async function createWorkout(req, res) {
     workouts.push(newWorkout);
 
     await fs.writeFile(
-      "../web-prog-coursework/data/workouts.json",
-      JSON.stringify(workouts)
+      '../web-prog-coursework/data/workouts.json',
+      JSON.stringify(workouts),
     );
 
     res.status(201).json({
-      status: "success",
+      status: 'success',
       workout: newWorkout,
     });
   } catch (err) {
-    console.error("Error creating workout:", err);
+    console.error('Error creating workout:', err);
     res.status(400).json({
-      status: "error",
-      message: "Unable to create workout",
+      status: 'error',
+      message: 'Unable to create workout',
     });
   }
 }

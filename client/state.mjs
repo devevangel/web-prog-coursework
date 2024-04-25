@@ -1,6 +1,9 @@
 class AppState {
   constructor() {
-    this.state = {};
+    this.state = {
+      path: '/',
+      user: {},
+    };
   }
 
   upateState(key, value) {
@@ -9,15 +12,22 @@ class AppState {
   }
 
   saveState() {
-    localStorage.setItem("state", JSON.stringify(this.state));
+    localStorage.setItem('state', JSON.stringify(this.state));
   }
 
   loadState() {
-    const stateStr = localStorage.getItem("state");
+    const stateStr = localStorage.getItem('state');
     const parsedState = JSON.parse(stateStr);
-    this.state = {
-      ...parsedState,
-    };
+    if (parsedState?.user) {
+      this.state = {
+        ...parsedState,
+      };
+    } else {
+      this.state = {
+        path: '/',
+        user: {},
+      };
+    }
   }
 
   viewState() {

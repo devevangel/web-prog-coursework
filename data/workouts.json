@@ -24,7 +24,7 @@
             "Heart Health",
             "Endurance"
         ],
-        "duration": 120,
+        "duration": 30,
         "level": "medium",
         "is_public": true
     },
@@ -53,7 +53,7 @@
             "Muscle Building",
             "Endurance"
         ],
-        "duration": 150,
+        "duration": 30,
         "level": "hard",
         "is_public": false
     },
@@ -82,7 +82,7 @@
             "Weight Loss",
             "Calorie Burn"
         ],
-        "duration": 180,
+        "duration": 30,
         "level": "easy",
         "is_public": true
     },
@@ -113,7 +113,7 @@
             "Abdominals",
             "Stability"
         ],
-        "duration": 120,
+        "duration": 30,
         "level": "medium",
         "is_public": false
     },
@@ -142,7 +142,7 @@
             "Mobility",
             "Stretching"
         ],
-        "duration": 90,
+        "duration": 30,
         "level": "easy",
         "is_public": true
     }

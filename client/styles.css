@@ -7,21 +7,11 @@
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .unhide {
-  display: block;
-}
-
-.light-theme {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.dark-theme {
-  background-color: #333333;
-  color: #ffffff;
+  display: block !important;
 }
 
 .app-theme-btn {
@@ -33,16 +23,19 @@
   font-size: 1.5em;
 }
 
-.profile-section-container {
+.page-container {
   width: 100vw;
-  height: 100vh;
-  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .heading-text {
   padding: 1em;
   font-size: 1.3em;
   font-weight: 600;
+  text-decoration: underline;
 }
 
 .profiles-list-container {
@@ -90,174 +83,69 @@
   padding: 0.2em 0em;
 }
 
-.user-section-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 0.4em;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.app-bar {
-  width: 100vw;
-  background: #333333;
-  height: 3.5em;
-  position: fixed;
-  z-index: 2;
-  margin-bottom: 1em;
-}
-
-.app-bar-profile-img {
-  position: absolute;
-  right: 1em;
-  top: 1em;
-}
-
-.user-tabs-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 100%;
-  margin-top: 4em;
-}
-
-.in-page-tab {
-  cursor: pointer;
-  text-align: center;
-}
-
-.active {
-  border-bottom: 0.13em solid blue;
-}
-
-.user-select-tab-info-container {
-  width: 95%;
-  height: 100%;
-  padding: 0.2em;
-}
-
-.user-feeds-container {
-  width: 100%;
+.workout-list {
+  width: 96%;
   height: 100%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   row-gap: 1em;
   column-gap: 1em;
+  padding: 0.1em;
   justify-content: center;
-  margin-top: 0.2em;
 }
 
-.user-feed-card {
-  width: 18em;
-  height: 25em;
-  border-radius: 0.5em;
-  box-shadow: 0 8px 8px -4px lightblue;
-  background: #f1f1f1;
-  padding: 0.3em;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 0.2em;
-  position: relative;
-  justify-content: space-evenly;
-}
-
-.feed-card-content-container {
-  width: 95%;
-  border: 0.1em solid grey;
-  border-radius: 0.2em;
-  height: 80%;
-}
-
-.feed-card-text-content {
-  font-size: 0.8em;
-  padding: 0em 0.5em;
-}
-
-.user-feed-header {
-  width: 100%;
-  height: 2.5em;
-  border-bottom: 0.1em solid grey;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.user-feed-card-profile-img {
-  width: 2em;
-  height: 2em;
-  border: 0.1em solid gray;
-  border-radius: 50%;
-  background: beige;
-  object-fit: cover;
-}
-
-.user-feed-card-like-btn {
-  text-align: right;
-  font-size: 1.5em;
-  margin-right: 0.1em;
-}
-
-.sub-title {
-  font-weight: bold;
-}
-
-.create-workout-btn {
-  position: fixed;
-  z-index: 3;
-  width: 3em;
-  height: 3em;
-  background: #f1f1f1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  right: 1em;
+.workout-card {
   border: 0.1em solid black;
-  bottom: 0.2em;
-  cursor: pointer;
-}
-
-.create-workout-form-section {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.form-container {
   width: 20em;
-  height: 33em;
-  border: 0.1em solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form-body {
-  width: 100%;
-  height: 100%;
+  height: 21.5em;
+  padding: 0.5em;
   display: flex;
   flex-direction: column;
   row-gap: 0.5em;
-  align-items: center;
-  margin-top: 1em;
+  background-color: #ffffff;
+  border-radius: 0.3em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.form-input {
-  width: 90%;
+.workout-card-data-item {
+  border: 0.1em solid black;
+  font-size: 0.8em;
+  padding: 0.2em;
+}
+
+.workout-card-btn-list {
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  column-gap: 1em;
+}
+
+.workout-card-btn {
+  padding: 0.4em;
+  width: 8em;
   height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.form-input-left {
-  
+.workout-nav {
+  display: flex;
+  flex-direction: row;
+  column-gap: 3em;
+  margin-bottom: 1em;
 }
 
-/* Animations */
+.nav-link-item {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.nav-link-item:hover {
+  transform: scale(1.2);
+}
+
+.select-nav {
+  text-decoration: underline;
+}
