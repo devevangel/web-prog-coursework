@@ -1,19 +1,21 @@
 import { setupAccountPage, unmountAccountPage } from './user-accounts-page.mjs';
-import { setupuserWorkoutPage, unmountuserWorkoutPage } from './user-workouts-page.mjs';
+import {
+  setupPublicUserWorkoutPage,
+  unmountPublicUserWorkoutPage,
+} from './public-user-workouts-page.mjs';
 import appState from '../state.mjs';
 
 
 export function mountPageRouter() {
   unmountAccountPage();
-  unmountuserWorkoutPage();
+  unmountPublicUserWorkoutPage();
   switch (appState.state.path) {
     case '/':
       setupAccountPage();
       break;
     case '/workouts':
-      setupuserWorkoutPage();
+      // setupPublicUserWorkoutPage();
       break;
-
     default:
       setupAccountPage();
       break;

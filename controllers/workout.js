@@ -8,13 +8,10 @@ export async function listWorkouts(req, res) {
       'utf8',
     );
     const workouts = JSON.parse(data);
-    const publicWorkouts = workouts.filter(
-      (workout) => workout.is_public === true,
-    );
 
     res.status(200).json({
       status: 'success',
-      workouts: publicWorkouts,
+      workouts,
     });
   } catch (err) {
     console.error('Error reading file:', err);

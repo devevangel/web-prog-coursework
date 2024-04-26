@@ -4,9 +4,9 @@ import appState from '../state.mjs';
 const userWorkoutPage = document.querySelector('.public-user-workouts');
 const pageHeading = document.createElement('p');
 const workoutListContainer = document.createElement('section');
-const workoutPageNavTemplate = document.querySelector('#workout-page-nav');
+const workoutCardTemplate = document.querySelector('#workout-card-template');
 
-async function getAllWorkouts() {
+async function getAllPublicWorkouts() {
   const data = await fetchData('http://localhost:8080/workouts');
   return data.workouts;
 }
@@ -17,27 +17,11 @@ function mountPageView() {
   pageHeading.classList.add('heading-text');
   workoutListContainer.classList.add('workout-list');
   pageHeading.textContent = 'Public Workouts';
-  const workoutPageNavClone = workoutPageNavTemplate.content.cloneNode(true);
-  const publicWorkoutBtn = workoutPageNavClone.querySelector('#public-workouts');
-  const privateWorkoutBtn = workoutPageNavClone.querySelector('#private-workouts');
-
-
-  publicWorkoutBtn.addEventListener('click', () => {
-    privateWorkoutBtn.classList.remove('select-nav');
-    publicWorkoutBtn.classList.add('select-nav');
-  });
-
-  privateWorkoutBtn.addEventListener('click', () => {
-    publicWorkoutBtn.classList.remove('select-nav');
-    privateWorkoutBtn.classList.add('select-nav');
-  });
-
-  userWorkoutPage.append(pageHeading, workoutPageNavClone);
+  userWorkoutPage.append(pageHeading);
   userWorkoutPage.appendChild(workoutListContainer);
 }
 
-function mountWorkoutListView(workouts) {
-  const workoutCardTemplate = document.querySelector('#workout-card-template');
+function mountPublicWorkoutListView(workouts) {
   workouts.forEach((workout) => {
     const workoutCardClone = workoutCardTemplate.content.cloneNode(true).firstElementChild;
     const title = workoutCardClone.querySelector('.workout-card-title');
@@ -94,17 +78,17 @@ function mountWorkoutListView(workouts) {
   });
 }
 
-export function unmountuserWorkoutPage() {
+export function unmountPublicUserWorkoutPage() {
   userWorkoutPage.classList.toggle('hide');
 }
 
-export function mountuserWorkoutPage() {
+export function mountPublicserWorkoutPage() {
   userWorkoutPage.classList.remove('hide');
 }
 
-export async function setupuserWorkoutPage() {
-  const workouts = await getAllWorkouts();
+export async function setupPublicUserWorkoutPage() {
+  const workouts = await getAllPublicWorkouts();
   mountPageView();
-  mountWorkoutListView(workouts);
-  mountuserWorkoutPage();
+  mountPublicWorkoutListView(workouts);
+  mountPublicserWorkoutPage();
 }

@@ -14,6 +14,25 @@
 
 <section class="page-container user-accounts hide"></section>
 <section class="page-container public-user-workouts hide"></section>
+<section class="page-container workout-page">
+  <p class="heading-text">Workout Name</p>
+  <section class="timer-section">
+    <h3 class="timer-text">30:00:00</h3>
+    <aside class="workout-btn-controls">
+      <button class="workout-btn-control workout-start-btn">▶️</button>
+      <button class="workout-btn-control workout-pause-btn">⏸️</button>
+      <button class="workout-btn-control workout-end-btn">⏹️</button>
+      <button class="workout-btn-control workout-end-btn">🔇</button>
+    </aside>
+  </section>
+  <section class="exercise-list">
+    <aside class="exercise-item"></aside>
+    <aside class="exercise-item"></aside>
+    <aside class="exercise-item"></aside>
+    <aside class="exercise-item"></aside>
+    <aside class="exercise-item"></aside>
+  </section>
+</section>
 
 <template id="workout-card-template">
   <aside class="workout-card">
@@ -31,13 +50,4 @@
       <button class="workout-card-btn workout-card-public-btn"></button>
     </p>
   </aside>
-</template>
-
-<template id="workout-page-nav">
-  <nav class="workout-nav">
-    <span id="public-workouts" class="nav-link-item select-nav"
-      >Public workouts</span
-    >
-    <span id="private-workouts" class="nav-link-item">Private workouts</span>
-  </nav>
 </template>
