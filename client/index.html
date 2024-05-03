@@ -19,54 +19,14 @@
 </nav> -->
 
 <section class="page-container user-accounts hide"></section>
-<section class="page-container public-user-workouts hide"></section>
-<section class="page-container exercise-page hide"></section>
-
-<section class="page-container create-workout-page">
-  <section class="form-container">
-    <aside class="form-main">
-      <h3 class="center-text">Create HIIT Workout</h3>
-      <label class="form-label">Workout Title:</label>
-      <input class="form-input" type="text" />
-      <label class="form-label">Target Areas:</label>
-      <input class="form-input" class="form-input" type="text" placeholder="muscles, strength, calfs" />
-      <label class="form-label">Workout Tags:</label>
-      <input class="form-input" type="text" placeholder="strength training, muscle building, endurance" />
-      <label class="form-label">About Workout:</label>
-      <textarea class="form-input" placeholder="something great goes here..."></textarea>
-      <label class="form-label">Workout Level:</label>
-      <select class="form-input">
-        <option>Easy</option>
-        <option>Medium</option>
-        <option>Hard</option>
-      </select>
-    </aside>
-
-    <center>
-      <button class="generic-btn">Save HIIT Workout</button>
-    </center>
-  </section>
-
-  <section class="form-container">
-    <aside class="form-main">
-      <h3 class="center-text">Add Exercises</h3>
-      <label class="form-label">Exercise Name / Rest:</label>
-      <input class="form-input" type="text" placeholder="exercise name or rest" />
-      <label class="form-label">Exercise Guide:</label>
-      <textarea class="form-input" placeholder="exercise guide"></textarea>
-      <label class="form-label">Exercise Duration(mins):</label>
-      <input class="form-input" type="number" min="1" max="30" />
-      <center>
-        <button class="generic-btn">Add Exercise</button>
-      </center>
-    </aside>
-
-    <aside class="exercise-mini-holder"></aside>
-  </section>
+<section class="page-container public-user-workouts hide">
 </section>
+<section class="page-container exercise-page hide"></section>
+<section class="page-container create-workout-page"></section>
 
 <template id="workout-card-template">
   <aside class="workout-card">
+    <img class="workout-card-profile-img" src="" alt="owner-img" />
     <p class="workout-card-data-item workout-card-title"></p>
     <p class="workout-card-data-item workout-card-about"></p>
     <p class="workout-card-data-item workout-card-tags"></p>
@@ -83,14 +43,14 @@
   </aside>
 </template>
 
-<template id="exercise-card-template">
-  <aside class="exercise-item">
-    <p class="exercise-item-text exercise-title"></p>
-    <p class="exercise-item-text exercise-dir"></p>
-    <span class="exercise-item-overlay lock hide"></span>
-    <span class="exercise-item-overlay done hide"></span>
-    <span class="exercise-item-emoji done-emoji hide">✅</span>
-    <span class="exercise-item-emoji lock-emoji hide">🔒</span>
+<template id="workout-nav-template">
+  <p class="heading-text workout-type-text"></p>
+  <aside class="workout-nav-holder">
+   <nav class="workouts-nav">
+     <p class="workout-nav-item-left"> Public 🌎</p>
+     <p class="workout-nav-item-right">Private👁️</p>
+   </nav>
+   <button class="generic-btn custom-hiit-btn">Custom HIIT</button>
   </aside>
 </template>
 
@@ -120,7 +80,7 @@
         <p class="center-text">next</p>
         <p class="center-text">Activity</p>
         <p class="next-exercise-cd center-text">5</p>
-       
+
       </aside>
     </aside>
 

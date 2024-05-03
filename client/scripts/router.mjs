@@ -3,19 +3,23 @@ import {
   setupPublicUserWorkoutPage,
 } from './public-user-workouts-page.mjs';
 import { setupExercisePage, unmountExercisePage } from './exercise-page.mjs';
+import { setupCreateWorkoutPage } from './create-workout.mjs';
 import appState from '../state.mjs';
 
 
 export function mountPageRouter() {
   switch (appState.state.path) {
     case '/account':
-      // setupAccountPage();
+      setupAccountPage();
       break;
     case '/workout':
       setupPublicUserWorkoutPage();
       break;
     case '/exercise':
       setupExercisePage();
+      break;
+    case '/create':
+      setupCreateWorkoutPage();
       break;
     default:
       setupAccountPage();

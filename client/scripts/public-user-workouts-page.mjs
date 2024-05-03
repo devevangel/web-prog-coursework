@@ -44,8 +44,10 @@ function mountPublicWorkoutListView(workouts) {
     const openBtn = workoutCardClone.querySelector('.workout-card-open-btn');
     const deleteBtn = workoutCardClone.querySelector('.workout-card-delete-btn');
     const makePublicBtn = workoutCardClone.querySelector('.workout-card-public-btn');
+    const ownerProfile = workoutCardClone.querySelector('.workout-card-profile-img');
 
     // setting text content
+    ownerProfile.src = workout.owner.profile_img;
     title.textContent = `Title: ${workout.title}`;
     about.textContent = `About: ${workout.description}`;
     tags.textContent = `Tags: ${workout.tags.toString()}`;
