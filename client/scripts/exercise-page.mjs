@@ -4,7 +4,7 @@ import appState from '../state.mjs';
 
 const exercisePage = document.querySelector('.exercise-page');
 const exerciseViewTemplate = document.querySelector('#exercise-view');
-const exerciseViewClone = exerciseViewTemplate.content.cloneNode(true).firstElementChild;
+let exerciseViewClone;
 let totalDurationInMilli = 0;
 let totalDurationWorkedInMilli = 0;
 let exerciseList = [];
@@ -40,7 +40,7 @@ function startTimer() {
     isTimerStarted = true;
     currentExercise = exerciseListCopy[0];
     currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
-    timerInterval = setInterval(calcTime, 10);
+    timerInterval = setInterval(calcTime, 100);
     return;
   }
 
@@ -83,7 +83,7 @@ function handleUserFinishWorkout() {
 }
 
 function playPausedTimer() {
-  timerInterval = setInterval(calcTime, 10);
+  timerInterval = setInterval(calcTime, 100);
 }
 
 function displayWaitTimerToNextExercise() {
@@ -106,7 +106,7 @@ function displayWaitTimerToNextExercise() {
         btn.classList.remove('hide');
       });
       currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
-      timerInterval = setInterval(calcTime, 10);
+      timerInterval = setInterval(calcTime, 100);
       setCurrentExerciseView();
     }
     count--;
@@ -166,6 +166,8 @@ function setCurrentExerciseView() {
 
 
 function mountPageView() {
+  unmountExercisePage();
+  exerciseViewClone = exerciseViewTemplate.content.cloneNode(true).firstElementChild;
   const workoutName = exerciseViewClone.querySelector('.workout-name-text');
   exerciseNameWidget = exerciseViewClone.querySelector('.exercise-name-text');
   const startBtn = exerciseViewClone.querySelector('.workout-start-btn');
@@ -199,14 +201,13 @@ function mountPageView() {
 }
 
 export function unmountExercisePage() {
-  const clonedView = document.querySelector('.exercise-content');
-  progessBarWidget.style.width = '0%';
-  clearPrevExerciseSteps();
-  resetTimer();
   clearInterval(timerInterval);
   clearInterval(countDownInterval);
-  clonedView.remove();
   exercisePage.classList.add('hide');
+  if (exerciseViewClone) {
+    exerciseViewClone.remove();
+    exercisePage.innerHTML = '';
+  }
 }
 
 export function mountExercisePage() {

@@ -45,7 +45,6 @@ export function handleBrowserBackBtnClick() {
       appState.upateState('appPath', '/account/workout');
       appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
-      console.log('yeah');
       unmountExercisePage();
       mountPageRouter();
       break;

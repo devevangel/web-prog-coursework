@@ -6,6 +6,11 @@
   position: relative;
 }
 
+input {
+  background: transparent;
+  border: 0.1em solid black;
+}
+
 .hide {
   display: none !important;
 }
@@ -24,7 +29,7 @@
 }
 
 .page-container {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -291,11 +296,12 @@
 
 .form-container {
   width: 70%;
-  margin-top: 3em;
+  margin-top: 1em;
   box-shadow: 0 0.5em 0.5em -0.25em lightblue;
   background: #f1f1f1;
-  border-radius: 0.2em;
+  border-radius: 0.5em;
   position: relative;
+  margin-bottom: 1em;
 }
 
 .form-label {
@@ -320,39 +326,46 @@
 .generic-btn {
   width: fit-content;
   padding: 0.5em;
+  margin: 1em;
 }
 
-.exercise-mini-form-holder {
-  width: 98%;
+.exercise-mini-holder {
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  row-gap: 1em;
-  column-gap: 1em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  justify-content: center;
-  margin-top: 3em;
+  row-gap: 0.2em;
+  column-gap: 1.2em;
+  padding: 1em 0em;
+  overflow-x: auto;
+  position: absolute;
+  top: 100%;
+  left: 0;
 }
 
-.form-exercise {
-  width: 86%;
-  border: 0.1em solid black;
-  padding: 0.3em;
+.exercise-mini-card {
+  width: 7em;
+  min-width: 7em;
+  padding: 0.4em 0.5em;
+  box-shadow: 0 0.5em 0.5em -0.25em lightblue;
+  background: lightgoldenrodyellow;
+  border-radius: 0.5em;
   display: flex;
   flex-direction: column;
-  row-gap: 0.3em;
   align-items: center;
-  border-radius: 0.5em;
+  row-gap: 0.5em;
 }
 
-.add-new-exercise-btn {
-  position: absolute;
-  right: 1em;
-  top: 1em;
+.exercise-mini-input {
+  width: 5em;
+  text-align: center;
 }
 
-.exercise-from-title {
-  margin-top: 4em;
+.remove-mini-exercise-btn {
+  width: fit-content;
+  padding: 0.1em;
+  border: 0.1em solid black;
+  background: ghostwhite;
+  border-radius: 0.2em;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 600px) {
