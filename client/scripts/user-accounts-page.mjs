@@ -5,7 +5,8 @@ import appState from '../state.mjs';
 const usersAccountsPage = document.querySelector('.user-accounts');
 const pageHeading = document.createElement('p');
 const pageContent = document.createElement('section');
-const profileListViews = [];
+const accountCardTemplate = document.querySelector('#account-card-template');
+const profileCards = [];
 
 
 async function getAccountsData() {
@@ -23,59 +24,47 @@ function mountPageView() {
 
 function handleAccountProfileClick(account) {
   appState.upateState('user', account);
-  appState.upateState('path', '/workouts');
+  appState.upateState('path', '/workout');
+  appState.upateState('appPath', '/account/workout');
+  window.history.pushState(null, null, '/workout');
+  unmountAccountPage();
   mountPageRouter();
 }
 
 
 function mountAccountListView(accounts) {
   accounts.forEach(account => {
-    // Creating elements
-    const profileContainer = document.createElement('span');
-    const profileImg = document.createElement('img');
-    const profileDetailsContainer = document.createElement('aside');
-    const namePara = document.createElement('p');
-    const emailPara = document.createElement('p');
-    const followersPara = document.createElement('p');
-    const workoutsPara = document.createElement('p');
-
-
+    const acctCardClone = accountCardTemplate.content.cloneNode(true).firstElementChild;
+    const acctImg = acctCardClone.querySelector('.profile-img');
+    const name = acctCardClone.querySelector('.acct-name');
+    const email = acctCardClone.querySelector('.acct-email');
+    const followers = acctCardClone.querySelector('.acct-followers');
+    const workouts = acctCardClone.querySelector('.acct-workout');
     // Settling html content
-    profileImg.src = account.profile_img;
-    profileImg.alt = `${account.first_name} ${account.last_name}`;
-    namePara.textContent = `Name: ${account.first_name} ${account.last_name}`;
-    emailPara.textContent = `Email: ${account.email}`;
-    followersPara.textContent = `Followers: ${getRandomNumber(1, 5)} K`;
-    workoutsPara.textContent = `Total Workouts: ${getRandomNumber(8, 10)}`;
-
-    // Adding unique id's
-    profileContainer.id = account.id;
-
-    // Adding css class names
-    profileContainer.classList.add('profile-card');
-    profileImg.classList.add('profile-img');
-    profileDetailsContainer.classList.add('profile-detials-container');
-    namePara.classList.add('proile-card-text');
-    emailPara.classList.add('proile-card-text');
-    followersPara.classList.add('proile-card-text');
-    workoutsPara.classList.add('proile-card-text');
+    acctImg.src = account.profile_img;
+    acctImg.alt = `${account.first_name} ${account.last_name}`;
+    name.textContent = `Name: ${account.first_name} ${account.last_name}`;
+    email.textContent = `Email: ${account.email}`;
+    followers.textContent = `Followers: ${getRandomNumber(1, 5)} K`;
+    workouts.textContent = `Total Workouts: ${getRandomNumber(8, 10)}`;
 
     // Add event listeners
-    profileContainer.addEventListener('click', () => {
+    acctCardClone.addEventListener('click', () => {
       handleAccountProfileClick(account);
     });
 
     // Appending html to DOM
-    profileDetailsContainer.append(namePara, emailPara, followersPara, workoutsPara);
-    profileContainer.append(profileImg, profileDetailsContainer);
-    pageContent.appendChild(profileContainer);
-
-    profileListViews.push(profileContainer);
+    pageContent.appendChild(acctCardClone);
+    profileCards.push(acctCardClone);
   });
 }
 
-export function unmountAccountPage() {
+function unmountAccountPage() {
   usersAccountsPage.classList.add('hide');
+  profileCards.forEach(card => {
+    card.removeEventListener('click', handleAccountProfileClick);
+    card.remove();
+  });
 }
 
 export function mountAccountPage() {

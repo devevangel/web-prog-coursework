@@ -6,32 +6,59 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
   href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-  rel="stylesheet"
-/>
+  rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <title>HIIT Workout App</title>
 <script type="module" src="scripts/index.mjs" defer></script>
 
+<!-- <nav class="app-nav-container">
+  <aside>
+    <button class="back-btn">Home</button>
+  </aside>
+  <button class="logout-btn">Logout</button>
+</nav> -->
+
 <section class="page-container user-accounts hide"></section>
 <section class="page-container public-user-workouts hide"></section>
-<section class="page-container workout-page">
-  <p class="heading-text">Workout Name</p>
-  <section class="timer-section">
-    <h3 class="timer-text">30:00:00</h3>
-    <aside class="workout-btn-controls">
-      <button class="workout-btn-control workout-start-btn">▶️</button>
-      <button class="workout-btn-control workout-pause-btn">⏸️</button>
-      <button class="workout-btn-control workout-end-btn">⏹️</button>
-      <button class="workout-btn-control workout-end-btn">🔇</button>
+<section class="page-container exercise-page hide"></section>
+<section class="page-container exercise-page hide"></section>
+<section class="page-container create-workout-page">
+  <section class="form-container">
+    <aside class="form-main">
+      <h3 class="center-text">Workout Info</h3>
+      <label class="form-label">Workout Title:</label>
+      <input class="form-input" type="text" />
+      <label class="form-label">Target Areas:</label>
+      <input class="form-input" class="form-input" type="text" placeholder="muscles, strength, calfs" />
+      <label class="form-label">Workout Tags:</label>
+      <input class="form-input" type="text" placeholder="strength training, muscle building, endurance" />
+      <label class="form-label">About Workout:</label>
+      <textarea class="form-input" placeholder="something great goes here..."></textarea>
+      <label class="form-label">Workout Level:</label>
+      <select class="form-input">
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
     </aside>
   </section>
-  <section class="exercise-list">
-    <aside class="exercise-item"></aside>
-    <aside class="exercise-item"></aside>
-    <aside class="exercise-item"></aside>
-    <aside class="exercise-item"></aside>
-    <aside class="exercise-item"></aside>
+
+  <section class="form-container">
+    <button class="generic-btn add-new-exercise-btn">Add Exercise</button>
+    <h3 class="center-text exercise-from-title">Exercises </h3>
+      <section class="exercise-mini-form-holder">
+        <aside class="form-exercise">
+          <label class="form-label align-text-left">Exercise Title:</label>
+          <input class="form-input" type="text" />
+          <label class="form-label align-text-left">Exercise Directions:</label>
+          <textarea class="form-input" placeholder=""></textarea>
+          <label class="form-label align-text-left">Exercise Duration(mins):</label>
+          <input class="form-input" type="number" min="1" />
+          <button class="generic-btn">delete</button>
+        </aside>
+      </section>  
   </section>
+</section>
 </section>
 
 <template id="workout-card-template">
@@ -50,4 +77,74 @@
       <button class="workout-card-btn workout-card-public-btn"></button>
     </p>
   </aside>
+</template>
+
+<template id="exercise-card-template">
+  <aside class="exercise-item">
+    <p class="exercise-item-text exercise-title"></p>
+    <p class="exercise-item-text exercise-dir"></p>
+    <span class="exercise-item-overlay lock hide"></span>
+    <span class="exercise-item-overlay done hide"></span>
+    <span class="exercise-item-emoji done-emoji hide">✅</span>
+    <span class="exercise-item-emoji lock-emoji hide">🔒</span>
+  </aside>
+</template>
+
+<template id="account-card-template">
+  <span class="profile-card">
+    <img src="https://robohash.org/dfgsgd" class="profile-img" />
+    <aside class="profile-detials-container">
+      <p class="proile-card-text acct-name"></p>
+      <p class="proile-card-text acct-email"></p>
+      <p class="proile-card-text acct-followers"></p>
+      <p class="proile-card-text acct-workout"></p>
+    </aside>
+  </span>
+</template>
+
+<template class="timer-template">
+  <section class="timer-section">
+    <h3 class="timer-text">00:00:00</h3>
+    <aside class="workout-btn-controls">
+      <button class="workout-btn-control workout-start-btn">Play</button>
+      <button class="workout-btn-control workout-pause-btn">Pause</button>
+      <button class="workout-btn-control workout-stop-btn">Reset</button>
+    </aside>
+  </section>
+</template>
+
+<template id="exercise-view">
+  <section class="exercise-content">
+    <h3 class="workout-name-text">Workout:</h3>
+    <h4 class="exercise-name-text">Current Activity:</h4>
+
+    <aside class="timer-container">
+      <h3 class="timer-text">00:00</h3>
+      <aside class="count-down-container hide">
+        <p class="next-exercise-cd center-text">5</p>
+        <p class="center-text center-text">to next</p>
+        <p class="center-text center-text">Activity</p>
+      </aside>
+    </aside>
+
+    <aside class="progress-bar-main">
+      <span class="progess-bar-sub"></span>
+    </aside>
+
+    <aside class="workout-btn-controls">
+      <button class="workout-btn-control workout-start-btn btn-control-hide">Play ▶️</button>
+      <button class="workout-btn-control workout-pause-btn btn-control-hide">Pause ⏸️</button>
+      <button class="workout-btn-control workout-stop-btn btn-control-hide">Reset 🔄</button>
+      <button class="workout-btn-control workout-exit-btn">Exit ⏹️</button>
+    </aside>
+
+    <aside class="about-exercise">
+      <h3>Exercise Guide</h3>
+      <ol class="guide-text-container">
+        <!-- <li class="guide-text">
+          Focus on maintaining proper form throughout the exercise. -->
+        </li>
+      </ol>
+    </aside>
+  </section>
 </template>

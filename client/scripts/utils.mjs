@@ -11,3 +11,8 @@ export async function fetchData(url) {
     console.log(error);
   }
 }
+
+
+export function delayCall(func, delay) {
+  setTimeout(func, delay);
+}

@@ -1,3 +1,9 @@
-import { mountPageRouter } from './router.mjs';
+import { loadBrowserUrlState, handleBrowserBackBtnClick } from './router.mjs';
 
-mountPageRouter();
+window.addEventListener('popstate', function () {
+  handleBrowserBackBtnClick();
+});
+
+window.addEventListener('load', function () {
+  loadBrowserUrlState();
+});

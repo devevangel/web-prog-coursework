@@ -1,5 +1,6 @@
 import { fetchData } from './utils.mjs';
 import appState from '../state.mjs';
+import { mountPageRouter } from './router.mjs';
 
 const userWorkoutPage = document.querySelector('.public-user-workouts');
 const pageHeading = document.createElement('p');
@@ -17,8 +18,16 @@ function mountPageView() {
   pageHeading.classList.add('heading-text');
   workoutListContainer.classList.add('workout-list');
   pageHeading.textContent = 'Public Workouts';
-  userWorkoutPage.append(pageHeading);
-  userWorkoutPage.appendChild(workoutListContainer);
+  userWorkoutPage.append(pageHeading, workoutListContainer);
+}
+
+function handleOpenWorkout(workout) {
+  appState.upateState('workout', workout);
+  appState.upateState('path', '/exercise');
+  appState.upateState('appPath', '/account/workout/exercise');
+  window.history.pushState(null, null, '/exercise');
+  unmountPublicUserWorkoutPage();
+  mountPageRouter();
 }
 
 function mountPublicWorkoutListView(workouts) {
@@ -45,7 +54,7 @@ function mountPublicWorkoutListView(workouts) {
     level.textContent = `Level: ${workout.level}`;
     likes.textContent = `Likes: ${workout.likes.length}`;
     likeBtn.textContent = '❤️';
-    openBtn.textContent = 'start';
+    openBtn.textContent = 'open';
     deleteBtn.textContent = 'delete';
     makePublicBtn.textContent = '🔒';
     // 🌎
@@ -55,7 +64,7 @@ function mountPublicWorkoutListView(workouts) {
     });
 
     openBtn.addEventListener('click', () => {
-      console.log(workout.id);
+      handleOpenWorkout(workout);
     });
 
     deleteBtn.addEventListener('click', () => {
@@ -78,8 +87,8 @@ function mountPublicWorkoutListView(workouts) {
   });
 }
 
-export function unmountPublicUserWorkoutPage() {
-  userWorkoutPage.classList.toggle('hide');
+function unmountPublicUserWorkoutPage() {
+  userWorkoutPage.classList.add('hide');
 }
 
 export function mountPublicserWorkoutPage() {

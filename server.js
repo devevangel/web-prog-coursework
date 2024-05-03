@@ -8,6 +8,7 @@ import path from 'path';
 // Routes
 import accountRouter from './routes/account.js';
 import workoutRouter from './routes/workout.js';
+import exerciseRouter from './routes/exercise.js';
 
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.json());
 // Mounted routes
 app.use('/accounts', accountRouter);
 app.use('/workouts', workoutRouter);
+app.use('/exercises', exerciseRouter);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

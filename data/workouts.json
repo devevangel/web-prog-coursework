@@ -24,7 +24,7 @@
             "Heart Health",
             "Endurance"
         ],
-        "duration": 30,
+        "duration": 10,
         "level": "medium",
         "is_public": true
     },
