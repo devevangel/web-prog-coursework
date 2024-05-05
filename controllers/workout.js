@@ -1,21 +1,25 @@
-import fs from "fs";
+import fs from 'fs/promises';
+import uuid from 'uuid-random';
+
+import { addExercisesToWorkout, deleteWorkoutExercises } from './exercise.js';
 
 export async function listWorkouts(req, res) {
   try {
-    const data = fs.readFileSync(
-      "../web-prog-coursework/data/workouts.json",
-      "utf8"
+    const data = await fs.readFile(
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
     );
-    const jsonData = JSON.parse(data);
+    const workouts = JSON.parse(data);
+
     res.status(200).json({
-      status: "success",
-      feeds: jsonData,
+      status: 'success',
+      workouts,
     });
   } catch (err) {
-    console.error("Error reading file:", err);
+    console.error('Error reading file:', err);
     res.status(400).json({
-      status: "error",
-      message: "Unable to retrieve profiles",
+      status: 'error',
+      message: 'Unable to retrieve profiles',
     });
   }
 }
@@ -24,21 +28,110 @@ export async function listMyWorkouts(req, res) {
   try {
     const { id } = req.params;
 
-    const data = fs.readFileSync(
-      "../web-prog-coursework/data/workouts.json",
-      "utf8"
+    const data = await fs.readFile(
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
     );
     const jsonData = JSON.parse(data);
     const userWorkouts = jsonData.filter((workout) => workout.owner.id === id);
     res.status(200).json({
-      status: "success",
-      feeds: userWorkouts,
+      status: 'success',
+      workouts: userWorkouts,
     });
   } catch (err) {
-    console.error("Error reading file:", err);
+    console.error('Error reading file:', err);
     res.status(400).json({
-      status: "error",
-      message: "Unable to retrieve profiles",
+      status: 'error',
+      message: 'Unable to retrieve profiles',
+    });
+  }
+}
+
+export async function createWorkout(req, res) {
+  try {
+    const id = uuid();
+    const data = await fs.readFile(
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
+    );
+    const workouts = JSON.parse(data);
+    const {
+      title,
+      description,
+      targeted_areas,
+      owner,
+      tags,
+      duration,
+      level,
+      is_public,
+      exercises,
+    } = req.body;
+
+    const newWorkout = {
+      id,
+      title,
+      likes: [],
+      thumbs_up: [],
+      thumps_down: [],
+      description,
+      targeted_areas,
+      owner,
+      tags,
+      duration,
+      level,
+      is_public,
+    };
+
+    workouts.push(newWorkout);
+
+    await fs.writeFile(
+      '../web-prog-coursework/data/workouts.json',
+      JSON.stringify(workouts),
+    );
+
+    await addExercisesToWorkout(id, exercises);
+
+    res.status(201).json({
+      status: 'success',
+      workout: newWorkout,
+    });
+  } catch (err) {
+    console.error('Error creating workout:', err);
+    res.status(400).json({
+      status: 'error',
+      message: 'Unable to create workout',
+    });
+  }
+}
+
+export async function deleteWorkout(req, res) {
+  try {
+    const { id } = req.params;
+    const data = await fs.readFile(
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
+    );
+
+    const jsonData = JSON.parse(data);
+    const workoutToDelete = jsonData.find((workout) => workout.id === id);
+    const workouts = jsonData.filter((workout) => workout.id !== id);
+
+    await fs.writeFile(
+      '../web-prog-coursework/data/workouts.json',
+      JSON.stringify(workouts),
+    );
+
+    await deleteWorkoutExercises(id);
+
+    res.status(200).json({
+      status: 'success',
+      workouts: workoutToDelete,
+    });
+  } catch (err) {
+    console.error('Error reading file:', err);
+    res.status(400).json({
+      status: 'error',
+      message: 'Unable to delete workout',
     });
   }
 }

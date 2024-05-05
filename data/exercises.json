@@ -1,0 +1,57 @@
+{
+    "0cd6de3a-ec73-493a-be7e-7cd955654f6c": [
+        {
+            "title": "Jogging in Place",
+            "directions": [
+                "Keep your movements light and controlled to avoid strain.",
+                "Land softly on the balls of your feet with each step.",
+                "Engage your core muscles to maintain balance and stability.",
+                "Use a mirror to check your form and technique."
+            ],
+            "duration": 4
+        },
+        {
+            "title": "Rest",
+            "directions": [
+                "Take a 2 minutes rest"
+            ],
+            "duration": 1
+        },
+        {
+            "title": "Jumping Jacks",
+            "directions": [
+                "Keep your movements fluid and controlled to avoid injury.",
+                "Land softly on the balls of your feet and bend your knees slightly to absorb shock.",
+                "Engage your core muscles to stabilize your body.",
+                "Focus on maintaining a steady pace throughout the exercise."
+            ],
+            "duration": 2
+        },
+        {
+            "title": "Rest",
+            "directions": [
+                "Take a 2 minutes rest"
+            ],
+            "duration": 1
+        },
+        {
+            "title": "Burpees",
+            "directions": [
+                "Focus on maintaining proper form throughout the exercise.",
+                "Engage your core muscles to stabilize your body during the plank and push-up phases.",
+                "Land softly on the balls of your feet after jumping your feet forward."
+            ],
+            "duration": 2
+        }
+    ],
+    "bc7ef21d-da93-4528-8aef-a874e11be762": [
+        {
+            "id": 1,
+            "title": "Some",
+            "directions": [
+                "Them"
+            ],
+            "duration": "1"
+        }
+    ]
+}

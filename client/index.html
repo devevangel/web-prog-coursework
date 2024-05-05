@@ -10,10 +10,186 @@
 />
 <link rel="stylesheet" href="styles.css" />
 <title>HIIT Workout App</title>
-<script type="module" src="scripts/utils.mjs" defer></script>
 <script type="module" src="scripts/index.mjs" defer></script>
 
-<section class="profile-section-container">
-  <p class="heading-text">Select a user account profile</p>
-  <main class="profiles-list-container"></main>
-</section>
+<!-- <nav class="app-nav-container">
+  <button class="back-btn">Home</button>
+  <button class="logout-btn">Logout</button>
+</nav> -->
+<section class="page-container user-accounts hide"></section>
+<section class="page-container public-user-workouts hide"></section>
+<section class="page-container exercise-page hide"></section>
+<section class="page-container create-workout-page hide"></section>
+
+<template id="workout-card-template">
+  <aside class="workout-card">
+    <img class="workout-card-profile-img" src="" alt="owner-img" />
+    <p class="workout-card-data-item workout-card-title"></p>
+    <p class="workout-card-data-item workout-card-about"></p>
+    <p class="workout-card-data-item workout-card-tags"></p>
+    <p class="workout-card-data-item workout-card-target-areas"></p>
+    <p class="workout-card-data-item workout-card-duration"></p>
+    <p class="workout-card-data-item workout-card-level"></p>
+    <p class="workout-card-data-item workout-card-likes"></p>
+    <p class="workout-card-btn-list">
+      <button class="workout-card-btn workout-card-like-btn"></button>
+      <button class="workout-card-btn workout-card-open-btn"></button>
+      <button class="workout-card-btn workout-card-delete-btn"></button>
+      <button class="workout-card-btn workout-card-public-btn"></button>
+    </p>
+  </aside>
+</template>
+
+<template id="workout-nav-template">
+  <aside>
+    <p class="heading-text workout-type-text">Public Workouts</p>
+    <aside class="workout-nav-holder">
+      <nav class="workouts-nav">
+        <p class="workout-nav-item-left">Public 🌎</p>
+        <p class="workout-nav-item-right">Private👁️</p>
+      </nav>
+      <button class="generic-btn custom-hiit-btn">Add New HIIT Workout</button>
+    </aside>
+  </aside>
+</template>
+
+<template id="account-card-template">
+  <span class="profile-card">
+    <img src="https://robohash.org/dfgsgd" class="profile-img" />
+    <aside class="profile-detials-container">
+      <p class="proile-card-text acct-name"></p>
+      <p class="proile-card-text acct-email"></p>
+      <p class="proile-card-text acct-followers"></p>
+      <p class="proile-card-text acct-workout"></p>
+    </aside>
+  </span>
+</template>
+
+<template id="exercise-view">
+  <section class="exercise-content">
+    <h3 class="workout-name-text">Workout:</h3>
+    <h4 class="exercise-name-text">Current Activity:</h4>
+
+    <aside class="timer-container">
+      <h3 class="timer-text">00:00</h3>
+      <aside class="count-down-container hide">
+        <p class="center-text">Time</p>
+        <p class="center-text">to</p>
+        <p class="center-text">next</p>
+        <p class="center-text">Activity</p>
+        <p class="next-exercise-cd center-text">5</p>
+      </aside>
+    </aside>
+
+    <aside class="progress-bar-main">
+      <span class="progess-bar-sub"></span>
+    </aside>
+
+    <aside class="workout-btn-controls">
+      <button class="workout-btn-control workout-start-btn btn-control-hide">
+        Play ▶️
+      </button>
+      <button class="workout-btn-control workout-pause-btn btn-control-hide">
+        Pause ⏸️
+      </button>
+      <button class="workout-btn-control workout-stop-btn btn-control-hide">
+        Reset 🔄
+      </button>
+      <button class="workout-btn-control workout-exit-btn">Exit ⏹️</button>
+    </aside>
+
+    <aside class="about-exercise">
+      <h3>Exercise Guide</h3>
+      <ol class="guide-text-container"></ol>
+    </aside>
+  </section>
+</template>
+
+<template id="exercise-mini-card">
+  <section class="exercise-mini-card">
+    <p class="mini-card-title"></p>
+    <p class="mini-card-duration"></p>
+    <span class="remove-mini-exercise-btn">🗑️</span>
+  </section>
+</template>
+
+<template id="create-hiit-form-template">
+  <section class="form-container">
+    <aside class="form-main">
+      <h3 class="center-text">Create HIIT Workout</h3>
+      <label class="form-label">Workout Title:</label>
+      <input class="form-input workout-title" name="title" type="text" />
+      <label class="form-label">Target Areas:</label>
+      <input
+        class="form-input workout-target_area"
+        name="targeted_areas"
+        type="text"
+        placeholder="muscles, strength, calfs"
+      />
+      <label class="form-label">Workout Tags:</label>
+      <input
+        class="form-input workout-tag"
+        type="text"
+        name="tags"
+        placeholder="strength training, muscle building, endurance"
+      />
+      <label class="form-label">About Workout:</label>
+      <textarea
+        class="form-input workout-desc"
+        name="description"
+        placeholder="something great goes here..."
+      ></textarea>
+      <label class="form-label">Workout Level:</label>
+      <select class="form-input workout-level" name="level">
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
+      <label class="form-label"
+        >Make public:
+        <input type="checkbox" class="workout-status" name="status" />
+      </label>
+    </aside>
+
+    <p class="center-text form-info-text-workout"></p>
+
+    <center>
+      <button class="generic-btn create-workout-btn">Save HIIT Workout</button>
+    </center>
+  </section>
+</template>
+
+<template id="create-execise-form-template">
+  <section class="form-container">
+    <aside class="form-main">
+      <h3 class="center-text">Add Exercises</h3>
+      <label class="form-label">Exercise Name / Rest:</label>
+      <input
+        class="form-input exercise-name"
+        type="text"
+        placeholder="exercise name or rest"
+      />
+      <label class="form-label">Exercise Guide:</label>
+      <textarea
+        class="form-input exercise-guide"
+        placeholder="exercise guide"
+      ></textarea>
+      <label class="form-label">Exercise Duration(mins):</label>
+      <input
+        class="form-input exercise-duration"
+        type="number"
+        value="1"
+        min="1"
+        max="30"
+      />
+
+      <p class="center-text form-info-text-exercise"></p>
+
+      <center>
+        <button class="generic-btn add-exercise-btn">Add Exercise</button>
+      </center>
+    </aside>
+
+    <aside class="exercise-mini-holder"></aside>
+  </section>
+</template>
