@@ -1,1 +1,55 @@
-[{"id":"0cd6de3a-ec73-493a-be7e-7cd955654f6c","title":"Cardiovascular Health","likes":["6f732ee0-3b51-48bb-a710-511f7258613e","315e6d1a-e8da-4683-bd9a-b0b25138476c","81d809b4-3937-4cd2-a398-146ad0592721"],"description":"HIIT workouts designed to improve heart health, increase cardiovascular endurance, and enhance overall cardiovascular fitness. These workouts typically involve alternating between periods of high-intensity exercise and short rest or low-intensity recovery periods.","targeted_areas":["Heart","Cardiovascular System"],"owner":{"id":"44e74cc5-6e17-43c2-af0f-a3334bd596f8","first_name":"Monti","last_name":"Burchall","email":"mburchall0@dedecms.com","profile_img":"https://robohash.org/dfgsgd"},"tags":["Cardiovascular","Heart Health","Endurance"],"duration":10,"level":"medium","is_public":true},{"id":"bc7ef21d-da93-4528-8aef-a874e11be762","title":"we arer","likes":[],"thumbs_up":[],"thumps_down":[],"description":"","targeted_areas":[""],"owner":{"id":"44e74cc5-6e17-43c2-af0f-a3334bd596f8","first_name":"Monti","last_name":"Burchall","email":"mburchall0@dedecms.com","profile_img":"https://robohash.org/dfgsgd"},"tags":[""],"duration":1,"level":"Medium","is_public":false}]
+[
+    {
+        "id": "0cd6de3a-ec73-493a-be7e-7cd955654f6c",
+        "title": "Cardiovascular Health",
+        "likes": [
+            "6f732ee0-3b51-48bb-a710-511f7258613e",
+            "315e6d1a-e8da-4683-bd9a-b0b25138476c",
+            "81d809b4-3937-4cd2-a398-146ad0592721"
+        ],
+        "description": "HIIT workouts designed to improve heart health, increase cardiovascular endurance, and enhance overall cardiovascular fitness. These workouts typically involve alternating between periods of high-intensity exercise and short rest or low-intensity recovery periods.",
+        "targeted_areas": [
+            "Heart",
+            "Cardiovascular System"
+        ],
+        "owner": {
+            "id": "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
+            "first_name": "Monti",
+            "last_name": "Burchall",
+            "email": "mburchall0@dedecms.com",
+            "profile_img": "https://robohash.org/dfgsgd"
+        },
+        "tags": [
+            "Cardiovascular",
+            "Heart Health",
+            "Endurance"
+        ],
+        "duration": 10,
+        "level": "medium",
+        "is_public": true
+    },
+    {
+        "id": "bc7ef21d-da93-4528-8aef-a874e11be762",
+        "title": "we arer",
+        "likes": [],
+        "thumbs_up": [],
+        "thumps_down": [],
+        "description": "",
+        "targeted_areas": [
+            ""
+        ],
+        "owner": {
+            "id": "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
+            "first_name": "Monti",
+            "last_name": "Burchall",
+            "email": "mburchall0@dedecms.com",
+            "profile_img": "https://robohash.org/dfgsgd"
+        },
+        "tags": [
+            ""
+        ],
+        "duration": 1,
+        "level": "Medium",
+        "is_public": false
+    }
+]
