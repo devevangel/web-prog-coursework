@@ -8,7 +8,7 @@
                 "Engage your core muscles to maintain balance and stability.",
                 "Use a mirror to check your form and technique."
             ],
-            "duration": 1
+            "duration": 4
         },
         {
             "title": "Rest",
@@ -41,7 +41,25 @@
                 "Engage your core muscles to stabilize your body during the plank and push-up phases.",
                 "Land softly on the balls of your feet after jumping your feet forward."
             ],
-            "duration": 1
+            "duration": 2
+        }
+    ],
+    "1b2028bd-77b8-4e21-9748-0c074a905553": [
+        {
+            "id": 1,
+            "title": "jogging",
+            "directions": [
+                "jog on the spot"
+            ],
+            "duration": "3"
+        },
+        {
+            "id": 3,
+            "title": "run",
+            "directions": [
+                "some gudie"
+            ],
+            "duration": "2"
         }
     ]
 }

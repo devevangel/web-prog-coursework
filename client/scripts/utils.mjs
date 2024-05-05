@@ -12,7 +12,30 @@ export async function fetchData(url) {
   }
 }
 
+export async function postData(url, body) {
+  try {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    };
+
+    const res = await fetch(url, options);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 export function delayCall(func, delay) {
   setTimeout(func, delay);
+}
+
+
+export function isArray(variable) {
+  return Array.isArray(variable);
 }

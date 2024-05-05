@@ -3,7 +3,7 @@ import {
   setupPublicUserWorkoutPage,
 } from './public-user-workouts-page.mjs';
 import { setupExercisePage, unmountExercisePage } from './exercise-page.mjs';
-import { setupCreateWorkoutPage } from './create-workout.mjs';
+import { setupCreateWorkoutPage, unmountCreateWorkoutPage } from './create-workout.mjs';
 import appState from '../state.mjs';
 
 
@@ -50,6 +50,14 @@ export function handleBrowserBackBtnClick() {
       appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
       unmountExercisePage();
+      mountPageRouter();
+      break;
+    case '/account/workout/create':
+      appState.upateState('path', '/workout');
+      appState.upateState('appPath', '/account/workout');
+      appState.upateState('workout', {});
+      window.history.pushState(null, null, '/workout');
+      unmountCreateWorkoutPage();
       mountPageRouter();
       break;
     default:

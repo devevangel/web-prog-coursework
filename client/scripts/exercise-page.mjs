@@ -36,12 +36,11 @@ function convertDurationToMilliseconds(duration) {
 }
 
 function startTimer() {
-  console.log('start');
   if (isTimerStarted === false) {
     isTimerStarted = true;
     currentExercise = exerciseListCopy[0];
     currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
-    timerInterval = setInterval(calcTime, 1000);
+    timerInterval = setInterval(calcTime, 10);
     return;
   }
 
@@ -84,7 +83,7 @@ function handleUserFinishWorkout() {
 }
 
 function playPausedTimer() {
-  timerInterval = setInterval(calcTime, 1000);
+  timerInterval = setInterval(calcTime, 10);
 }
 
 function displayWaitTimerToNextExercise() {
@@ -107,7 +106,7 @@ function displayWaitTimerToNextExercise() {
         btn.classList.remove('hide');
       });
       currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
-      timerInterval = setInterval(calcTime, 1000);
+      timerInterval = setInterval(calcTime, 10);
       setCurrentExerciseView();
     }
     count--;

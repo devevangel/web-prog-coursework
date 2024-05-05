@@ -3,22 +3,60 @@ import appState from '../state.mjs';
 import { mountPageRouter } from './router.mjs';
 
 const userWorkoutPage = document.querySelector('.public-user-workouts');
-const pageHeading = document.createElement('p');
 const workoutListContainer = document.createElement('section');
 const workoutCardTemplate = document.querySelector('#workout-card-template');
+const workoutPageNavTemplate = document.querySelector('#workout-nav-template');
+const cardClones = [];
+let publicWorkoutBtn;
+let privateWokoutBtn;
+let workoutPageNavClone;
+let pageHeading;
 
 async function getAllPublicWorkouts() {
   const data = await fetchData('http://localhost:8080/workouts');
   return data.workouts;
 }
 
+function handleGetPublicWorkouts() {
+  privateWokoutBtn.classList.remove('workout-nav-active');
+  publicWorkoutBtn.classList.add('workout-nav-active');
+  pageHeading.textContent = 'Public Workouts';
+}
+
+function handleGetPrivateWorkouts() {
+  publicWorkoutBtn.classList.remove('workout-nav-active');
+  privateWokoutBtn.classList.add('workout-nav-active');
+  pageHeading.textContent = 'Private Workouts';
+}
+
+function moveToCreateHiitWorkout() {
+  appState.upateState('path', '/create');
+  appState.upateState('appPath', '/account/workout/create');
+  window.history.pushState(null, null, '/create');
+  unmountPublicUserWorkoutPage();
+  mountPageRouter();
+}
+
 
 function mountPageView() {
-  userWorkoutPage.classList.remove('hide');
-  pageHeading.classList.add('heading-text');
+  if (workoutPageNavClone) {
+    unmountPublicUserWorkoutPage();
+  }
+
+  workoutPageNavClone = workoutPageNavTemplate.content.cloneNode(true).firstElementChild;
   workoutListContainer.classList.add('workout-list');
-  pageHeading.textContent = 'Public Workouts';
-  userWorkoutPage.append(pageHeading, workoutListContainer);
+  userWorkoutPage.append(workoutPageNavClone, workoutListContainer);
+  pageHeading = workoutPageNavClone.querySelector('.workout-type-text');
+  const createHiitBtn = workoutPageNavClone.querySelector('.custom-hiit-btn');
+
+  publicWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-left');
+  privateWokoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-right');
+
+  createHiitBtn.addEventListener('click', moveToCreateHiitWorkout);
+  publicWorkoutBtn.addEventListener('click', handleGetPublicWorkouts);
+  privateWokoutBtn.addEventListener('click', handleGetPrivateWorkouts);
+
+  userWorkoutPage.classList.remove('hide');
 }
 
 function handleOpenWorkout(workout) {
@@ -86,10 +124,19 @@ function mountPublicWorkoutListView(workouts) {
     }
 
     workoutListContainer.appendChild(workoutCardClone);
+    cardClones.push(workoutCardClone);
   });
 }
 
 function unmountPublicUserWorkoutPage() {
+  workoutListContainer.remove();
+  workoutPageNavClone.remove();
+  userWorkoutPage.innerHTML = '';
+  if (cardClones.length > 0) {
+    cardClones.forEach((clone) => {
+      clone.remove();
+    });
+  }
   userWorkoutPage.classList.add('hide');
 }
 

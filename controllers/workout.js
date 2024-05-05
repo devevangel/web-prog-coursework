@@ -1,6 +1,8 @@
 import fs from 'fs/promises';
 import uuid from 'uuid-random';
 
+import { addExercisesToWorkout } from './exercise.js';
+
 export async function listWorkouts(req, res) {
   try {
     const data = await fs.readFile(
@@ -62,6 +64,7 @@ export async function createWorkout(req, res) {
       duration,
       level,
       is_public,
+      exercises,
     } = req.body;
 
     const newWorkout = {
@@ -85,6 +88,8 @@ export async function createWorkout(req, res) {
       '../web-prog-coursework/data/workouts.json',
       JSON.stringify(workouts),
     );
+
+    await addExercisesToWorkout(id, exercises);
 
     res.status(201).json({
       status: 'success',

@@ -29,17 +29,14 @@
         "is_public": true
     },
     {
-        "id": "1357205c-8389-4601-bc60-39f1650b06a0",
-        "title": "Strength Training",
-        "likes": [
-            "6f732ee0-3b51-48bb-a710-511f7258613e",
-            "315e6d1a-e8da-4683-bd9a-b0b25138476c",
-            "81d809b4-3937-4cd2-a398-146ad0592721"
-        ],
-        "description": "HIIT workouts focused on building muscular strength and endurance. These workouts often incorporate bodyweight exercises, resistance training, or weightlifting movements performed at high intensity with short rest periods in between sets.",
+        "id": "1b2028bd-77b8-4e21-9748-0c074a905553",
+        "title": "Another Cardio v2",
+        "likes": [],
+        "thumbs_up": [],
+        "thumps_down": [],
+        "description": "sdtyfughhvglhk",
         "targeted_areas": [
-            "Muscles",
-            "Strength"
+            ""
         ],
         "owner": {
             "id": "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
@@ -49,101 +46,10 @@
             "profile_img": "https://robohash.org/dfgsgd"
         },
         "tags": [
-            "Strength Training",
-            "Muscle Building",
-            "Endurance"
+            ""
         ],
-        "duration": 30,
-        "level": "hard",
-        "is_public": false
-    },
-    {
-        "id": "567e71f8-0145-4429-bed3-0bdb7242b29d",
-        "title": "Fat Burning",
-        "likes": [
-            "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
-            "315e6d1a-e8da-4683-bd9a-b0b25138476c",
-            "81d809b4-3937-4cd2-a398-146ad0592721"
-        ],
-        "description": "HIIT workouts specifically designed to maximize calorie burn and promote fat loss. These workouts typically involve high-intensity exercises that elevate heart rate and metabolism, leading to increased energy expenditure both during and after the workout.",
-        "targeted_areas": [
-            "Fat",
-            "Calories"
-        ],
-        "owner": {
-            "id": "6f732ee0-3b51-48bb-a710-511f7258613e",
-            "first_name": "Susanna",
-            "last_name": "Hazelgrove",
-            "email": "shazelgrove1@walmart.com",
-            "profile_img": "https://robohash.org/dfg8gh"
-        },
-        "tags": [
-            "Fat Burning",
-            "Weight Loss",
-            "Calorie Burn"
-        ],
-        "duration": 30,
-        "level": "easy",
-        "is_public": true
-    },
-    {
-        "id": "fa2c15ff-8adf-4f36-920c-f3e350488675",
-        "title": "Core Strength",
-        "likes": [
-            "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
-            "315e6d1a-e8da-4683-bd9a-b0b25138476c",
-            "81d809b4-3937-4cd2-a398-146ad0592721"
-        ],
-        "description": "HIIT workouts targeting the muscles of the core, including the abdominals, obliques, and lower back. These workouts aim to improve core strength, stability, and posture through a combination of dynamic core exercises and isometric holds performed at high intensity.",
-        "targeted_areas": [
-            "Core Muscles",
-            "Abdominals",
-            "Obliques",
-            "Lower Back"
-        ],
-        "owner": {
-            "id": "6f732ee0-3b51-48bb-a710-511f7258613e",
-            "first_name": "Susanna",
-            "last_name": "Hazelgrove",
-            "email": "shazelgrove1@walmart.com",
-            "profile_img": "https://robohash.org/dfg8gh"
-        },
-        "tags": [
-            "Core Strength",
-            "Abdominals",
-            "Stability"
-        ],
-        "duration": 30,
-        "level": "medium",
-        "is_public": false
-    },
-    {
-        "id": "5872fda9-3c22-4571-bcd6-619429690770",
-        "title": "Flexibility and Mobility",
-        "likes": [
-            "6f732ee0-3b51-48bb-a710-511f7258613e",
-            "81d809b4-3937-4cd2-a398-146ad0592721"
-        ],
-        "description": "HIIT workouts incorporating dynamic stretches and mobility exercises to improve flexibility, range of motion, and joint mobility. These workouts focus on enhancing overall flexibility and mobility while also providing a cardiovascular and strength-training stimulus.",
-        "targeted_areas": [
-            "Flexibility",
-            "Range of Motion",
-            "Joint Mobility"
-        ],
-        "owner": {
-            "id": "315e6d1a-e8da-4683-bd9a-b0b25138476c",
-            "first_name": "Jaynell",
-            "last_name": "Behnke",
-            "email": "jbehnke2@nymag.com",
-            "profile_img": "https://robohash.org/34235rtegv"
-        },
-        "tags": [
-            "Flexibility",
-            "Mobility",
-            "Stretching"
-        ],
-        "duration": 30,
-        "level": "easy",
+        "duration": 5,
+        "level": "Easy",
         "is_public": true
     }
 ]
