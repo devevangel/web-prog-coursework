@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import uuid from 'uuid-random';
 
-import { addExercisesToWorkout } from './exercise.js';
+import { addExercisesToWorkout, deleteWorkoutExercises } from './exercise.js';
 
 export async function listWorkouts(req, res) {
   try {
@@ -100,6 +100,38 @@ export async function createWorkout(req, res) {
     res.status(400).json({
       status: 'error',
       message: 'Unable to create workout',
+    });
+  }
+}
+
+export async function deleteWorkout(req, res) {
+  try {
+    const { id } = req.params;
+    const data = await fs.readFile(
+      '../web-prog-coursework/data/workouts.json',
+      'utf8',
+    );
+
+    const jsonData = JSON.parse(data);
+    const workoutToDelete = jsonData.find((workout) => workout.id === id);
+    const workouts = jsonData.filter((workout) => workout.id !== id);
+
+    await fs.writeFile(
+      '../web-prog-coursework/data/workouts.json',
+      JSON.stringify(workouts),
+    );
+
+    await deleteWorkoutExercises(id);
+
+    res.status(200).json({
+      status: 'success',
+      workouts: workoutToDelete,
+    });
+  } catch (err) {
+    console.error('Error reading file:', err);
+    res.status(400).json({
+      status: 'error',
+      message: 'Unable to delete workout',
     });
   }
 }

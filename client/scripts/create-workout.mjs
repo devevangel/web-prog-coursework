@@ -1,5 +1,6 @@
 import appState from '../state.mjs';
 import { postData, isArray } from './utils.mjs';
+import { mountPageRouter } from './router.mjs';
 
 const createWorkoutPage = document.querySelector('.create-workout-page');
 const createWorkoutFormTemplate = document.querySelector('#create-hiit-form-template');
@@ -96,6 +97,14 @@ function splitInputValue(inputValue) {
   }
 }
 
+function moveBackToWokroutsPage() {
+  appState.upateState('path', '/workout');
+  appState.upateState('appPath', '/account/workout');
+  window.history.pushState(null, null, '/workout');
+  unmountCreateWorkoutPage();
+  mountPageRouter();
+}
+
 
 function getFormattedExerciseList(exerciseList) {
   const arr = exerciseList.map((item) => {
@@ -141,10 +150,12 @@ async function handleCreateHiit() {
     };
 
 
-    await postData('http://localhost:8080/workouts', workoutInfo).then(() => {}).catch((error) => {
-      console.log(error);
-    }).finally(() => {
-      setTimeout(() => {
+    await postData('http://localhost:8080/workouts', workoutInfo)
+      .then(() => {
+        moveBackToWokroutsPage();
+      }).catch((error) => {
+        console.log(error);
+      }).finally(() => {
         submitBtn.disabled = false;
         addExerciseBtn.disabled = false;
         submitBtn.textContent = 'Save HIIT Workout';
@@ -156,8 +167,7 @@ async function handleCreateHiit() {
         tags.value = '';
         isPublic.value = false;
         clearPrevMiniCards();
-      }, 5000);
-    });
+      });
   }
 }
 

@@ -40,6 +40,7 @@ function startTimer() {
     isTimerStarted = true;
     currentExercise = exerciseListCopy[0];
     currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
+    setCurrentExerciseView();
     timerInterval = setInterval(calcTime, 10);
     return;
   }
@@ -47,6 +48,7 @@ function startTimer() {
   if (isTimerPaused === true) {
     isTimerPaused = false;
     playPausedTimer();
+    setCurrentExerciseView();
   }
 }
 
@@ -120,7 +122,7 @@ function pauseTimer() {
 
 function resetTimer() {
   clearInterval(timerInterval);
-  exerciseListCopy = exerciseList;
+  exerciseListCopy = [...exerciseList];
   currentExercise = {};
   currentDurationInMilli = 0;
   totalDurationWorkedInMilli = 0;

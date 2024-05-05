@@ -1,6 +1,7 @@
 import { setupAccountPage } from './user-accounts-page.mjs';
 import {
   setupPublicUserWorkoutPage,
+  unmountPublicUserWorkoutPage,
 } from './public-user-workouts-page.mjs';
 import { setupExercisePage, unmountExercisePage } from './exercise-page.mjs';
 import { setupCreateWorkoutPage, unmountCreateWorkoutPage } from './create-workout.mjs';
@@ -42,6 +43,7 @@ export function handleBrowserBackBtnClick() {
       appState.upateState('appPath', '/account');
       appState.upateState('user', {});
       window.history.pushState(null, null, '/account');
+      unmountPublicUserWorkoutPage();
       mountPageRouter();
       break;
     case '/account/workout/exercise':

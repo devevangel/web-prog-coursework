@@ -30,6 +30,23 @@ export async function postData(url, body) {
   }
 }
 
+export async function deleteData(url) {
+  try {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await fetch(url, options);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 export function delayCall(func, delay) {
   setTimeout(func, delay);

@@ -1,4 +1,4 @@
-import { fetchData } from './utils.mjs';
+import { deleteData, fetchData } from './utils.mjs';
 import appState from '../state.mjs';
 import { mountPageRouter } from './router.mjs';
 
@@ -15,6 +15,17 @@ let pageHeading;
 async function getAllPublicWorkouts() {
   const data = await fetchData('http://localhost:8080/workouts');
   return data.workouts;
+}
+
+async function handleDeleteWorkout(id, btn) {
+  await deleteData(`http://localhost:8080/workouts/${id}`).then(() => {
+    unmountPublicUserWorkoutPage();
+  }).catch((error) => {
+    console.log(error);
+  }).finally(() => {
+    btn.textContent = 'delete';
+    mountPageRouter();
+  });
 }
 
 function handleGetPublicWorkouts() {
@@ -108,7 +119,8 @@ function mountPublicWorkoutListView(workouts) {
     });
 
     deleteBtn.addEventListener('click', () => {
-      console.log(workout.id);
+      deleteBtn.textContent = 'deleting';
+      handleDeleteWorkout(workout.id, deleteBtn);
     });
 
     makePublicBtn.addEventListener('click', () => {
@@ -128,7 +140,7 @@ function mountPublicWorkoutListView(workouts) {
   });
 }
 
-function unmountPublicUserWorkoutPage() {
+export function unmountPublicUserWorkoutPage() {
   workoutListContainer.remove();
   workoutPageNavClone.remove();
   userWorkoutPage.innerHTML = '';
