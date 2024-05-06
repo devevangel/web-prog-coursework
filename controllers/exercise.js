@@ -1,23 +1,27 @@
 import fs from 'fs/promises';
+import uuid from 'uuid-random';
+import { currentTime } from '../utils.js';
+import dbConn from '../db.js';
 
 export async function listExercises(req, res) {
   try {
+    const db = await dbConn;
     const { id } = req.params;
+    const allExercises = await db.all('SELECT * FROM exercises WHERE workout_id = ?', id);
 
-    const data = await fs.readFile(
-      '../web-prog-coursework/data/exercises.json',
-      'utf8',
-    );
-    const exercisesData = JSON.parse(data);
-
-    const exercises = exercisesData[id];
+    const parsedExercises = allExercises.map((item) => {
+      return {
+        ...item,
+        directions: JSON.parse(item.directions),
+      };
+    });
 
     res.status(200).json({
       status: 'success',
-      exercises: exercises && exercises.length > 0 ? exercises : [],
+      exercises: parsedExercises,
     });
   } catch (err) {
-    console.error('Error reading file:', err);
+    console.error(err);
     res.status(400).json({
       status: 'error',
       message: 'Unable to retrieve exercises',
@@ -26,16 +30,33 @@ export async function listExercises(req, res) {
 }
 
 
-export async function addExercisesToWorkout(workoutId, exerciseList) {
-  const data = await fs.readFile(
-    '../web-prog-coursework/data/exercises.json',
-    'utf8',
-  );
-  const exercisesData = JSON.parse(data);
+export async function addExercisesToWorkout(exercises, workoutId) {
+  const db = await dbConn;
 
-  exercisesData[workoutId] = exerciseList;
+  exercises.forEach(async (exercise) => {
+    const newExercise = {
+      id: uuid(),
+      workout_id: workoutId,
+      title: exercise.title,
+      directions: JSON.stringify(exercise.directions),
+      duration: exercise.duration,
+      time: currentTime(),
+    };
 
-  await fs.writeFile('../web-prog-coursework/data/exercises.json', JSON.stringify(exercisesData));
+    const res = await db.run(
+      'INSERT INTO exercises VALUES (?, ?, ?, ?, ?, ?)',
+      [
+        newExercise.id,
+        newExercise.workout_id,
+        newExercise.title,
+        newExercise.directions,
+        newExercise.duration,
+        newExercise.time,
+      ],
+    );
+
+    console.log(res);
+  });
 }
 
 function deleteEntry(obj, keyToRemove) {

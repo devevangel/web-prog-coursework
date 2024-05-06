@@ -1,60 +1,63 @@
 import fs from 'fs/promises';
 import uuid from 'uuid-random';
 
+import dbConn from '../db.js';
+import { currentTime } from '../utils.js';
+
 import { addExercisesToWorkout, deleteWorkoutExercises } from './exercise.js';
 
 export async function listWorkouts(req, res) {
   try {
-    const data = await fs.readFile(
-      '../web-prog-coursework/data/workouts.json',
-      'utf8',
-    );
-    const workouts = JSON.parse(data);
+    const db = await dbConn;
+    const allWorkouts = await db.all('SELECT * FROM workouts ORDER BY time DESC');
+
+    const parsedWorkouts = allWorkouts.map((item) => {
+      return {
+        ...item,
+        owner: JSON.parse(item.owner),
+        targeted_areas: JSON.parse(item.targeted_areas),
+      };
+    });
 
     res.status(200).json({
       status: 'success',
-      workouts,
+      workouts: parsedWorkouts,
     });
   } catch (err) {
-    console.error('Error reading file:', err);
+    console.error(err);
     res.status(400).json({
       status: 'error',
-      message: 'Unable to retrieve profiles',
+      message: 'Unable to retrieve workouts',
     });
   }
 }
 
 export async function listMyWorkouts(req, res) {
   try {
-    const { id } = req.params;
+    const { ownerId } = req.body;
 
-    const data = await fs.readFile(
-      '../web-prog-coursework/data/workouts.json',
-      'utf8',
+    const db = await dbConn;
+    const privateWorkouts = await db.get(
+      'SELECT * FROM workouts WHERE owner_id = ?',
+      ownerId,
     );
-    const jsonData = JSON.parse(data);
-    const userWorkouts = jsonData.filter((workout) => workout.owner.id === id);
+
     res.status(200).json({
       status: 'success',
-      workouts: userWorkouts,
+      workouts: privateWorkouts,
     });
   } catch (err) {
-    console.error('Error reading file:', err);
+    console.error(err);
     res.status(400).json({
       status: 'error',
-      message: 'Unable to retrieve profiles',
+      message: 'Unable to retrieve private workouts',
     });
   }
 }
 
 export async function createWorkout(req, res) {
   try {
-    const id = uuid();
-    const data = await fs.readFile(
-      '../web-prog-coursework/data/workouts.json',
-      'utf8',
-    );
-    const workouts = JSON.parse(data);
+    const db = await dbConn;
     const {
       title,
       description,
@@ -68,32 +71,42 @@ export async function createWorkout(req, res) {
     } = req.body;
 
     const newWorkout = {
-      id,
+      id: uuid(),
       title,
       likes: [],
       thumbs_up: [],
       thumps_down: [],
       description,
       targeted_areas,
+      owner_id: owner.id,
       owner,
       tags,
       duration,
       level,
       is_public,
+      time: currentTime(),
     };
 
-    workouts.push(newWorkout);
-
-    await fs.writeFile(
-      '../web-prog-coursework/data/workouts.json',
-      JSON.stringify(workouts),
-    );
-
-    await addExercisesToWorkout(id, exercises);
+    db.run(
+      'INSERT INTO workouts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [
+        newWorkout.id,
+        newWorkout.title,
+        newWorkout.description,
+        JSON.stringify(newWorkout.targeted_areas),
+        newWorkout.owner_id,
+        JSON.stringify(newWorkout.owner),
+        newWorkout.duration,
+        newWorkout.level,
+        newWorkout.is_public,
+        newWorkout.time,
+      ],
+    ).then(async () => {
+      await addExercisesToWorkout(exercises, newWorkout.id);
+    });
 
     res.status(201).json({
       status: 'success',
-      workout: newWorkout,
     });
   } catch (err) {
     console.error('Error creating workout:', err);

@@ -1,16 +1,18 @@
 [
     {
-        "id": "0cd6de3a-ec73-493a-be7e-7cd955654f6c",
-        "title": "Cardiovascular Health",
-        "likes": [
-            "6f732ee0-3b51-48bb-a710-511f7258613e",
-            "315e6d1a-e8da-4683-bd9a-b0b25138476c",
-            "81d809b4-3937-4cd2-a398-146ad0592721"
-        ],
-        "description": "HIIT workouts designed to improve heart health, increase cardiovascular endurance, and enhance overall cardiovascular fitness. These workouts typically involve alternating between periods of high-intensity exercise and short rest or low-intensity recovery periods.",
+        "id": "95451849-0a4e-4133-9fe0-97e88c613787",
+        "title": "Core Training",
+        "likes": [],
+        "thumbs_up": [],
+        "thumps_down": [],
+        "description": "Designed to build up your core strength as well as develop your abs",
         "targeted_areas": [
-            "Heart",
-            "Cardiovascular System"
+            "core",
+            " abs",
+            " back",
+            " chest",
+            " lungs",
+            " heart"
         ],
         "owner": {
             "id": "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
@@ -20,17 +22,19 @@
             "profile_img": "https://robohash.org/dfgsgd"
         },
         "tags": [
-            "Cardiovascular",
-            "Heart Health",
-            "Endurance"
+            "fitness",
+            " hearth",
+            " cardio",
+            " core",
+            " strength"
         ],
-        "duration": 10,
-        "level": "medium",
+        "duration": 7,
+        "level": "Medium",
         "is_public": true
     },
     {
-        "id": "bc7ef21d-da93-4528-8aef-a874e11be762",
-        "title": "we arer",
+        "id": "6544a83e-7e2f-4f65-8dd0-39b462ff076c",
+        "title": "SDFVGB",
         "likes": [],
         "thumbs_up": [],
         "thumps_down": [],
@@ -48,8 +52,32 @@
         "tags": [
             ""
         ],
-        "duration": 1,
-        "level": "Medium",
+        "duration": 3,
+        "level": "Hard",
+        "is_public": true
+    },
+    {
+        "id": "f1d17604-627e-4649-9eff-8febea2f875d",
+        "title": "sdcfvgbh",
+        "likes": [],
+        "thumbs_up": [],
+        "thumps_down": [],
+        "description": "",
+        "targeted_areas": [
+            ""
+        ],
+        "owner": {
+            "id": "44e74cc5-6e17-43c2-af0f-a3334bd596f8",
+            "first_name": "Monti",
+            "last_name": "Burchall",
+            "email": "mburchall0@dedecms.com",
+            "profile_img": "https://robohash.org/dfgsgd"
+        },
+        "tags": [
+            ""
+        ],
+        "duration": 5,
+        "level": "Easy",
         "is_public": false
     }
 ]

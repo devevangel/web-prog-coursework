@@ -79,10 +79,23 @@ function handleOpenWorkout(workout) {
   mountPageRouter();
 }
 
+function handleEditWorkout(workout) {
+  console.log(workout);
+}
+
+function handleMakeWorkoutPrivateOrPublic(workout) {
+  console.log(workout);
+}
+
+function handleLikeOrUnlikeWorkout(workout) {
+  console.log(workout);
+}
+
 function mountPublicWorkoutListView(workouts) {
   workouts.forEach((workout) => {
     const workoutCardClone = workoutCardTemplate.content.cloneNode(true).firstElementChild;
     const title = workoutCardClone.querySelector('.workout-card-title');
+    const author = workoutCardClone.querySelector('.workout-card-author');
     const about = workoutCardClone.querySelector('.workout-card-about');
     const tags = workoutCardClone.querySelector('.workout-card-tags');
     const targetedAreas = workoutCardClone.querySelector('.workout-card-target-areas');
@@ -91,48 +104,60 @@ function mountPublicWorkoutListView(workouts) {
     const likes = workoutCardClone.querySelector('.workout-card-likes');
     const likeBtn = workoutCardClone.querySelector('.workout-card-like-btn');
     const openBtn = workoutCardClone.querySelector('.workout-card-open-btn');
+    const editBtn = workoutCardClone.querySelector('.workout-card-edit-btn');
     const deleteBtn = workoutCardClone.querySelector('.workout-card-delete-btn');
     const makePublicBtn = workoutCardClone.querySelector('.workout-card-public-btn');
     const ownerProfile = workoutCardClone.querySelector('.workout-card-profile-img');
 
     // setting text content
     ownerProfile.src = workout.owner.profile_img;
+    ownerProfile.title = `${workout.owner.first_name} ${workout.owner.last_name}`;
     title.textContent = `Title: ${workout.title}`;
     about.textContent = `About: ${workout.description}`;
     tags.textContent = `Tags: ${workout.tags.toString()}`;
     targetedAreas.textContent = `Targeted Areas: ${workout.targeted_areas.toString()}`;
     duration.textContent = `Duration: ${workout.duration} mins`;
+    author.textContent = `Author: ${workout.owner.first_name} ${workout.owner.last_name}`;
     level.textContent = `Level: ${workout.level}`;
     likes.textContent = `Likes: ${workout.likes.length}`;
-    likeBtn.textContent = '❤️';
+    likeBtn.textContent = workout.likes.includes(appState.state.user.id) ? '❤️' : '🤍';
     openBtn.textContent = 'open';
-    deleteBtn.textContent = 'delete';
+    editBtn.textContent = '📝';
+    deleteBtn.textContent = '🗑️';
     makePublicBtn.textContent = '🔒';
     // 🌎
 
     likeBtn.addEventListener('click', () => {
-      console.log(workout.id);
+      handleLikeOrUnlikeWorkout(workout);
     });
 
     openBtn.addEventListener('click', () => {
       handleOpenWorkout(workout);
     });
 
+    editBtn.addEventListener('click', () => {
+      if (workout.owner.id === appState.state.user.id) {
+        handleEditWorkout(workout);
+      }
+    });
+
     deleteBtn.addEventListener('click', () => {
-      deleteBtn.textContent = 'deleting';
-      handleDeleteWorkout(workout.id, deleteBtn);
+      if (workout.owner.id === appState.state.user.id) {
+        deleteBtn.textContent = 'deleting';
+        handleDeleteWorkout(workout.id, deleteBtn);
+      }
     });
 
     makePublicBtn.addEventListener('click', () => {
-      console.log(workout.id);
+      if (workout.owner.id === appState.state.user.id) {
+        handleMakeWorkoutPrivateOrPublic(workout);
+      }
     });
-
-    if (workout.likes.includes(appState.state.user.id)) {
-      deleteBtn.classList.add('hide');
-    }
 
     if (workout.owner.id !== appState.state.user.id) {
       makePublicBtn.classList.add('hide');
+      editBtn.classList.add('hide');
+      deleteBtn.classList.add('hide');
     }
 
     workoutListContainer.appendChild(workoutCardClone);

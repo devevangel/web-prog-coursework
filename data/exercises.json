@@ -1,55 +1,73 @@
 {
-    "0cd6de3a-ec73-493a-be7e-7cd955654f6c": [
+    "95451849-0a4e-4133-9fe0-97e88c613787": [
         {
-            "title": "Jogging in Place",
+            "id": "95451849-0a4e-4133-9fe0-97e88c613787",
+            "title": "Plank",
             "directions": [
-                "Keep your movements light and controlled to avoid strain.",
-                "Land softly on the balls of your feet with each step.",
-                "Engage your core muscles to maintain balance and stability.",
-                "Use a mirror to check your form and technique."
+                "Start in a push-up position with your hands directly under your shoulders",
+                "Engage your core muscles and maintain a straight line from your head to your heels",
+                "Hold this position for as long as you can, aiming for 30 seconds to 1 minute",
+                false
             ],
-            "duration": 4
+            "duration": "1"
         },
         {
+            "id": 3,
             "title": "Rest",
             "directions": [
-                "Take a 2 minutes rest"
+                "Take A Breather"
             ],
-            "duration": 1
+            "duration": "0.5"
         },
         {
-            "title": "Jumping Jacks",
+            "id": 3,
+            "title": "Russian Twists",
             "directions": [
-                "Keep your movements fluid and controlled to avoid injury.",
-                "Land softly on the balls of your feet and bend your knees slightly to absorb shock.",
-                "Engage your core muscles to stabilize your body.",
-                "Focus on maintaining a steady pace throughout the exercise."
+                "Sit on the floor with your knees bent and feet flat",
+                "Lean back slightly and lift your feet off the ground, balancing on your tailbone",
+                "Clasp your hands together and twist your torso to the right, bringing your hands towards the floor beside your hip",
+                "Then, twist to the left side",
+                "Continue alternating sides for 10-15 repetitions on each side",
+                false
             ],
-            "duration": 2
+            "duration": "1"
         },
         {
+            "id": 4,
             "title": "Rest",
             "directions": [
-                "Take a 2 minutes rest"
+                "TAKE A BREATHER"
             ],
-            "duration": 1
+            "duration": "1"
         },
         {
-            "title": "Burpees",
+            "id": 5,
+            "title": "Mountain Climbers",
             "directions": [
-                "Focus on maintaining proper form throughout the exercise.",
-                "Engage your core muscles to stabilize your body during the plank and push-up phases.",
-                "Land softly on the balls of your feet after jumping your feet forward."
+                "Start in a plank position with your hands directly under your shoulders and your body in a straight line",
+                "Engage your core muscles and bring your right knee towards your chest, then quickly switch legs, bringing your left knee towards your chest while extending your right leg back",
+                "Continue alternating legs at a quick pace, as if you're running in place, for 30-60 seconds",
+                false
             ],
-            "duration": 2
-        }
-    ],
-    "bc7ef21d-da93-4528-8aef-a874e11be762": [
+            "duration": "1"
+        },
         {
-            "id": 1,
-            "title": "Some",
+            "id": 6,
+            "title": "Rest",
             "directions": [
-                "Them"
+                "TAKE ANOTHER BREATHER"
+            ],
+            "duration": "1.5"
+        },
+        {
+            "id": 7,
+            "title": "Leg Raises",
+            "directions": [
+                "Lie flat on your back with your arms by your sides and palms facing down",
+                "Keep your legs straight and lift them off the ground until they are perpendicular to the floor",
+                "Slowly lower your legs back down towards the ground without letting them touch the floor, then lift them back up",
+                "Aim for 10-15 repetitions",
+                false
             ],
             "duration": "1"
         }
