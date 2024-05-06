@@ -13,6 +13,7 @@ CREATE TABLE workouts (
     description TEXT,
     targeted_areas TEXT,
     tags TEXT,
+    likes TEXT,
     owner_id TEXT,
     owner TEXT,
     duration INTEGER,

@@ -14,6 +14,7 @@ export async function listWorkouts(req, res) {
     const parsedWorkouts = allWorkouts.map((item) => {
       return {
         ...item,
+        tags: JSON.parse(item.tags),
         owner: JSON.parse(item.owner),
         targeted_areas: JSON.parse(item.targeted_areas),
       };
@@ -42,9 +43,18 @@ export async function listMyWorkouts(req, res) {
       ownerId,
     );
 
+    const parsedWorkouts = privateWorkouts.map((item) => {
+      return {
+        ...item,
+        tags: JSON.parse(item.tags),
+        owner: JSON.parse(item.owner),
+        targeted_areas: JSON.parse(item.targeted_areas),
+      };
+    });
+
     res.status(200).json({
       status: 'success',
-      workouts: privateWorkouts,
+      workouts: parsedWorkouts,
     });
   } catch (err) {
     console.error(err);
@@ -88,13 +98,14 @@ export async function createWorkout(req, res) {
     };
 
     db.run(
-      'INSERT INTO workouts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO workouts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
         newWorkout.id,
         newWorkout.title,
         newWorkout.description,
         JSON.stringify(newWorkout.targeted_areas),
         JSON.stringify(newWorkout.tags),
+        JSON.stringify(newWorkout.likes),
         newWorkout.owner_id,
         JSON.stringify(newWorkout.owner),
         newWorkout.duration,

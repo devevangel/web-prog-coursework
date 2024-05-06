@@ -43,7 +43,7 @@ export async function addExercisesToWorkout(exercises, workoutId) {
       time: currentTime(),
     };
 
-    const res = await db.run(
+    await db.run(
       'INSERT INTO exercises VALUES (?, ?, ?, ?, ?, ?)',
       [
         newExercise.id,
@@ -54,8 +54,6 @@ export async function addExercisesToWorkout(exercises, workoutId) {
         newExercise.time,
       ],
     );
-
-    console.log(res);
   });
 }
 
