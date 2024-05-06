@@ -88,12 +88,13 @@ export async function createWorkout(req, res) {
     };
 
     db.run(
-      'INSERT INTO workouts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO workouts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
         newWorkout.id,
         newWorkout.title,
         newWorkout.description,
         JSON.stringify(newWorkout.targeted_areas),
+        JSON.stringify(newWorkout.tags),
         newWorkout.owner_id,
         JSON.stringify(newWorkout.owner),
         newWorkout.duration,
