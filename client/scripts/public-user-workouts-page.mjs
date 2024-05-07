@@ -1,4 +1,4 @@
-import { deleteData, fetchData } from './utils.mjs';
+import { deleteData, fetchData, postData } from './utils.mjs';
 import appState from '../state.mjs';
 import { mountPageRouter } from './router.mjs';
 
@@ -7,37 +7,51 @@ const workoutListContainer = document.createElement('section');
 const workoutCardTemplate = document.querySelector('#workout-card-template');
 const workoutPageNavTemplate = document.querySelector('#workout-nav-template');
 const cardClones = [];
+let workouts = [];
 let publicWorkoutBtn;
-let privateWokoutBtn;
+let privateWorkoutBtn;
 let workoutPageNavClone;
 let pageHeading;
 
-async function getAllPublicWorkouts() {
+async function getAllWorkouts() {
   const data = await fetchData('http://localhost:8080/workouts');
   return data.workouts;
 }
 
-async function handleDeleteWorkout(id, btn) {
-  await deleteData(`http://localhost:8080/workouts/${id}`).then(() => {
-    unmountPublicUserWorkoutPage();
-  }).catch((error) => {
-    console.log(error);
-  }).finally(() => {
-    btn.textContent = 'delete';
-    mountPageRouter();
-  });
+async function handleDeleteWorkout(id, btn, clone) {
+  const data = await deleteData(`http://localhost:8080/workouts/${id}`);
+  const { status } = data;
+  if (status === 'success') {
+    clone.remove();
+  }
+  btn.textContent = '🗑️';
 }
 
-function handleGetPublicWorkouts() {
-  privateWokoutBtn.classList.remove('workout-nav-active');
+async function handleGetPublicWorkouts() {
+  privateWorkoutBtn.classList.remove('workout-nav-active');
   publicWorkoutBtn.classList.add('workout-nav-active');
-  pageHeading.textContent = 'Public Workouts';
+  pageHeading.textContent = 'public workouts';
+
+  const data = await fetchData('http://localhost:8080/workouts');
+  const { status, workouts } = data;
+
+  if (status === 'success') {
+    clearPrevUICardClones();
+    mountPublicWorkoutListView(workouts, 'PUBLIC');
+  }
 }
 
-function handleGetPrivateWorkouts() {
+async function handleGetPrivateWorkouts() {
   publicWorkoutBtn.classList.remove('workout-nav-active');
-  privateWokoutBtn.classList.add('workout-nav-active');
-  pageHeading.textContent = 'Private Workouts';
+  privateWorkoutBtn.classList.add('workout-nav-active');
+  pageHeading.textContent = 'private workouts';
+
+  const data = await fetchData(`http://localhost:8080/workouts/me/${appState.state.user.id}`);
+  const { status, workouts } = data;
+  if (status === 'success') {
+    clearPrevUICardClones();
+    mountPublicWorkoutListView(workouts, 'PRIVATE');
+  }
 }
 
 function moveToCreateHiitWorkout() {
@@ -61,11 +75,11 @@ function mountPageView() {
   const createHiitBtn = workoutPageNavClone.querySelector('.custom-hiit-btn');
 
   publicWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-left');
-  privateWokoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-right');
+  privateWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-right');
 
   createHiitBtn.addEventListener('click', moveToCreateHiitWorkout);
   publicWorkoutBtn.addEventListener('click', handleGetPublicWorkouts);
-  privateWokoutBtn.addEventListener('click', handleGetPrivateWorkouts);
+  privateWorkoutBtn.addEventListener('click', handleGetPrivateWorkouts);
 
   userWorkoutPage.classList.remove('hide');
 }
@@ -87,11 +101,30 @@ function handleMakeWorkoutPrivateOrPublic(workout) {
   console.log(workout);
 }
 
-function handleLikeOrUnlikeWorkout(workout) {
-  console.log(workout);
+async function handleLikeOrUnlikeWorkout(workout, likeBtn, likesTextWidget) {
+  const prevLike = likeBtn.textContent;
+  let action;
+
+  if (likeBtn.textContent === '🤍') {
+    likeBtn.textContent = '❤️';
+    action = 'LIKE';
+  } else {
+    likeBtn.textContent = '🤍';
+    action = 'UNLIKE';
+  }
+
+
+  const data = await postData(`http://localhost:8080/workouts/${workout.id}`, { userId: appState.state.user.id, action }, 'PUT');
+  const { updatedWorkout, status } = data;
+
+  if (updatedWorkout && status === 'success') {
+    likesTextWidget.textContent = `Likes: ${updatedWorkout.likes.length}`;
+  } else {
+    likeBtn.textContent = prevLike;
+  }
 }
 
-function mountPublicWorkoutListView(workouts) {
+function mountPublicWorkoutListView(workouts, scope) {
   workouts.forEach((workout) => {
     const workoutCardClone = workoutCardTemplate.content.cloneNode(true).firstElementChild;
     const title = workoutCardClone.querySelector('.workout-card-title');
@@ -122,13 +155,12 @@ function mountPublicWorkoutListView(workouts) {
     likes.textContent = `Likes: ${workout.likes.length}`;
     likeBtn.textContent = workout.likes.includes(appState.state.user.id) ? '❤️' : '🤍';
     openBtn.textContent = 'open';
-    editBtn.textContent = '📝';
+    editBtn.textContent = '✏️';
     deleteBtn.textContent = '🗑️';
-    makePublicBtn.textContent = '🔒';
-    // 🌎
+    makePublicBtn.textContent = scope === 'PUBLIC' ? '🔒' : '👁️';
 
     likeBtn.addEventListener('click', () => {
-      handleLikeOrUnlikeWorkout(workout);
+      handleLikeOrUnlikeWorkout(workout, likeBtn, likes);
     });
 
     openBtn.addEventListener('click', () => {
@@ -144,7 +176,7 @@ function mountPublicWorkoutListView(workouts) {
     deleteBtn.addEventListener('click', () => {
       if (workout.owner.id === appState.state.user.id) {
         deleteBtn.textContent = 'deleting';
-        handleDeleteWorkout(workout.id, deleteBtn);
+        handleDeleteWorkout(workout.id, deleteBtn, workoutCardClone);
       }
     });
 
@@ -165,15 +197,20 @@ function mountPublicWorkoutListView(workouts) {
   });
 }
 
-export function unmountPublicUserWorkoutPage() {
-  workoutListContainer.remove();
-  workoutPageNavClone.remove();
-  userWorkoutPage.innerHTML = '';
+function clearPrevUICardClones() {
   if (cardClones.length > 0) {
     cardClones.forEach((clone) => {
       clone.remove();
     });
   }
+}
+
+
+export function unmountPublicUserWorkoutPage() {
+  workoutListContainer.remove();
+  workoutPageNavClone.remove();
+  userWorkoutPage.innerHTML = '';
+  clearPrevUICardClones();
   userWorkoutPage.classList.add('hide');
 }
 
@@ -182,8 +219,8 @@ export function mountPublicserWorkoutPage() {
 }
 
 export async function setupPublicUserWorkoutPage() {
-  const workouts = await getAllPublicWorkouts();
+  workouts = await getAllWorkouts();
   mountPageView();
-  mountPublicWorkoutListView(workouts);
+  mountPublicWorkoutListView(workouts, 'PUBLIC');
   mountPublicserWorkoutPage();
 }

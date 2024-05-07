@@ -1,4 +1,3 @@
-import fs from 'fs/promises';
 import uuid from 'uuid-random';
 
 import dbConn from '../db.js';
@@ -9,11 +8,12 @@ import { addExercisesToWorkout, deleteWorkoutExercises } from './exercise.js';
 export async function listWorkouts(req, res) {
   try {
     const db = await dbConn;
-    const allWorkouts = await db.all('SELECT * FROM workouts ORDER BY time DESC');
+    const allWorkouts = await db.all('SELECT * FROM workouts WHERE is_public = 1 ORDER BY time DESC');
 
     const parsedWorkouts = allWorkouts.map((item) => {
       return {
         ...item,
+        likes: JSON.parse(item.likes),
         tags: JSON.parse(item.tags),
         owner: JSON.parse(item.owner),
         targeted_areas: JSON.parse(item.targeted_areas),
@@ -35,27 +35,34 @@ export async function listWorkouts(req, res) {
 
 export async function listMyWorkouts(req, res) {
   try {
-    const { ownerId } = req.body;
+    const { ownerId } = req.params;
 
     const db = await dbConn;
-    const privateWorkouts = await db.get(
-      'SELECT * FROM workouts WHERE owner_id = ?',
+    const privateWorkouts = await db.all(
+      'SELECT * FROM workouts WHERE owner_id = ? AND is_public = 0',
       ownerId,
     );
 
-    const parsedWorkouts = privateWorkouts.map((item) => {
-      return {
-        ...item,
-        tags: JSON.parse(item.tags),
-        owner: JSON.parse(item.owner),
-        targeted_areas: JSON.parse(item.targeted_areas),
-      };
-    });
+    if (privateWorkouts !== undefined) {
+      const parsedWorkouts = privateWorkouts.map((item) => {
+        return {
+          ...item,
+          tags: JSON.parse(item.tags),
+          owner: JSON.parse(item.owner),
+          targeted_areas: JSON.parse(item.targeted_areas),
+        };
+      });
 
-    res.status(200).json({
-      status: 'success',
-      workouts: parsedWorkouts,
-    });
+      res.status(200).json({
+        status: 'success',
+        workouts: parsedWorkouts,
+      });
+    } else {
+      res.status(200).json({
+        status: 'success',
+        workouts: [],
+      });
+    }
   } catch (err) {
     console.error(err);
     res.status(400).json({
@@ -97,7 +104,7 @@ export async function createWorkout(req, res) {
       time: currentTime(),
     };
 
-    db.run(
+    await db.run(
       'INSERT INTO workouts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
         newWorkout.id,
@@ -113,15 +120,16 @@ export async function createWorkout(req, res) {
         newWorkout.is_public,
         newWorkout.time,
       ],
-    ).then(async () => {
-      await addExercisesToWorkout(exercises, newWorkout.id);
-    });
+    );
+
+    await addExercisesToWorkout(exercises, newWorkout.id);
+
 
     res.status(201).json({
       status: 'success',
     });
   } catch (err) {
-    console.error('Error creating workout:', err);
+    console.error(err);
     res.status(400).json({
       status: 'error',
       message: 'Unable to create workout',
@@ -132,31 +140,63 @@ export async function createWorkout(req, res) {
 export async function deleteWorkout(req, res) {
   try {
     const { id } = req.params;
-    const data = await fs.readFile(
-      '../web-prog-coursework/data/workouts.json',
-      'utf8',
-    );
+    const db = await dbConn;
 
-    const jsonData = JSON.parse(data);
-    const workoutToDelete = jsonData.find((workout) => workout.id === id);
-    const workouts = jsonData.filter((workout) => workout.id !== id);
-
-    await fs.writeFile(
-      '../web-prog-coursework/data/workouts.json',
-      JSON.stringify(workouts),
-    );
-
+    await db.run('DELETE FROM workouts WHERE id = ?', id);
     await deleteWorkoutExercises(id);
 
     res.status(200).json({
       status: 'success',
-      workouts: workoutToDelete,
     });
   } catch (err) {
-    console.error('Error reading file:', err);
+    console.error(err);
     res.status(400).json({
       status: 'error',
       message: 'Unable to delete workout',
+    });
+  }
+}
+
+export async function likeWorkout(req, res) {
+  try {
+    const { userId, action } = req.body;
+    const { id } = req.params;
+    const db = await dbConn;
+
+    const workoutToUpdate = await db.get('SELECT * FROM workouts WHERE id = ?', id);
+    const parsedWorkoutToUpate = {
+      ...workoutToUpdate,
+      likes: JSON.parse(workoutToUpdate.likes),
+      tags: JSON.parse(workoutToUpdate.tags),
+      owner: JSON.parse(workoutToUpdate.owner),
+      targeted_areas: JSON.parse(workoutToUpdate.targeted_areas),
+    };
+    let totalLikes = [...parsedWorkoutToUpate.likes];
+    if (action === 'LIKE') {
+      totalLikes.push(userId);
+    } else if (action === 'UNLIKE') {
+      totalLikes = totalLikes.filter((likeId) => likeId !== userId);
+    }
+
+    await db.run('UPDATE workouts SET likes = ? WHERE id = ?', [JSON.stringify(totalLikes), id]);
+    const updatedWorkout = await db.get('SELECT * FROM workouts WHERE id = ?', id);
+    const parsedWorkout = {
+      ...updatedWorkout,
+      likes: JSON.parse(updatedWorkout.likes),
+      tags: JSON.parse(updatedWorkout.tags),
+      owner: JSON.parse(updatedWorkout.owner),
+      targeted_areas: JSON.parse(updatedWorkout.targeted_areas),
+    };
+
+    res.status(200).json({
+      status: 'success',
+      updatedWorkout: parsedWorkout,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: 'error',
+      message: 'Workout like failed',
     });
   }
 }

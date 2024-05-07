@@ -106,14 +106,14 @@ input {
 }
 
 .workout-nav-holder {
-  margin-bottom: 3em;
   position: relative;
+  margin-top: 1em;
 }
 
 .custom-hiit-btn {
-  position: absolute;
-  top: 4.05em;
-  right: 0;
+  position: fixed;
+  top: 93%;
+  right: 3%;
 }
 
 .workouts-nav {
@@ -449,16 +449,13 @@ input {
 }
 
 .exercise-mini-holder {
-  width: 100%;
+  width: 95%;
   display: flex;
   row-gap: 0.2em;
   column-gap: 1.2em;
-  padding: 1em 0em;
   overflow-x: auto;
-  position: absolute;
-  top: 100%;
-  left: 0;
   scroll-behavior: smooth;
+  max-width: 95%;
 }
 
 .exercise-mini-card {

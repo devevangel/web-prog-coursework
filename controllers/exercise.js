@@ -1,4 +1,3 @@
-import fs from 'fs/promises';
 import uuid from 'uuid-random';
 import { currentTime } from '../utils.js';
 import dbConn from '../db.js';
@@ -57,20 +56,7 @@ export async function addExercisesToWorkout(exercises, workoutId) {
   });
 }
 
-function deleteEntry(obj, keyToRemove) {
-  delete obj[keyToRemove];
-  return obj;
-}
-
-
 export async function deleteWorkoutExercises(workoutId) {
-  const data = await fs.readFile(
-    '../web-prog-coursework/data/exercises.json',
-    'utf8',
-  );
-  const exercisesData = JSON.parse(data);
-
-  const updatedExercises = deleteEntry(exercisesData, workoutId);
-
-  await fs.writeFile('../web-prog-coursework/data/exercises.json', JSON.stringify(updatedExercises));
+  const db = await dbConn;
+  await db.run('DELETE FROM exercises WHERE workout_id = ?', workoutId);
 }

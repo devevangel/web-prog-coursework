@@ -12,10 +12,10 @@ export async function fetchData(url) {
   }
 }
 
-export async function postData(url, body) {
+export async function postData(url, body, httpVerb) {
   try {
     const options = {
-      method: 'POST',
+      method: httpVerb,
       headers: {
         'Content-Type': 'application/json',
       },

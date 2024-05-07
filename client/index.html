@@ -44,14 +44,14 @@
 
 <template id="workout-nav-template">
   <aside>
-    <p class="heading-text workout-type-text">Public Workouts</p>
     <aside class="workout-nav-holder">
       <nav class="workouts-nav">
-        <p class="workout-nav-item-left">Public 🌎</p>
-        <p class="workout-nav-item-right">Private👁️</p>
+        <p class="workout-nav-item-left workout-nav-active">Public 🌎</p>
+        <p class="workout-nav-item-right">Private🔒</p>
       </nav>
-      <button class="generic-btn custom-hiit-btn">Add New HIIT Workout</button>
+      <button class="generic-btn custom-hiit-btn">New Workout</button>
     </aside>
+    <p class="heading-text workout-type-text">Public Workouts</p>
   </aside>
 </template>
 
@@ -83,6 +83,7 @@
       </aside>
     </aside>
 
+    <span>Your Progress:</span>
     <aside class="progress-bar-main">
       <span class="progess-bar-sub"></span>
     </aside>
@@ -118,7 +119,7 @@
 <template id="create-hiit-form-template">
   <section class="form-container">
     <aside class="form-main">
-      <h3 class="center-text">Create HIIT Workout</h3>
+      <h3 class="center-text">New Workout</h3>
       <label class="form-label">Workout Title:</label>
       <input class="form-input workout-title" name="title" type="text" />
       <label class="form-label">Target Areas:</label>
@@ -164,19 +165,16 @@
 <template id="create-execise-form-template">
   <section class="form-container">
     <aside class="form-main">
-      <h3 class="center-text">Add Exercises</h3>
-      <label class="form-label">Exercise Name / Rest:</label>
-      <input
-        class="form-input exercise-name"
-        type="text"
-        placeholder="exercise name or rest"
-      />
-      <label class="form-label">Exercise Guide:</label>
+      <h3 class="center-text">Add Activity</h3>
+      <aside class="exercise-mini-holder"></aside>
+      <label class="form-label">Activity Name:</label>
+      <input class="form-input exercise-name" type="text" placeholder="" />
+      <label class="form-label">Activity Guide:</label>
       <textarea
         class="form-input exercise-guide"
         placeholder="exercise guide"
       ></textarea>
-      <label class="form-label">Exercise Duration(mins):</label>
+      <label class="form-label">Activity Duration(mins):</label>
       <input
         class="form-input exercise-duration"
         type="number"
@@ -191,7 +189,5 @@
         <button class="generic-btn add-exercise-btn">Add Exercise</button>
       </center>
     </aside>
-
-    <aside class="exercise-mini-holder"></aside>
   </section>
 </template>

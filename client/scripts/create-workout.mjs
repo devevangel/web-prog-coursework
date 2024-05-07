@@ -27,7 +27,7 @@ function handleDeleteExercise(clonedNode, id) {
   exercises = exercises.filter((exerciseItem) => exerciseItem.id !== id);
   clonedNode.remove();
   clearPrevMiniCards();
-  renderAddedExercises();
+  renderAddedActivities();
 }
 
 function clearPrevMiniCards() {
@@ -35,7 +35,7 @@ function clearPrevMiniCards() {
   miniCards.forEach((miniCard) => miniCard.remove());
 }
 
-function renderAddedExercises() {
+function renderAddedActivities() {
   const listHolder = exerciseFormClone.querySelector('.exercise-mini-holder');
   exercises.forEach((exerciseItem) => {
     const exerciseMiniCardClone = exerciseMiniCardTemplate.content.cloneNode(true).firstElementChild;
@@ -54,7 +54,7 @@ function renderAddedExercises() {
   });
 }
 
-function handleAddExercise() {
+function handleAddActivity() {
   if (exerciseFormInfoTextWdiget) {
     exerciseFormInfoTextWdiget.classList.remove('error-text');
     exerciseFormInfoTextWdiget.classList.remove('info-text');
@@ -65,9 +65,9 @@ function handleAddExercise() {
   const exerciseGuide = exerciseFormClone.querySelector('.exercise-guide');
   const exerciseDuration = exerciseFormClone.querySelector('.exercise-duration');
 
-  if (exerciseName.value.length === 0 || exerciseGuide.value.length === 0) {
+  if (exerciseName.value.length === 0 || exerciseGuide.value.length === 0 || Number(exerciseDuration.value) === 0) {
     exerciseFormInfoTextWdiget.classList.add('error-text');
-    exerciseFormInfoTextWdiget.textContent = 'exercise requires a name, guide and duration';
+    exerciseFormInfoTextWdiget.textContent = 'activity requires a name, guide and duration';
   } else {
     exercises.push({
       id: exercises.length + 1,
@@ -80,7 +80,7 @@ function handleAddExercise() {
     exerciseGuide.value = '';
     exerciseDuration.value = 1;
     clearPrevMiniCards();
-    renderAddedExercises();
+    renderAddedActivities();
   }
 }
 
@@ -131,7 +131,7 @@ async function handleCreateHiit() {
 
   if (title.value.length === 0 || exercises.length === 0) {
     workoutFormInfoTextWdiget.classList.add('error-text');
-    workoutFormInfoTextWdiget.textContent = 'Hiit requires a title and alteast 1 exercise';
+    workoutFormInfoTextWdiget.textContent = 'Workout requires a title and alteast 1 activity';
   } else {
     submitBtn.disabled = true;
     addExerciseBtn.disabled = true;
@@ -150,7 +150,7 @@ async function handleCreateHiit() {
     };
 
 
-    await postData('http://localhost:8080/workouts', workoutInfo)
+    await postData('http://localhost:8080/workouts', workoutInfo, 'POST')
       .then(() => {
         moveBackToWokroutsPage();
       }).catch((error) => {
@@ -181,7 +181,7 @@ function mountCreateWorkoutPage() {
 
 
   submitBtn.addEventListener('click', handleCreateHiit);
-  addExerciseBtn.addEventListener('click', handleAddExercise);
+  addExerciseBtn.addEventListener('click', handleAddActivity);
   createWorkoutPage.append(workoutFormClone, exerciseFormClone);
   createWorkoutPage.classList.remove('hide');
 }
