@@ -19,3 +19,11 @@ export function listAccounts(req, res) {
     });
   }
 }
+
+export function createAccount(req, res) {
+  console.log(req, res);
+}
+
+export function deleteAccount(req, res) {
+  console.log(req, res);
+}
