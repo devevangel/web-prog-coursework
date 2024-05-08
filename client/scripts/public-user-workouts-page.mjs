@@ -23,6 +23,8 @@ async function handleDeleteWorkout(id, btn, clone) {
   const { status } = data;
   if (status === 'success') {
     clone.remove();
+    workouts = workouts.filter((workout) => workout.id !== id);
+    handleShowNoWorkouts(workouts);
   }
   btn.textContent = '🗑️';
 }
@@ -124,7 +126,23 @@ async function handleLikeOrUnlikeWorkout(workout, likeBtn, likesTextWidget) {
   }
 }
 
+function handleShowNoWorkouts(workoutList) {
+  const prevNoWorkoutText = document.querySelector('.no-workout-text');
+  if (prevNoWorkoutText) {
+    prevNoWorkoutText.remove();
+  }
+
+
+  if (workoutList.length === 0) {
+    const noWorkoutsPara = document.createElement('span');
+    noWorkoutsPara.classList.add('no-workout-text');
+    noWorkoutsPara.textContent = 'No workouts avaliable 🙅🏽';
+    workoutListContainer.append(noWorkoutsPara);
+  }
+}
+
 function mountPublicWorkoutListView(workouts, scope) {
+  handleShowNoWorkouts(workouts);
   workouts.forEach((workout) => {
     const workoutCardClone = workoutCardTemplate.content.cloneNode(true).firstElementChild;
     const title = workoutCardClone.querySelector('.workout-card-title');

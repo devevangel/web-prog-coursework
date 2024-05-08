@@ -47,6 +47,7 @@ export async function listMyWorkouts(req, res) {
       const parsedWorkouts = privateWorkouts.map((item) => {
         return {
           ...item,
+          likes: JSON.parse(item.likes),
           tags: JSON.parse(item.tags),
           owner: JSON.parse(item.owner),
           targeted_areas: JSON.parse(item.targeted_areas),
