@@ -56,7 +56,7 @@ async function handleGetPrivateWorkouts() {
   }
 }
 
-function moveToCreateHiitWorkout() {
+function moveToCreateWorkout() {
   appState.upateState('path', '/create');
   appState.upateState('appPath', '/account/workout/create');
   window.history.pushState(null, null, '/create');
@@ -79,7 +79,7 @@ function mountPageView() {
   publicWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-left');
   privateWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-right');
 
-  createHiitBtn.addEventListener('click', moveToCreateHiitWorkout);
+  createHiitBtn.addEventListener('click', moveToCreateWorkout);
   publicWorkoutBtn.addEventListener('click', handleGetPublicWorkouts);
   privateWorkoutBtn.addEventListener('click', handleGetPrivateWorkouts);
 
@@ -95,8 +95,13 @@ function handleOpenWorkout(workout) {
   mountPageRouter();
 }
 
-function handleEditWorkout(workout) {
-  console.log(workout);
+function moveToEditWorkout(workout) {
+  appState.upateState('workout', workout);
+  appState.upateState('path', '/edit');
+  appState.upateState('appPath', '/account/workout/edit');
+  window.history.pushState(null, null, '/edit');
+  unmountPublicUserWorkoutPage();
+  mountPageRouter();
 }
 
 function handleMakeWorkoutPrivateOrPublic(workout) {
@@ -187,7 +192,7 @@ function mountPublicWorkoutListView(workouts, scope) {
 
     editBtn.addEventListener('click', () => {
       if (workout.owner.id === appState.state.user.id) {
-        handleEditWorkout(workout);
+        moveToEditWorkout(workout);
       }
     });
 

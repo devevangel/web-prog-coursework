@@ -1,10 +1,10 @@
 import appState from '../state.mjs';
-import { postData, isArray } from './utils.mjs';
+import { postData, isArray, fetchData } from './utils.mjs';
 import { mountPageRouter } from './router.mjs';
 
 const createWorkoutPage = document.querySelector('.create-workout-page');
-const createWorkoutFormTemplate = document.querySelector('#create-hiit-form-template');
-const createExerciseFormTemplate = document.querySelector('#create-execise-form-template');
+const createWorkoutFormTemplate = document.querySelector('#hiit-form-template');
+const createExerciseFormTemplate = document.querySelector('#exercise-form-template');
 const exerciseMiniCardTemplate = document.querySelector('#exercise-mini-card');
 
 let submitBtn;
@@ -22,6 +22,12 @@ let workoutFormInfoTextWdiget;
 let exerciseFormInfoTextWdiget;
 let workoutFormClone;
 let exerciseFormClone;
+
+async function getAllExercisesForWorkout() {
+  const result = await fetchData(`http://localhost:8080/exercises/${appState.state.workout.id}`);
+  return result.exercises;
+}
+
 
 function handleDeleteExercise(clonedNode, id) {
   exercises = exercises.filter((exerciseItem) => exerciseItem.id !== id);
@@ -89,11 +95,13 @@ function getTotalWorkoutDuration() {
 }
 
 function splitInputValue(inputValue) {
-  const splitValues = inputValue.split('.');
-  if (isArray(splitValues)) {
-    return splitValues.map((item) => item.length > 0 && item.replace(/\\n/g, '').trim());
-  } else {
-    return [inputValue.replace(/\\n/g, '').trim()];
+  if (inputValue && inputValue.includes('.')) {
+    const splitValues = inputValue.split('.');
+    if (isArray(splitValues)) {
+      return splitValues.map((item) => item.length > 0 && item.replace(/\\n/g, '').trim());
+    } else {
+      return [inputValue.replace(/\\n/g, '').trim()];
+    }
   }
 }
 
@@ -171,7 +179,36 @@ async function handleCreateHiit() {
   }
 }
 
-function mountCreateWorkoutPage() {
+function returnBool(val) {
+  if (val === 1) return true;
+
+  if (val === 0) return false;
+}
+
+async function setupEditView() {
+  exercises = await getAllExercisesForWorkout();
+  const workoutToEdit = appState.state.workout;
+  clearPrevMiniCards();
+  renderAddedActivities();
+
+  const workoutFormHeading = workoutFormClone.querySelector('.workout-form-heading');
+  workoutFormHeading.textContent = `Edit: ${appState.state.workout.title}`;
+
+  const title = workoutFormClone.querySelector('.workout-title');
+  const targetAreas = workoutFormClone.querySelector('.workout-target_area');
+  const tags = workoutFormClone.querySelector('.workout-tag');
+  const description = workoutFormClone.querySelector('.workout-desc');
+  const level = workoutFormClone.querySelector('.workout-level');
+  const isPublic = workoutFormClone.querySelector('.workout-status');
+
+
+  title.value = workoutToEdit.title;
+  level.value = workoutToEdit.level;
+  description.value = workoutToEdit.description;
+  isPublic.checked = returnBool(workoutToEdit.is_public);
+}
+
+async function mountCreateWorkoutPage() {
   workoutFormClone = createWorkoutFormTemplate.content.cloneNode(true).firstElementChild;
   exerciseFormClone = createExerciseFormTemplate.content.cloneNode(true).firstElementChild;
   workoutFormInfoTextWdiget = workoutFormClone.querySelector('.form-info-text-workout');
@@ -179,12 +216,17 @@ function mountCreateWorkoutPage() {
   submitBtn = workoutFormClone.querySelector('.create-workout-btn');
   addExerciseBtn = exerciseFormClone.querySelector('.add-exercise-btn');
 
+  if (appState.state.path === '/edit') {
+    await setupEditView();
+  }
+
 
   submitBtn.addEventListener('click', handleCreateHiit);
   addExerciseBtn.addEventListener('click', handleAddActivity);
   createWorkoutPage.append(workoutFormClone, exerciseFormClone);
   createWorkoutPage.classList.remove('hide');
 }
+
 
 export function unmountCreateWorkoutPage() {
   workoutFormClone.remove();

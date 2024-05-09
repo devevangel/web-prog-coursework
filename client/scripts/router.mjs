@@ -22,6 +22,9 @@ export function mountPageRouter() {
     case '/create':
       setupCreateWorkoutPage();
       break;
+    case '/edit':
+      setupCreateWorkoutPage();
+      break;
     default:
       setupAccountPage();
       break;
@@ -55,6 +58,14 @@ export function handleBrowserBackBtnClick() {
       mountPageRouter();
       break;
     case '/account/workout/create':
+      appState.upateState('path', '/workout');
+      appState.upateState('appPath', '/account/workout');
+      appState.upateState('workout', {});
+      window.history.pushState(null, null, '/workout');
+      unmountCreateWorkoutPage();
+      mountPageRouter();
+      break;
+    case '/account/workout/edit':
       appState.upateState('path', '/workout');
       appState.upateState('appPath', '/account/workout');
       appState.upateState('workout', {});
