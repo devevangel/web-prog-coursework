@@ -8,16 +8,9 @@ export async function listExercises(req, res) {
     const { id } = req.params;
     const allExercises = await db.all('SELECT * FROM exercises WHERE workout_id = ?', id);
 
-    const parsedExercises = allExercises.map((item) => {
-      return {
-        ...item,
-        directions: JSON.parse(item.directions),
-      };
-    });
-
     res.status(200).json({
       status: 'success',
-      exercises: parsedExercises,
+      exercises: allExercises,
     });
   } catch (err) {
     console.error(err);
@@ -37,7 +30,7 @@ export async function addExercisesToWorkout(exercises, workoutId) {
       id: uuid(),
       workout_id: workoutId,
       title: exercise.title,
-      directions: JSON.stringify(exercise.directions),
+      directions: exercise.directions,
       duration: exercise.duration,
       time: currentTime(),
     };

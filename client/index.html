@@ -16,6 +16,7 @@
   <button class="back-btn">Home</button>
   <button class="logout-btn">Logout</button>
 </nav> -->
+
 <section class="page-container user-accounts hide"></section>
 <section class="page-container public-user-workouts hide"></section>
 <section class="page-container exercise-page hide"></section>
@@ -47,17 +48,17 @@
     <aside class="workout-nav-holder">
       <nav class="workouts-nav">
         <p class="workout-nav-item-left workout-nav-active">Public 🌎</p>
+        <p class="workout-nav-item-mid">users 👥</p>
         <p class="workout-nav-item-right">Private🔒</p>
       </nav>
-      <button class="generic-btn custom-hiit-btn">Create Workout</button>
+      <button class="generic-btn custom-hiit-btn">Create Workout ➕</button>
     </aside>
-    <p class="heading-text workout-type-text">Public Workouts</p>
   </aside>
 </template>
 
 <template id="account-card-template">
   <span class="profile-card">
-    <img src="https://robohash.org/dfgsgd" class="profile-img" />
+    <img src="" class="profile-img" />
     <aside class="profile-detials-container">
       <p class="proile-card-text acct-name"></p>
       <p class="proile-card-text acct-email"></p>
@@ -70,9 +71,15 @@
 <template id="exercise-view">
   <section class="exercise-content">
     <h3 class="workout-name-text">Workout:</h3>
-    <h4 class="exercise-name-text">Current Activity:</h4>
+    <h4 class="exercise-name-text">Activity:</h4>
+
+    <aside class="about-exercise">
+      <h3>Exercise Guide</h3>
+      <aside class="guide-text-container"></aside>
+    </aside>
 
     <aside class="timer-container">
+      <aside class="circular-progress-bar"></aside>
       <h3 class="timer-text">00:00</h3>
       <aside class="count-down-container hide">
         <p class="center-text">Time</p>
@@ -83,27 +90,14 @@
       </aside>
     </aside>
 
-    <span>Your Progress:</span>
-    <aside class="progress-bar-main">
-      <span class="progess-bar-sub"></span>
-    </aside>
-
     <aside class="workout-btn-controls">
       <button class="workout-btn-control workout-start-btn btn-control-hide">
-        Play ▶️
-      </button>
-      <button class="workout-btn-control workout-pause-btn btn-control-hide">
-        Pause ⏸️
+        Start ▶️
       </button>
       <button class="workout-btn-control workout-stop-btn btn-control-hide">
         Reset 🔄
       </button>
       <button class="workout-btn-control workout-exit-btn">Exit ⏹️</button>
-    </aside>
-
-    <aside class="about-exercise">
-      <h3>Exercise Guide</h3>
-      <ol class="guide-text-container"></ol>
     </aside>
   </section>
 </template>
@@ -153,19 +147,13 @@
         <input type="checkbox" class="workout-status" name="status" />
       </label>
     </aside>
-
-    <p class="center-text form-info-text-workout"></p>
-
-    <center>
-      <button class="generic-btn create-workout-btn">Save HIIT Workout</button>
-    </center>
   </section>
 </template>
 
 <template id="exercise-form-template">
   <section class="form-container">
     <aside class="form-main">
-      <h3 class="center-text">Add Activity</h3>
+      <h3 class="center-text activity-header">Add Activity</h3>
       <aside class="exercise-mini-holder"></aside>
       <label class="form-label">Activity Name:</label>
       <input class="form-input exercise-name" type="text" placeholder="" />
@@ -183,11 +171,16 @@
         max="30"
       />
 
+      <p class="center-text form-info-text-workout"></p>
       <p class="center-text form-info-text-exercise"></p>
 
-      <center>
+      <aside class="form-btn-controls">
         <button class="generic-btn add-exercise-btn">Add Exercise</button>
-      </center>
+        <button class="generic-btn add-rest-btn">Add Rest</button>
+      </aside>
+    </aside>
+    <aside class="form-btn-controls">
+      <button class="generic-btn create-workout-btn">Save Workout</button>
     </aside>
   </section>
 </template>

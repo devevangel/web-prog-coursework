@@ -1,10 +1,10 @@
-import { setupAccountPage } from './user-accounts-page.mjs';
+import { setupAccountPage } from './accounts-page.mjs';
 import {
   setupPublicUserWorkoutPage,
   unmountPublicUserWorkoutPage,
-} from './public-user-workouts-page.mjs';
+} from './workout-page.mjs';
 import { setupExercisePage, unmountExercisePage } from './exercise-page.mjs';
-import { setupCreateWorkoutPage, unmountCreateWorkoutPage } from './create-workout.mjs';
+import { setupCreateWorkoutPage, unmountCreateWorkoutPage } from './create-edit-page.mjs';
 import appState from '../state.mjs';
 
 

@@ -125,7 +125,6 @@ export async function createWorkout(req, res) {
 
     await addExercisesToWorkout(exercises, newWorkout.id);
 
-
     res.status(201).json({
       status: 'success',
     });
@@ -198,6 +197,36 @@ export async function likeWorkout(req, res) {
     res.status(400).json({
       status: 'error',
       message: 'Workout like failed',
+    });
+  }
+}
+
+export async function lockWorkout(req, res) {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const db = await dbConn;
+
+    const val = status !== 'LOCK';
+    await db.run('UPDATE workouts SET is_public = ? WHERE id = ?', [val, id]);
+    const updatedWorkout = await db.get('SELECT * FROM workouts WHERE id = ?', id);
+    const parsedWorkout = {
+      ...updatedWorkout,
+      likes: JSON.parse(updatedWorkout.likes),
+      tags: JSON.parse(updatedWorkout.tags),
+      owner: JSON.parse(updatedWorkout.owner),
+      targeted_areas: JSON.parse(updatedWorkout.targeted_areas),
+    };
+
+    res.status(200).json({
+      status: 'success',
+      updatedWorkout: parsedWorkout,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: 'error',
+      message: `Could not make workout ${status}`,
     });
   }
 }

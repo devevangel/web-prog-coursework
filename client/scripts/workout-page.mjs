@@ -10,8 +10,8 @@ const cardClones = [];
 let workouts = [];
 let publicWorkoutBtn;
 let privateWorkoutBtn;
+let usersBtn;
 let workoutPageNavClone;
-let pageHeading;
 
 async function getAllWorkouts() {
   const data = await fetchData('http://localhost:8080/workouts');
@@ -31,8 +31,8 @@ async function handleDeleteWorkout(id, btn, clone) {
 
 async function handleGetPublicWorkouts() {
   privateWorkoutBtn.classList.remove('workout-nav-active');
+  usersBtn.classList.remove('workout-nav-active');
   publicWorkoutBtn.classList.add('workout-nav-active');
-  pageHeading.textContent = 'public workouts';
 
   const data = await fetchData('http://localhost:8080/workouts');
   const { status, workouts } = data;
@@ -45,8 +45,8 @@ async function handleGetPublicWorkouts() {
 
 async function handleGetPrivateWorkouts() {
   publicWorkoutBtn.classList.remove('workout-nav-active');
+  usersBtn.classList.remove('workout-nav-active');
   privateWorkoutBtn.classList.add('workout-nav-active');
-  pageHeading.textContent = 'private workouts';
 
   const data = await fetchData(`http://localhost:8080/workouts/me/${appState.state.user.id}`);
   const { status, workouts } = data;
@@ -54,6 +54,13 @@ async function handleGetPrivateWorkouts() {
     clearPrevUICardClones();
     mountPublicWorkoutListView(workouts, 'PRIVATE');
   }
+}
+
+function handleGetUsers() {
+  publicWorkoutBtn.classList.remove('workout-nav-active');
+  privateWorkoutBtn.classList.remove('workout-nav-active');
+  usersBtn.classList.add('workout-nav-active');
+  console.log('get accounts');
 }
 
 function moveToCreateWorkout() {
@@ -64,7 +71,6 @@ function moveToCreateWorkout() {
   mountPageRouter();
 }
 
-
 function mountPageView() {
   if (workoutPageNavClone) {
     unmountPublicUserWorkoutPage();
@@ -73,15 +79,16 @@ function mountPageView() {
   workoutPageNavClone = workoutPageNavTemplate.content.cloneNode(true).firstElementChild;
   workoutListContainer.classList.add('workout-list');
   userWorkoutPage.append(workoutPageNavClone, workoutListContainer);
-  pageHeading = workoutPageNavClone.querySelector('.workout-type-text');
   const createHiitBtn = workoutPageNavClone.querySelector('.custom-hiit-btn');
 
   publicWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-left');
+  usersBtn = workoutPageNavClone.querySelector('.workout-nav-item-mid');
   privateWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-right');
 
   createHiitBtn.addEventListener('click', moveToCreateWorkout);
   publicWorkoutBtn.addEventListener('click', handleGetPublicWorkouts);
   privateWorkoutBtn.addEventListener('click', handleGetPrivateWorkouts);
+  usersBtn.addEventListener('click', handleGetUsers);
 
   userWorkoutPage.classList.remove('hide');
 }
@@ -104,8 +111,28 @@ function moveToEditWorkout(workout) {
   mountPageRouter();
 }
 
-function handleMakeWorkoutPrivateOrPublic(workout) {
-  console.log(workout);
+async function handleMakeWorkoutPrivateOrPublic(workout, lockWidget) {
+  let action;
+  const prevLockStatus = lockWidget.textContent;
+  const workoutCardUI = document.querySelector(`.wk-${workout.id}`);
+  workoutCardUI.classList.add('hide');
+
+  if (lockWidget.textContent === '🔒') {
+    action = 'LOCK';
+  } else {
+    action = 'UNLOCK';
+  }
+
+  const data = await postData(`http://localhost:8080/workouts/lock/${workout.id}`, { status: action }, 'PUT');
+  const { updatedWorkout, status } = data;
+
+  if (updatedWorkout && status === 'success') {
+    lockWidget.textContent = `Likes: ${updatedWorkout.likes.length}`;
+    workoutCardUI.remove();
+  } else {
+    lockWidget.textContent = prevLockStatus;
+    workoutCardUI.classList.remove('hide');
+  }
 }
 
 async function handleLikeOrUnlikeWorkout(workout, likeBtn, likesTextWidget) {
@@ -164,7 +191,7 @@ function mountPublicWorkoutListView(workouts, scope) {
     const deleteBtn = workoutCardClone.querySelector('.workout-card-delete-btn');
     const makePublicBtn = workoutCardClone.querySelector('.workout-card-public-btn');
     const ownerProfile = workoutCardClone.querySelector('.workout-card-profile-img');
-
+    workoutCardClone.classList.add(`wk-${workout.id}`);
     // setting text content
     ownerProfile.src = workout.owner.profile_img;
     ownerProfile.title = `${workout.owner.first_name} ${workout.owner.last_name}`;
@@ -205,7 +232,7 @@ function mountPublicWorkoutListView(workouts, scope) {
 
     makePublicBtn.addEventListener('click', () => {
       if (workout.owner.id === appState.state.user.id) {
-        handleMakeWorkoutPrivateOrPublic(workout);
+        handleMakeWorkoutPrivateOrPublic(workout, makePublicBtn);
       }
     });
 

@@ -3,7 +3,7 @@ import fs from 'fs';
 export function listAccounts(req, res) {
   try {
     const data = fs.readFileSync(
-      '../web-prog-coursework/data/accounts.json',
+      '../HIIT-App/data/accounts.json',
       'utf8',
     );
     const jsonData = JSON.parse(data);

@@ -46,13 +46,3 @@ export async function deleteData(url) {
     console.log(error);
   }
 }
-
-
-export function delayCall(func, delay) {
-  setTimeout(func, delay);
-}
-
-
-export function isArray(variable) {
-  return Array.isArray(variable);
-}

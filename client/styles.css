@@ -8,6 +8,8 @@
 
 body {
   position: relative;
+  background-color: #1f252a;
+  color: white;
 }
 
 input {
@@ -57,6 +59,7 @@ input {
   font-weight: 600;
   text-decoration: underline;
   text-align: center;
+  color: #e4745d;
 }
 
 .profiles-list-container {
@@ -74,8 +77,7 @@ input {
   width: 20em;
   height: 25em;
   border-radius: 0.8em;
-  box-shadow: 0 0.5em 0.5em -0.25em lightblue;
-  background: #f1f1f1;
+  background: #343d45;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,6 +85,7 @@ input {
   padding: 0.3em;
   cursor: pointer;
   row-gap: 1em;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
 }
 
 .profile-img {
@@ -91,11 +94,16 @@ input {
   object-fit: contain;
   border-radius: 50%;
   background: indianred;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
 }
 
 .profile-details-container {
   text-align: left;
   width: 100%;
+}
+
+.workout-form-heading {
+  color: #e4745d;
 }
 
 .proile-card-text {
@@ -113,17 +121,37 @@ input {
   align-items: center;
 }
 
+.generic-btn {
+  width: fit-content;
+  padding: 1.3em 1.2em;
+  height: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1em solid #e4745d;
+  border-radius: 5em;
+  cursor: pointer;
+  color: white;
+  background: transparent;
+}
+
+.generic-btn:hover {
+  background-color: #e4745d;
+  color: white;
+}
+
 .custom-hiit-btn {
   margin-bottom: 0em !important;
   width: 21em !important;
   height: 4em !important;
   font-weight: 600;
+  background: transparent;
 }
 
 .workouts-nav {
   width: 20em;
   height: 3em;
-  background: lightgoldenrodyellow;
+  background: #353131;
   border-radius: 5em;
   display: flex;
   align-items: center;
@@ -132,7 +160,7 @@ input {
 }
 
 .workout-nav-item-left {
-  width: 12em;
+  width: 9em;
   height: 100%;
   display: flex;
   align-items: center;
@@ -142,12 +170,24 @@ input {
   padding-left: 1em;
 }
 
+.workout-nav-item-mid {
+  width: 9em;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  justify-content: center;
+}
+
 .workout-nav-active {
-  background: floralwhite;
+  background: #e4745d;
+  border-radius: 5em;
 }
 
 .workout-nav-item-right {
-  width: 12em;
+  width: 9em;
   height: 100%;
   display: flex;
   align-items: center;
@@ -167,6 +207,7 @@ input {
   padding: 0.1em;
   justify-content: center;
   margin-bottom: 1em;
+  margin-top: 0.8em;
 }
 
 .workout-card {
@@ -175,15 +216,17 @@ input {
   height: fit-content;
   min-height: 13.5em;
   max-height: 19.5em;
-  padding: 2em 1em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  padding-left: 1em;
+  padding-right: 2em;
   display: flex;
   flex-direction: column;
   row-gap: 0.5em;
-  background-color: #ffffff;
+  background-color: #343d45;
   border-radius: 0.3em;
-  box-shadow: 0 0.25em 0.375em rgba(0, 0, 0, 0.1),
-    0 0.0625em 0.1875em rgba(0, 0, 0, 0.08);
   position: relative;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
 }
 
 .workout-card-profile-img {
@@ -218,13 +261,15 @@ input {
   justify-content: center;
   border: none;
   border-radius: 5em;
-  box-shadow: 0 0.25em 0.375em rgba(0, 0, 0, 0.1),
-    0 0.0625em 0.1875em rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
   cursor: pointer;
+  background: transparent;
+  border: 0.1em solid #e4745d;
+  color: white;
 }
 
 .workout-card-btn:hover {
-  background-color: #e2dfdf;
+  background-color: #e4745d;
 }
 
 .timer-section {
@@ -241,11 +286,23 @@ input {
 .timer-container {
   width: 12em;
   height: 12em;
-  border: 0.1em solid black;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  background-color: #1f252a;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
+}
+
+.circular-progress-bar {
+  background: conic-gradient(#e4745d var(--progress), #42484d var(--progress));
+  height: 14em;
+  width: 14em;
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
 }
 
 .timer-text {
@@ -258,6 +315,9 @@ input {
 
 .about-exercise {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .workout-name-text {
@@ -270,26 +330,13 @@ input {
 }
 
 .guide-text-container {
-  text-align: left;
+  margin-top: 0.5em;
+  text-align: center;
+  width: 60%;
 }
 
 .guide-text {
   padding: 0.2em;
-}
-
-.progress-bar-main {
-  height: 2em;
-  width: 100%;
-  background: lavender;
-  position: relative;
-}
-
-.progess-bar-sub {
-  height: 2em;
-  background-color: greenyellow;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .exercise-content {
@@ -314,6 +361,16 @@ input {
   height: 100%;
   padding: 0.3em;
   font-size: 1.3em;
+  background-color: transparent;
+  border-radius: 5em;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
+  border: 0.1em solid #e4745d;
+  color: white;
+  cursor: pointer;
+}
+
+.workout-btn-control:hover {
+  background-color: #e4745d;
 }
 
 .exercise-list {
@@ -407,11 +464,12 @@ input {
 .form-container {
   width: 70%;
   margin-top: 2em;
-  box-shadow: 0 0.5em 0.5em -0.25em lightblue;
   background: #f1f1f1;
   border-radius: 0.5em;
   position: relative;
   margin-bottom: 1em;
+  background-color: #343d45;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
 }
 
 .form-label {
@@ -428,28 +486,21 @@ input {
   padding: 0.5em 1em;
 }
 
+.activity-header {
+  color: #e4745d;
+}
+
 .form-input {
   width: 82%;
   padding: 0.4em;
+  padding: 0.4em;
+  background: transparent;
+  border: 0.1em solid darkgrey;
+  color: white;
 }
 
-.generic-btn {
-  width: fit-content;
-  padding: 1.3em 1.2em;
-  height: 1em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 5em;
-  box-shadow: 0 0.25em 0.375em rgba(0, 0, 0, 0.1),
-    0 0.0625em 0.1875em rgba(0, 0, 0, 0.08);
-  cursor: pointer;
-  margin-bottom: 1em;
-}
-
-.generic-btn:hover {
-  background-color: #e2dfdf;
+.workout-level {
+  background-color: #343d45;
 }
 
 .exercise-mini-holder {
@@ -466,13 +517,14 @@ input {
   width: 7em;
   min-width: 7em;
   padding: 0.4em 0.5em;
-  box-shadow: 0 0.5em 0.5em -0.25em lightblue;
-  background: lightgoldenrodyellow;
+  background: #343d45;
   border-radius: 0.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 0.5em;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
+  margin: 0.5em;
 }
 
 .exercise-mini-input {
@@ -484,17 +536,29 @@ input {
   width: fit-content;
   padding: 0.1em;
   border: 0.1em solid black;
-  background: ghostwhite;
+  background: transparent;
   border-radius: 0.2em;
   cursor: pointer;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
 }
 
 .error-text {
   color: red;
+  margin-bottom: 0.5em;
+  width: 89%;
 }
 
 .info-text {
   color: blue;
+}
+
+.form-btn-controls {
+  display: flex;
+  width: 95%;
+  margin-bottom: 1em;
+  flex-direction: row;
+  column-gap: 2em;
+  justify-content: center;
 }
 
 @media only screen and (min-width: 600px) {

@@ -16,11 +16,12 @@ let isTimerStarted = false;
 let isTimerPaused = false;
 let timerWidget;
 let countDownContainerWidget;
+let startBtn;
 let countDownInterval;
 let btnControlsToHide = [];
 let exerciseNameWidget;
 let countDownWidget;
-let progessBarWidget;
+let circleProgressBar;
 let exerciseGuideWidget;
 let deltaPercentage = 0;
 
@@ -36,19 +37,30 @@ function convertDurationToMilliseconds(duration) {
 }
 
 function startTimer() {
-  if (isTimerStarted === false) {
+  if (isTimerStarted === false && isTimerPaused === false) {
     isTimerStarted = true;
     currentExercise = exerciseListCopy[0];
     currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
     setCurrentExerciseView();
     timerInterval = setInterval(calcTime, 100);
+    startBtn.textContent = 'Pause ⏸️';
     return;
   }
 
-  if (isTimerPaused === true) {
+  if (isTimerStarted && isTimerPaused === false) {
+    isTimerPaused = true;
+    isTimerStarted = false;
+    clearInterval(timerInterval);
+    startBtn.textContent = ' Start ▶️';
+    return;
+  }
+
+  if (isTimerStarted === false && isTimerPaused) {
     isTimerPaused = false;
+    isTimerStarted = true;
     playPausedTimer();
     setCurrentExerciseView();
+    startBtn.textContent = 'Pause ⏸️';
   }
 }
 
@@ -115,11 +127,6 @@ function displayWaitTimerToNextExercise() {
   }, 1000);
 }
 
-function pauseTimer() {
-  isTimerPaused = true;
-  clearInterval(timerInterval);
-}
-
 function resetTimer() {
   clearInterval(timerInterval);
   exerciseListCopy = [...exerciseList];
@@ -143,7 +150,7 @@ function updateProgressBar() {
   if (deltaPercentage === 100) return;
   const deltaDuration = (totalDurationWorkedInMilli / totalDurationInMilli);
   deltaPercentage = Math.floor(deltaDuration * 100);
-  progessBarWidget.style.width = `${deltaPercentage}%`;
+  circleProgressBar.style.setProperty('--progress', `${deltaPercentage}%`);
 }
 
 function clearPrevExerciseSteps() {
@@ -155,14 +162,9 @@ function clearPrevExerciseSteps() {
 
 function setCurrentExerciseView() {
   clearPrevExerciseSteps();
-  exerciseNameWidget.textContent = `Current Activity: ${exerciseListCopy[0].title}`;
+  exerciseNameWidget.textContent = `Activity: ${exerciseListCopy[0].title}`;
   if (exerciseListCopy[0].directions && exerciseListCopy[0].directions.length > 0) {
-    exerciseListCopy[0].directions.forEach((step) => {
-      const stepListItem = document.createElement('li');
-      stepListItem.classList.add('guide-text');
-      stepListItem.textContent = step;
-      exerciseGuideWidget.append(stepListItem);
-    });
+    exerciseGuideWidget.textContent = exerciseListCopy[0].directions;
   }
 }
 
@@ -172,26 +174,22 @@ function mountPageView() {
   exerciseViewClone = exerciseViewTemplate.content.cloneNode(true).firstElementChild;
   const workoutName = exerciseViewClone.querySelector('.workout-name-text');
   exerciseNameWidget = exerciseViewClone.querySelector('.exercise-name-text');
-  const startBtn = exerciseViewClone.querySelector('.workout-start-btn');
-  const pauseBtn = exerciseViewClone.querySelector('.workout-pause-btn');
+  startBtn = exerciseViewClone.querySelector('.workout-start-btn');
   const resetBtn = exerciseViewClone.querySelector('.workout-stop-btn');
   const exitBtn = exerciseViewClone.querySelector('.workout-exit-btn');
   btnControlsToHide = exerciseViewClone.querySelectorAll('.btn-control-hide');
   timerWidget = exerciseViewClone.querySelector('.timer-text');
   countDownContainerWidget = exerciseViewClone.querySelector('.count-down-container');
   countDownWidget = exerciseViewClone.querySelector('.next-exercise-cd');
-  progessBarWidget = exerciseViewClone.querySelector('.progess-bar-sub');
+  circleProgressBar = exerciseViewClone.querySelector('.circular-progress-bar');
   exerciseGuideWidget = exerciseViewClone.querySelector('.guide-text-container');
 
   startBtn.addEventListener('click', () => {
-    deltaPercentage = 0;
-    progessBarWidget.style.width = `${deltaPercentage}%`;
     startTimer();
   });
-  pauseBtn.addEventListener('click', pauseTimer);
   resetBtn.addEventListener('click', () => {
     deltaPercentage = 0;
-    progessBarWidget.style.width = `${deltaPercentage}%`;
+    circleProgressBar.style.setProperty('--progress', `${deltaPercentage}%`);
     resetTimer();
   });
   exitBtn.addEventListener('click', exitWorkout);

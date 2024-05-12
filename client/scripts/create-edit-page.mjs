@@ -1,5 +1,5 @@
 import appState from '../state.mjs';
-import { postData, isArray, fetchData } from './utils.mjs';
+import { postData, fetchData } from './utils.mjs';
 import { mountPageRouter } from './router.mjs';
 
 const createWorkoutPage = document.querySelector('.create-workout-page');
@@ -94,34 +94,12 @@ function getTotalWorkoutDuration() {
   return exercises.reduce((totalDuration, item) => totalDuration + Number(item.duration), 0);
 }
 
-function splitInputValue(inputValue) {
-  if (inputValue && inputValue.includes('.')) {
-    const splitValues = inputValue.split('.');
-    if (isArray(splitValues)) {
-      return splitValues.map((item) => item.length > 0 && item.replace(/\\n/g, '').trim());
-    } else {
-      return [inputValue.replace(/\\n/g, '').trim()];
-    }
-  }
-}
-
 function moveBackToWokroutsPage() {
   appState.upateState('path', '/workout');
   appState.upateState('appPath', '/account/workout');
   window.history.pushState(null, null, '/workout');
   unmountCreateWorkoutPage();
   mountPageRouter();
-}
-
-
-function getFormattedExerciseList(exerciseList) {
-  const arr = exerciseList.map((item) => {
-    return {
-      ...item,
-      directions: splitInputValue(item.directions),
-    };
-  });
-  return arr;
 }
 
 async function handleCreateHiit() {
@@ -154,7 +132,7 @@ async function handleCreateHiit() {
       is_public: isPublic.checked,
       owner: appState.state.user,
       duration: getTotalWorkoutDuration(),
-      exercises: getFormattedExerciseList(exercises),
+      exercises,
     };
 
 
@@ -203,6 +181,8 @@ async function setupEditView() {
 
 
   title.value = workoutToEdit.title;
+  targetAreas.value = workoutToEdit.targeted_areas.toString();
+  tags.value = workoutToEdit.tags.toString();
   level.value = workoutToEdit.level;
   description.value = workoutToEdit.description;
   isPublic.checked = returnBool(workoutToEdit.is_public);
@@ -211,9 +191,9 @@ async function setupEditView() {
 async function mountCreateWorkoutPage() {
   workoutFormClone = createWorkoutFormTemplate.content.cloneNode(true).firstElementChild;
   exerciseFormClone = createExerciseFormTemplate.content.cloneNode(true).firstElementChild;
-  workoutFormInfoTextWdiget = workoutFormClone.querySelector('.form-info-text-workout');
+  workoutFormInfoTextWdiget = exerciseFormClone.querySelector('.form-info-text-workout');
   exerciseFormInfoTextWdiget = exerciseFormClone.querySelector('.form-info-text-exercise');
-  submitBtn = workoutFormClone.querySelector('.create-workout-btn');
+  submitBtn = exerciseFormClone.querySelector('.create-workout-btn');
   addExerciseBtn = exerciseFormClone.querySelector('.add-exercise-btn');
 
   if (appState.state.path === '/edit') {
