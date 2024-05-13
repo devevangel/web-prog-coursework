@@ -40,6 +40,7 @@ function mountAccountListView(accounts) {
     const email = acctCardClone.querySelector('.acct-email');
     const followers = acctCardClone.querySelector('.acct-followers');
     const workouts = acctCardClone.querySelector('.acct-workout');
+    const selectAccountBtn = acctCardClone.querySelector('.select-account-btn');
     // Settling html content
     acctImg.src = account.profile_img;
     acctImg.alt = `${account.first_name} ${account.last_name}`;
@@ -49,7 +50,7 @@ function mountAccountListView(accounts) {
     workouts.textContent = `Total Workouts: ${getRandomNumber(8, 10)}`;
 
     // Add event listeners
-    acctCardClone.addEventListener('click', () => {
+    selectAccountBtn.addEventListener('click', () => {
       handleAccountProfileClick(account);
     });
 

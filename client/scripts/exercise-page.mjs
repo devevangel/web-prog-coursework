@@ -4,6 +4,7 @@ import appState from '../state.mjs';
 
 const exercisePage = document.querySelector('.exercise-page');
 const exerciseViewTemplate = document.querySelector('#exercise-view');
+const timerSound = new Audio('./res/tick.ogg');
 let exerciseViewClone;
 let totalDurationInMilli = 0;
 let totalDurationWorkedInMilli = 0;
@@ -42,12 +43,14 @@ function startTimer() {
     currentExercise = exerciseListCopy[0];
     currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
     setCurrentExerciseView();
-    timerInterval = setInterval(calcTime, 100);
+    timerInterval = setInterval(calcTime, 1000);
     startBtn.textContent = 'Pause ⏸️';
     return;
   }
 
   if (isTimerStarted && isTimerPaused === false) {
+    timerSound.pause();
+    timerSound.currentTime = 0;
     isTimerPaused = true;
     isTimerStarted = false;
     clearInterval(timerInterval);
@@ -65,6 +68,7 @@ function startTimer() {
 }
 
 function calcTime() {
+  timerSound.play();
   const time = new Date(currentDurationInMilli);
   const minutes = time.getMinutes().toString().padStart(2, '0');
   const seconds = time.getSeconds().toString().padStart(2, '0');
@@ -94,10 +98,11 @@ function handleUserFinishWorkout() {
   exerciseNameWidget.textContent = 'Hurray workout complete!';
   clearPrevExerciseSteps();
   resetTimer();
+  startBtn.textContent = ' Start ▶️';
 }
 
 function playPausedTimer() {
-  timerInterval = setInterval(calcTime, 100);
+  timerInterval = setInterval(calcTime, 1000);
 }
 
 function displayWaitTimerToNextExercise() {
@@ -120,7 +125,7 @@ function displayWaitTimerToNextExercise() {
         btn.classList.remove('hide');
       });
       currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
-      timerInterval = setInterval(calcTime, 100);
+      timerInterval = setInterval(calcTime, 1000);
       setCurrentExerciseView();
     }
     count--;
@@ -136,12 +141,17 @@ function resetTimer() {
   isTimerPaused = false;
   isTimerStarted = false;
   timerWidget.textContent = '00:00';
+  deltaPercentage = 0;
+  circleProgressBar.style.setProperty('--progress', `${deltaPercentage}%`);
+  startBtn.textContent = ' Start ▶️';
 }
 
 function exitWorkout() {
   appState.upateState('path', '/workout');
   appState.upateState('appPath', '/account/workout');
   window.history.pushState(null, null, '/workout');
+  timerSound.pause();
+  timerSound.currentTime = 0;
   unmountExercisePage();
   mountPageRouter();
 }
@@ -188,8 +198,6 @@ function mountPageView() {
     startTimer();
   });
   resetBtn.addEventListener('click', () => {
-    deltaPercentage = 0;
-    circleProgressBar.style.setProperty('--progress', `${deltaPercentage}%`);
     resetTimer();
   });
   exitBtn.addEventListener('click', exitWorkout);

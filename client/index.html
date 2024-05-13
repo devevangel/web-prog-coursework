@@ -9,14 +9,21 @@
   rel="stylesheet"
 />
 <link rel="stylesheet" href="styles.css" />
-<title>HIIT Workout App</title>
+<title>Arm Strong</title>
 <script type="module" src="scripts/index.mjs" defer></script>
 
-<!-- <nav class="app-nav-container">
-  <button class="back-btn">Home</button>
-  <button class="logout-btn">Logout</button>
-</nav> -->
-
+<nav class="app-nav-container">
+  <aside class="appbar-menu-container">❚█══█❚ AIM</aside>
+  <aside class="user-profile-container">
+    <img
+      class="user-profile-image"
+      alt="profile-img"
+      src="https://robohash.org/dfsgd"
+    />
+    <span class="user-profile-name">Evangel</span>
+    <button class="generic-btn">Logout</button>
+  </aside>
+</nav>
 <section class="page-container user-accounts hide"></section>
 <section class="page-container public-user-workouts hide"></section>
 <section class="page-container exercise-page hide"></section>
@@ -48,7 +55,6 @@
     <aside class="workout-nav-holder">
       <nav class="workouts-nav">
         <p class="workout-nav-item-left workout-nav-active">Public 🌎</p>
-        <p class="workout-nav-item-mid">users 👥</p>
         <p class="workout-nav-item-right">Private🔒</p>
       </nav>
       <button class="generic-btn custom-hiit-btn">Create Workout ➕</button>
@@ -65,6 +71,7 @@
       <p class="proile-card-text acct-followers"></p>
       <p class="proile-card-text acct-workout"></p>
     </aside>
+    <button class="generic-btn select-account-btn">Select</button>
   </span>
 </template>
 

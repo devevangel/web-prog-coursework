@@ -10,7 +10,6 @@ const cardClones = [];
 let workouts = [];
 let publicWorkoutBtn;
 let privateWorkoutBtn;
-let usersBtn;
 let workoutPageNavClone;
 
 async function getAllWorkouts() {
@@ -31,7 +30,6 @@ async function handleDeleteWorkout(id, btn, clone) {
 
 async function handleGetPublicWorkouts() {
   privateWorkoutBtn.classList.remove('workout-nav-active');
-  usersBtn.classList.remove('workout-nav-active');
   publicWorkoutBtn.classList.add('workout-nav-active');
 
   const data = await fetchData('http://localhost:8080/workouts');
@@ -45,7 +43,6 @@ async function handleGetPublicWorkouts() {
 
 async function handleGetPrivateWorkouts() {
   publicWorkoutBtn.classList.remove('workout-nav-active');
-  usersBtn.classList.remove('workout-nav-active');
   privateWorkoutBtn.classList.add('workout-nav-active');
 
   const data = await fetchData(`http://localhost:8080/workouts/me/${appState.state.user.id}`);
@@ -56,12 +53,6 @@ async function handleGetPrivateWorkouts() {
   }
 }
 
-function handleGetUsers() {
-  publicWorkoutBtn.classList.remove('workout-nav-active');
-  privateWorkoutBtn.classList.remove('workout-nav-active');
-  usersBtn.classList.add('workout-nav-active');
-  console.log('get accounts');
-}
 
 function moveToCreateWorkout() {
   appState.upateState('path', '/create');
@@ -82,13 +73,11 @@ function mountPageView() {
   const createHiitBtn = workoutPageNavClone.querySelector('.custom-hiit-btn');
 
   publicWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-left');
-  usersBtn = workoutPageNavClone.querySelector('.workout-nav-item-mid');
   privateWorkoutBtn = workoutPageNavClone.querySelector('.workout-nav-item-right');
 
   createHiitBtn.addEventListener('click', moveToCreateWorkout);
   publicWorkoutBtn.addEventListener('click', handleGetPublicWorkouts);
   privateWorkoutBtn.addEventListener('click', handleGetPrivateWorkouts);
-  usersBtn.addEventListener('click', handleGetUsers);
 
   userWorkoutPage.classList.remove('hide');
 }

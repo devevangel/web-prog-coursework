@@ -35,14 +35,47 @@ input {
 }
 
 .app-nav-container {
-  width: 100%;
+  align-items: center;
+  background-color: #343d46;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   position: fixed;
+  z-index: 5;
+  box-shadow: 0 0.063em 0.625em 0.313em rgba(0, 0, 0, 0.1);
+  height: 3.125em;
+  margin-bottom: 0.25em;
   top: 0;
-  background-color: aquamarine;
-  z-index: 3;
+  width: 100%;
+}
+
+.appbar-menu-container {
+  font-size: 1em;
+  margin-left: 0.625em;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.user-profile-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-right: 1em;
+}
+
+.user-profile-image {
+  background: #2c3136;
+  border-radius: 1.563em;
+  cursor: pointer;
+  height: 1.563em;
+  margin-right: 0.625em;
+  width: 1.563em;
+}
+
+.user-profile-name {
+  cursor: pointer;
+  font-size: 0.875em;
+  margin-right: 0.625em;
 }
 
 .page-container {
@@ -51,6 +84,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 4em;
 }
 
 .heading-text {
@@ -83,7 +117,6 @@ input {
   align-items: center;
   justify-content: center;
   padding: 0.3em;
-  cursor: pointer;
   row-gap: 1em;
   box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
 }
@@ -146,10 +179,14 @@ input {
   height: 4em !important;
   font-weight: 600;
   background: transparent;
+  position: fixed;
+  bottom: 1%;
+  right: 17%;
+  z-index: 5;
 }
 
 .workouts-nav {
-  width: 20em;
+  width: 23em;
   height: 3em;
   background: #353131;
   border-radius: 5em;
@@ -157,10 +194,11 @@ input {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1em;
+  cursor: pointer;
 }
 
 .workout-nav-item-left {
-  width: 9em;
+  width: 11.5em;
   height: 100%;
   display: flex;
   align-items: center;
@@ -170,15 +208,10 @@ input {
   padding-left: 1em;
 }
 
-.workout-nav-item-mid {
-  width: 9em;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  padding-left: 1em;
-  padding-right: 1em;
-  justify-content: center;
+.workout-nav-item-left:hover,
+.workout-nav-item-right:hover {
+  border-radius: 5em;
+  background-color: #343d45;
 }
 
 .workout-nav-active {
@@ -187,7 +220,7 @@ input {
 }
 
 .workout-nav-item-right {
-  width: 9em;
+  width: 11.5em;
   height: 100%;
   display: flex;
   align-items: center;
@@ -206,8 +239,8 @@ input {
   column-gap: 1em;
   padding: 0.1em;
   justify-content: center;
-  margin-bottom: 1em;
-  margin-top: 0.8em;
+  margin-bottom: 6em;
+  margin-top: 1.5em;
 }
 
 .workout-card {
@@ -345,6 +378,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 8em;
   row-gap: 2em;
 }
 
@@ -574,6 +608,14 @@ input {
 
   .exercise-mini-form-holder {
     margin-top: 1em;
+  }
+
+  .custom-hiit-btn {
+    right: 2%;
+  }
+
+  .exercise-content {
+    margin-top: 3em;
   }
 }
 
