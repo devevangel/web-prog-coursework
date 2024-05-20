@@ -10,6 +10,7 @@ const exerciseMiniCardTemplate = document.querySelector('#exercise-mini-card');
 
 let submitBtn;
 let addExerciseBtn;
+let addRestBtn;
 let exercises = [];
 let workoutInfo = {
   title: '',
@@ -26,10 +27,6 @@ let exerciseFormClone;
 let isEdit = false;
 let activityToEditId;
 
-let exerciseName;
-let exerciseGuide;
-let exerciseDuration;
-
 async function getAllExercisesForWorkout() {
   const result = await fetchData(`http://localhost:8080/exercises/${appState.state.workout.id}`);
   return result.exercises;
@@ -44,6 +41,10 @@ function handleDeleteExercise(clonedNode, id) {
 }
 
 function handleEditExercise(exercise) {
+  const exerciseName = exerciseFormClone.querySelector('.exercise-name');
+  const exerciseGuide = exerciseFormClone.querySelector('.exercise-guide');
+  const exerciseDuration = exerciseFormClone.querySelector('.exercise-duration');
+
   addExerciseBtn.textContent = 'Save Edit';
   exerciseName.value = exercise.title;
   exerciseDuration.value = exercise.duration;
@@ -88,9 +89,9 @@ function handleAddActivity() {
     exerciseFormInfoTextWdiget.textContent = '';
   }
 
-  exerciseName = exerciseFormClone.querySelector('.exercise-name');
-  exerciseGuide = exerciseFormClone.querySelector('.exercise-guide');
-  exerciseDuration = exerciseFormClone.querySelector('.exercise-duration');
+  const exerciseName = exerciseFormClone.querySelector('.exercise-name');
+  const exerciseGuide = exerciseFormClone.querySelector('.exercise-guide');
+  const exerciseDuration = exerciseFormClone.querySelector('.exercise-duration');
 
   if (exerciseName.value.length === 0 || exerciseGuide.value.length === 0 || Number(exerciseDuration.value) === 0) {
     exerciseFormInfoTextWdiget.classList.add('error-text');
@@ -129,6 +130,18 @@ function handleAddActivity() {
     clearPrevMiniCards();
     renderAddedActivities();
   }
+}
+
+function handleAddRestActivity() {
+  exercises.push({
+    id: exercises.length + 1,
+    title: 'Rest',
+    directions: 'Take some rest',
+    duration: 1,
+  });
+
+  clearPrevMiniCards();
+  renderAddedActivities();
 }
 
 function getTotalWorkoutDuration() {
@@ -236,6 +249,7 @@ async function mountCreateWorkoutPage() {
   exerciseFormInfoTextWdiget = exerciseFormClone.querySelector('.form-info-text-exercise');
   submitBtn = exerciseFormClone.querySelector('.create-workout-btn');
   addExerciseBtn = exerciseFormClone.querySelector('.add-exercise-btn');
+  addRestBtn = exerciseFormClone.querySelector('.add-rest-btn');
 
   if (appState.state.path === '/edit') {
     await setupEditView();
@@ -244,6 +258,7 @@ async function mountCreateWorkoutPage() {
 
   submitBtn.addEventListener('click', handleCreateHiit);
   addExerciseBtn.addEventListener('click', handleAddActivity);
+  addRestBtn.addEventListener('click', handleAddRestActivity);
   createWorkoutPage.append(workoutFormClone, exerciseFormClone);
   createWorkoutPage.classList.remove('hide');
 }
