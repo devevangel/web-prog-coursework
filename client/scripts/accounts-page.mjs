@@ -15,8 +15,8 @@ async function getAccountsData() {
 }
 
 function mountPageView() {
-  pageHeading.classList.add('heading-text');
-  pageContent.classList.add('profiles-list-container');
+  pageHeading.classList.add('heading-text', 'clone');
+  pageContent.classList.add('profiles-list-container', 'clone');
   pageHeading.textContent = 'Select a user account profile';
   usersAccountsPage.appendChild(pageHeading);
   usersAccountsPage.appendChild(pageContent);
@@ -27,7 +27,6 @@ function handleAccountProfileClick(account) {
   appState.upateState('path', '/workout');
   appState.upateState('appPath', '/account/workout');
   window.history.pushState(null, null, '/workout');
-  unmountAccountPage();
   mountPageRouter();
 }
 
@@ -57,14 +56,6 @@ function mountAccountListView(accounts) {
     // Appending html to DOM
     pageContent.appendChild(acctCardClone);
     profileCards.push(acctCardClone);
-  });
-}
-
-function unmountAccountPage() {
-  usersAccountsPage.classList.add('hide');
-  profileCards.forEach(card => {
-    card.removeEventListener('click', handleAccountProfileClick);
-    card.remove();
   });
 }
 

@@ -183,7 +183,6 @@ function moveBackToWokroutsPage() {
   appState.upateState('path', '/workout');
   appState.upateState('appPath', '/account/workout');
   window.history.pushState(null, null, '/workout');
-  unmountCreateWorkoutPage();
   mountPageRouter();
 }
 
@@ -331,15 +330,6 @@ async function mountCreateWorkoutPage() {
   addRestBtn.addEventListener('click', handleAddRestActivity);
   createWorkoutPage.append(workoutFormClone, exerciseFormClone);
   createWorkoutPage.classList.remove('hide');
-}
-
-
-export function unmountCreateWorkoutPage() {
-  workoutFormClone.remove();
-  exerciseFormClone.remove();
-  clearPrevMiniCards();
-  exercises = [];
-  createWorkoutPage.classList.add('hide');
 }
 
 export function setupCreateWorkoutPage() {

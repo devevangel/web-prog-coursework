@@ -152,7 +152,6 @@ function exitWorkout() {
   window.history.pushState(null, null, '/workout');
   timerSound.pause();
   timerSound.currentTime = 0;
-  unmountExercisePage();
   mountPageRouter();
 }
 
@@ -180,7 +179,6 @@ function setCurrentExerciseView() {
 
 
 function mountPageView() {
-  unmountExercisePage();
   exerciseViewClone = exerciseViewTemplate.content.cloneNode(true).firstElementChild;
   const workoutName = exerciseViewClone.querySelector('.workout-name-text');
   exerciseNameWidget = exerciseViewClone.querySelector('.exercise-name-text');
@@ -208,19 +206,6 @@ function mountPageView() {
   exercisePage.classList.remove('hide');
 }
 
-export function unmountExercisePage() {
-  clearInterval(timerInterval);
-  clearInterval(countDownInterval);
-  exercisePage.classList.add('hide');
-  if (exerciseViewClone) {
-    exerciseViewClone.remove();
-    exercisePage.innerHTML = '';
-  }
-
-  if (isTimerPaused || isTimerStarted) {
-    resetTimer();
-  }
-}
 
 export function mountExercisePage() {
   exercisePage.classList.remove('hide');

@@ -1,14 +1,17 @@
 import { setupAccountPage } from './accounts-page.mjs';
 import {
   setupPublicUserWorkoutPage,
-  unmountPublicUserWorkoutPage,
 } from './workout-page.mjs';
-import { setupExercisePage, unmountExercisePage } from './exercise-page.mjs';
-import { setupCreateWorkoutPage, unmountCreateWorkoutPage } from './create-edit-page.mjs';
+import { setupExercisePage } from './exercise-page.mjs';
+import { setupCreateWorkoutPage } from './create-edit-page.mjs';
 import appState from '../state.mjs';
+
+const appLogo = document.querySelector('.appbar-menu-container');
 
 
 export function mountPageRouter() {
+  cleanAppUI();
+  handleToggleAppNav();
   switch (appState.state.path) {
     case '/account':
       setupAccountPage();
@@ -46,7 +49,6 @@ export function handleBrowserBackBtnClick() {
       appState.upateState('appPath', '/account');
       appState.upateState('user', {});
       window.history.pushState(null, null, '/account');
-      unmountPublicUserWorkoutPage();
       mountPageRouter();
       break;
     case '/account/workout/exercise':
@@ -54,7 +56,6 @@ export function handleBrowserBackBtnClick() {
       appState.upateState('appPath', '/account/workout');
       appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
-      unmountExercisePage();
       mountPageRouter();
       break;
     case '/account/workout/create':
@@ -62,7 +63,6 @@ export function handleBrowserBackBtnClick() {
       appState.upateState('appPath', '/account/workout');
       appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
-      unmountCreateWorkoutPage();
       mountPageRouter();
       break;
     case '/account/workout/edit':
@@ -70,7 +70,6 @@ export function handleBrowserBackBtnClick() {
       appState.upateState('appPath', '/account/workout');
       appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
-      unmountCreateWorkoutPage();
       mountPageRouter();
       break;
     default:
@@ -81,4 +80,31 @@ export function handleBrowserBackBtnClick() {
       mountPageRouter();
       break;
   }
+}
+
+function handleToggleAppNav() {
+  const navBar = document.querySelector('.app-nav-container');
+  if (appState.state.path === '/account') {
+    navBar.classList.add('hide');
+  } else {
+    navBar.classList.remove('hide');
+  }
+}
+
+appLogo.addEventListener('click', goToWorkoutPage);
+
+function cleanAppUI() {
+  const clones = document.querySelectorAll('.clone');
+  const pages = document.querySelectorAll('.page-container');
+  pages.forEach((page) => page.classList.add('hide'));
+  clones.forEach((clone) => clone.remove());
+}
+
+
+function goToWorkoutPage() {
+  cleanAppUI();
+  appState.upateState('path', '/workout');
+  appState.upateState('appPath', '/account/workout');
+  window.history.pushState(null, null, '/workout');
+  mountPageRouter();
 }

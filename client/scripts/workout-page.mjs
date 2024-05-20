@@ -58,17 +58,12 @@ function moveToCreateWorkout() {
   appState.upateState('path', '/create');
   appState.upateState('appPath', '/account/workout/create');
   window.history.pushState(null, null, '/create');
-  unmountPublicUserWorkoutPage();
   mountPageRouter();
 }
 
 function mountPageView() {
-  if (workoutPageNavClone) {
-    unmountPublicUserWorkoutPage();
-  }
-
   workoutPageNavClone = workoutPageNavTemplate.content.cloneNode(true).firstElementChild;
-  workoutListContainer.classList.add('workout-list');
+  workoutListContainer.classList.add('workout-list', 'clone');
   userWorkoutPage.append(workoutPageNavClone, workoutListContainer);
   const createHiitBtn = workoutPageNavClone.querySelector('.custom-hiit-btn');
 
@@ -87,7 +82,6 @@ function handleOpenWorkout(workout) {
   appState.upateState('path', '/exercise');
   appState.upateState('appPath', '/account/workout/exercise');
   window.history.pushState(null, null, '/exercise');
-  unmountPublicUserWorkoutPage();
   mountPageRouter();
 }
 
@@ -96,7 +90,6 @@ function moveToEditWorkout(workout) {
   appState.upateState('path', '/edit');
   appState.upateState('appPath', '/account/workout/edit');
   window.history.pushState(null, null, '/edit');
-  unmountPublicUserWorkoutPage();
   mountPageRouter();
 }
 
@@ -242,15 +235,6 @@ function clearPrevUICardClones() {
       clone.remove();
     });
   }
-}
-
-
-export function unmountPublicUserWorkoutPage() {
-  workoutListContainer.remove();
-  workoutPageNavClone.remove();
-  userWorkoutPage.innerHTML = '';
-  clearPrevUICardClones();
-  userWorkoutPage.classList.add('hide');
 }
 
 export function mountPublicserWorkoutPage() {
