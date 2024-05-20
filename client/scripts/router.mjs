@@ -7,6 +7,9 @@ import { setupCreateWorkoutPage } from './create-edit-page.mjs';
 import appState from '../state.mjs';
 
 const appLogo = document.querySelector('.appbar-menu-container');
+const logoutBtn = document.querySelector('.logout-btn');
+const userDisplayName = document.querySelector('.user-profile-name');
+const userDisplayPic = document.querySelector('.user-profile-image');
 
 
 export function mountPageRouter() {
@@ -87,17 +90,21 @@ function handleToggleAppNav() {
   if (appState.state.path === '/account') {
     navBar.classList.add('hide');
   } else {
+    handleSetSelectUser();
     navBar.classList.remove('hide');
   }
 }
-
-appLogo.addEventListener('click', goToWorkoutPage);
 
 function cleanAppUI() {
   const clones = document.querySelectorAll('.clone');
   const pages = document.querySelectorAll('.page-container');
   pages.forEach((page) => page.classList.add('hide'));
   clones.forEach((clone) => clone.remove());
+}
+
+function handleSetSelectUser() {
+  userDisplayName.textContent = appState.state.user.first_name;
+  userDisplayPic.src = appState.state.user.profile_img;
 }
 
 
@@ -108,3 +115,15 @@ function goToWorkoutPage() {
   window.history.pushState(null, null, '/workout');
   mountPageRouter();
 }
+
+function handleLogout() {
+  appState.upateState('path', '/account');
+  appState.upateState('appPath', '/account');
+  appState.upateState('user', {});
+  window.history.pushState(null, null, '/account');
+  mountPageRouter();
+}
+
+
+appLogo.addEventListener('click', goToWorkoutPage);
+logoutBtn.addEventListener('click', handleLogout);

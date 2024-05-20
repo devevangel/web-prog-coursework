@@ -29,10 +29,6 @@ class AppState {
       };
     }
   }
-
-  viewState() {
-    console.log(this.state);
-  }
 }
 
 const appState = new AppState();

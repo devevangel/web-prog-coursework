@@ -11,8 +11,9 @@
 <link rel="stylesheet" href="styles.css" />
 <title>AIM</title>
 <script type="module" src="scripts/index.mjs" defer></script>
+<script type="module" src="scripts/firebase.mjs" defer></script>
 
-<nav class="app-nav-container">
+<nav class="app-nav-container hide">
   <aside class="appbar-menu-container">❚█══█❚ AIM</aside>
   <aside class="user-profile-container">
     <img
@@ -21,10 +22,10 @@
       src="https://robohash.org/dfsgd"
     />
     <span class="user-profile-name">Evangel</span>
-    <button class="generic-btn">Logout</button>
+    <button class="generic-btn logout-btn">Logout</button>
   </aside>
 </nav>
-<section class="page-container user-accounts hide"></section>
+<section class="page-container auth-page hide"></section>
 <section class="page-container public-user-workouts hide"></section>
 <section class="page-container exercise-page hide"></section>
 <section class="page-container create-workout-page hide"></section>
@@ -68,8 +69,6 @@
     <aside class="profile-detials-container">
       <p class="proile-card-text acct-name"></p>
       <p class="proile-card-text acct-email"></p>
-      <p class="proile-card-text acct-followers"></p>
-      <p class="proile-card-text acct-workout"></p>
     </aside>
     <button class="generic-btn select-account-btn">Select</button>
   </span>
@@ -197,4 +196,10 @@
       <button class="generic-btn create-workout-btn">Save Workout</button>
     </aside>
   </section>
+</template>
+
+<template id="google-auth-template">
+  <button class="login-with-google-btn generic-btn clone">
+    Signin With Google
+  </button>
 </template>

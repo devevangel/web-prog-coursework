@@ -4,9 +4,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-
 // Routes
-import accountRouter from './routes/account.js';
 import workoutRouter from './routes/workout.js';
 import exerciseRouter from './routes/exercise.js';
 
@@ -18,7 +16,6 @@ app.use(express.static('client', { extensions: ['html'] }));
 app.use(express.json());
 
 // Mounted routes
-app.use('/accounts', accountRouter);
 app.use('/workouts', workoutRouter);
 app.use('/exercises', exerciseRouter);
 

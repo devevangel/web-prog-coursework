@@ -56,6 +56,14 @@ input {
   font-weight: 700;
 }
 
+.auth-page {
+  width: 100% !important;
+  height: 100vh !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 !important;
+}
+
 .user-profile-container {
   align-items: center;
   display: flex;
@@ -109,7 +117,7 @@ input {
 
 .profile-card {
   width: 20em;
-  height: 25em;
+  height: 18em;
   border-radius: 0.8em;
   background: #343d45;
   display: flex;
