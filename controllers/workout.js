@@ -3,7 +3,7 @@ import uuid from 'uuid-random';
 import dbConn from '../db.js';
 import { currentTime } from '../utils.js';
 
-import { addExercisesToWorkout, deleteWorkoutExercises } from './exercise.js';
+import { addExercisesToWorkout, deleteExercises, deleteWorkoutExercises, updateExercises } from './exercise.js';
 
 export async function listWorkouts(req, res) {
   try {
@@ -227,6 +227,55 @@ export async function lockWorkout(req, res) {
     res.status(400).json({
       status: 'error',
       message: `Could not make workout ${status}`,
+    });
+  }
+}
+
+export async function updateWorkout(req, res) {
+  try {
+    const db = await dbConn;
+    const {
+      id,
+      title,
+      description,
+      targeted_areas,
+      tags,
+      duration,
+      level,
+      is_public,
+      deletedExerciseIds,
+      exercises,
+      newExercises,
+    } = req.body;
+
+    await db.run(
+      'UPDATE workouts SET title = ?, description = ?, targeted_areas = ?, tags = ?, duration = ?, level = ?, is_public = ? WHERE id = ?',
+      [
+        title,
+        description,
+        JSON.stringify(targeted_areas),
+        JSON.stringify(tags),
+        duration,
+        level,
+        is_public,
+        id,
+      ],
+    );
+
+    if (newExercises.length > 0 || deleteExercises.length > 0) {
+      await addExercisesToWorkout(newExercises, id);
+      await deleteExercises(deletedExerciseIds);
+    }
+    await updateExercises(exercises);
+
+    res.status(201).json({
+      status: 'success',
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({
+      status: 'error',
+      message: 'Unable to create workout',
     });
   }
 }

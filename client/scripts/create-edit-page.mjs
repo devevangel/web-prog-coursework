@@ -6,8 +6,9 @@ const createWorkoutPage = document.querySelector('.create-workout-page');
 const createWorkoutFormTemplate = document.querySelector('#hiit-form-template');
 const createExerciseFormTemplate = document.querySelector('#exercise-form-template');
 const exerciseMiniCardTemplate = document.querySelector('#exercise-mini-card');
+const deletedActivityIds = [];
 
-
+let newActivities = [];
 let submitBtn;
 let addExerciseBtn;
 let addRestBtn;
@@ -24,7 +25,8 @@ let workoutFormInfoTextWdiget;
 let exerciseFormInfoTextWdiget;
 let workoutFormClone;
 let exerciseFormClone;
-let isEdit = false;
+let isEditActivity = false;
+let isEditWorkout = false;
 let activityToEditId;
 
 async function getAllExercisesForWorkout() {
@@ -34,6 +36,11 @@ async function getAllExercisesForWorkout() {
 
 
 function handleDeleteExercise(clonedNode, id) {
+  if (isEditWorkout) {
+    deletedActivityIds.push(id);
+    newActivities = newActivities.filter((activityItem) => activityItem.id !== id);
+  }
+
   exercises = exercises.filter((exerciseItem) => exerciseItem.id !== id);
   clonedNode.remove();
   clearPrevMiniCards();
@@ -74,7 +81,7 @@ function renderAddedActivities() {
     });
 
     editExerciseBtn.addEventListener('click', () => {
-      isEdit = true;
+      isEditActivity = true;
       handleEditExercise(exerciseItem);
     });
 
@@ -97,10 +104,18 @@ function handleAddActivity() {
     exerciseFormInfoTextWdiget.classList.add('error-text');
     exerciseFormInfoTextWdiget.textContent = 'activity requires a name, guide and duration';
   } else {
-    if (isEdit) {
-      isEdit = false;
+    if (isEditActivity) {
+      isEditActivity = false;
       addExerciseBtn.textContent = 'Add Exercise';
       exercises.forEach((item) => {
+        if (item.id === activityToEditId) {
+          item.title = exerciseName.value;
+          item.duration = exerciseDuration.value;
+          item.directions = exerciseGuide.value;
+        }
+      });
+
+      newActivities.forEach((item) => {
         if (item.id === activityToEditId) {
           item.title = exerciseName.value;
           item.duration = exerciseDuration.value;
@@ -116,13 +131,29 @@ function handleAddActivity() {
       return;
     }
 
+    if (isEditWorkout) {
+      const newActivityId = new Date();
+      newActivities.push({
+        id: newActivityId,
+        title: exerciseName.value,
+        directions: exerciseGuide.value,
+        duration: exerciseDuration.value,
+      });
+      exercises.push({
+        id: newActivityId,
+        title: exerciseName.value,
+        directions: exerciseGuide.value,
+        duration: exerciseDuration.value,
+      });
+    } else {
+      exercises.push({
+        id: exercises.length + 1,
+        title: exerciseName.value,
+        directions: exerciseGuide.value,
+        duration: exerciseDuration.value,
+      });
+    }
 
-    exercises.push({
-      id: exercises.length + 1,
-      title: exerciseName.value,
-      directions: exerciseGuide.value,
-      duration: exerciseDuration.value,
-    });
 
     exerciseName.value = '';
     exerciseGuide.value = '';
@@ -177,25 +208,26 @@ async function handleCreateHiit() {
     addExerciseBtn.disabled = true;
     submitBtn.textContent = 'saving';
     addExerciseBtn.textContent = 'saving';
-    workoutInfo = {
-      title: title.value,
-      description: description.value,
-      targeted_areas: targetAreas.value.split(','),
-      tags: tags.value.split(','),
-      level: level.value,
-      is_public: isPublic.checked,
-      owner: appState.state.user,
-      duration: getTotalWorkoutDuration(),
-      exercises,
-    };
+    if (isEditWorkout) {
+      isEditWorkout = false;
+      workoutInfo = {
+        id: appState.state.workout.id,
+        title: title.value,
+        description: description.value,
+        targeted_areas: targetAreas.value.split(','),
+        tags: tags.value.split(','),
+        level: level.value,
+        is_public: isPublic.checked,
+        owner: appState.state.user,
+        duration: getTotalWorkoutDuration(),
+        exercises,
+        deletedExerciseIds: deletedActivityIds,
+        newExercises: newActivities,
+      };
+      const res = await postData(`http://localhost:8080/workouts/edit/${appState.state.workout.id}`, workoutInfo, 'PUT');
+      const { status } = res;
 
-
-    await postData('http://localhost:8080/workouts', workoutInfo, 'POST')
-      .then(() => {
-        moveBackToWokroutsPage();
-      }).catch((error) => {
-        console.log(error);
-      }).finally(() => {
+      if (status === 'success') {
         submitBtn.disabled = false;
         addExerciseBtn.disabled = false;
         submitBtn.textContent = 'Save HIIT Workout';
@@ -207,7 +239,44 @@ async function handleCreateHiit() {
         tags.value = '';
         isPublic.value = false;
         clearPrevMiniCards();
-      });
+        moveBackToWokroutsPage();
+      } else {
+        moveBackToWokroutsPage();
+      }
+    } else {
+      workoutInfo = {
+        title: title.value,
+        description: description.value,
+        targeted_areas: targetAreas.value.split(','),
+        tags: tags.value.split(','),
+        level: level.value,
+        is_public: isPublic.checked,
+        owner: appState.state.user,
+        duration: getTotalWorkoutDuration(),
+        exercises,
+      };
+
+      const res = await postData('http://localhost:8080/workouts', workoutInfo, 'POST');
+      const { status } = res;
+
+
+      if (status === 'success') {
+        submitBtn.disabled = false;
+        addExerciseBtn.disabled = false;
+        submitBtn.textContent = 'Save HIIT Workout';
+        addExerciseBtn.textContent = 'Add Exercise';
+        title.value = '';
+        description.value = '';
+        targetAreas.value = '';
+        level.value = 'easy';
+        tags.value = '';
+        isPublic.value = false;
+        clearPrevMiniCards();
+        moveBackToWokroutsPage();
+      } else {
+        moveBackToWokroutsPage();
+      }
+    }
   }
 }
 
@@ -253,6 +322,7 @@ async function mountCreateWorkoutPage() {
 
   if (appState.state.path === '/edit') {
     await setupEditView();
+    isEditWorkout = true;
   }
 
 

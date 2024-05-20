@@ -53,3 +53,24 @@ export async function deleteWorkoutExercises(workoutId) {
   const db = await dbConn;
   await db.run('DELETE FROM exercises WHERE workout_id = ?', workoutId);
 }
+
+export async function deleteExercises(exerciseIds) {
+  const db = await dbConn;
+  exerciseIds.forEach(async (id) => {
+    await db.run('DELETE FROM exercises WHERE id = ?', id);
+  });
+}
+
+
+export async function updateExercises(exercises) {
+  const db = await dbConn;
+  exercises.forEach(async (exercise) => {
+    const { id, title, directions, duration } = exercise;
+    await db.run('UPDATE exercises SET title = ?, directions = ?, duration = ? WHERE id = ?', [
+      title,
+      directions,
+      duration,
+      id,
+    ]);
+  });
+}
