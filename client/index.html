@@ -9,7 +9,7 @@
   rel="stylesheet"
 />
 <link rel="stylesheet" href="styles.css" />
-<title>Arm Strong</title>
+<title>AIM</title>
 <script type="module" src="scripts/index.mjs" defer></script>
 
 <nav class="app-nav-container">
@@ -111,9 +111,16 @@
 
 <template id="exercise-mini-card">
   <section class="exercise-mini-card">
-    <p class="mini-card-title"></p>
-    <p class="mini-card-duration"></p>
-    <span class="remove-mini-exercise-btn">🗑️</span>
+    <p class="mini-card-title" title="activity title"></p>
+    <p class="mini-card-duration" title="activity duration"></p>
+    <aside class="mini-btn-holder">
+      <span class="mini-exercise-btn edit-mini-btn" title="edit activity"
+        >✏️</span
+      >
+      <span class="mini-exercise-btn delete-mini-btn" title="delete activity"
+        >🗑️</span
+      >
+    </aside>
   </section>
 </template>
 

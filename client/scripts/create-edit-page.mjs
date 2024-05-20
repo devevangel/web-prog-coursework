@@ -7,6 +7,7 @@ const createWorkoutFormTemplate = document.querySelector('#hiit-form-template');
 const createExerciseFormTemplate = document.querySelector('#exercise-form-template');
 const exerciseMiniCardTemplate = document.querySelector('#exercise-mini-card');
 
+
 let submitBtn;
 let addExerciseBtn;
 let exercises = [];
@@ -22,6 +23,12 @@ let workoutFormInfoTextWdiget;
 let exerciseFormInfoTextWdiget;
 let workoutFormClone;
 let exerciseFormClone;
+let isEdit = false;
+let activityToEditId;
+
+let exerciseName;
+let exerciseGuide;
+let exerciseDuration;
 
 async function getAllExercisesForWorkout() {
   const result = await fetchData(`http://localhost:8080/exercises/${appState.state.workout.id}`);
@@ -36,6 +43,14 @@ function handleDeleteExercise(clonedNode, id) {
   renderAddedActivities();
 }
 
+function handleEditExercise(exercise) {
+  addExerciseBtn.textContent = 'Save Edit';
+  exerciseName.value = exercise.title;
+  exerciseDuration.value = exercise.duration;
+  exerciseGuide.value = exercise.directions;
+  activityToEditId = exercise.id;
+}
+
 function clearPrevMiniCards() {
   const miniCards = document.querySelectorAll('.exercise-mini-card');
   miniCards.forEach((miniCard) => miniCard.remove());
@@ -47,13 +62,19 @@ function renderAddedActivities() {
     const exerciseMiniCardClone = exerciseMiniCardTemplate.content.cloneNode(true).firstElementChild;
     const title = exerciseMiniCardClone.querySelector('.mini-card-title');
     const duration = exerciseMiniCardClone.querySelector('.mini-card-duration');
-    const deleteExerciseBtn = exerciseMiniCardClone.querySelector('.remove-mini-exercise-btn');
+    const editExerciseBtn = exerciseMiniCardClone.querySelector('.edit-mini-btn');
+    const deleteExerciseBtn = exerciseMiniCardClone.querySelector('.delete-mini-btn');
 
     title.textContent = exerciseItem.title;
-    duration.textContent = `Duration: ${exerciseItem.duration}`;
+    duration.textContent = `Duration(mins): ${exerciseItem.duration}`;
 
     deleteExerciseBtn.addEventListener('click', () => {
       handleDeleteExercise(exerciseMiniCardClone, exerciseItem.id);
+    });
+
+    editExerciseBtn.addEventListener('click', () => {
+      isEdit = true;
+      handleEditExercise(exerciseItem);
     });
 
     listHolder.append(exerciseMiniCardClone);
@@ -67,14 +88,34 @@ function handleAddActivity() {
     exerciseFormInfoTextWdiget.textContent = '';
   }
 
-  const exerciseName = exerciseFormClone.querySelector('.exercise-name');
-  const exerciseGuide = exerciseFormClone.querySelector('.exercise-guide');
-  const exerciseDuration = exerciseFormClone.querySelector('.exercise-duration');
+  exerciseName = exerciseFormClone.querySelector('.exercise-name');
+  exerciseGuide = exerciseFormClone.querySelector('.exercise-guide');
+  exerciseDuration = exerciseFormClone.querySelector('.exercise-duration');
 
   if (exerciseName.value.length === 0 || exerciseGuide.value.length === 0 || Number(exerciseDuration.value) === 0) {
     exerciseFormInfoTextWdiget.classList.add('error-text');
     exerciseFormInfoTextWdiget.textContent = 'activity requires a name, guide and duration';
   } else {
+    if (isEdit) {
+      isEdit = false;
+      addExerciseBtn.textContent = 'Add Exercise';
+      exercises.forEach((item) => {
+        if (item.id === activityToEditId) {
+          item.title = exerciseName.value;
+          item.duration = exerciseDuration.value;
+          item.directions = exerciseGuide.value;
+        }
+      });
+
+      exerciseName.value = '';
+      exerciseGuide.value = '';
+      exerciseDuration.value = 1;
+      clearPrevMiniCards();
+      renderAddedActivities();
+      return;
+    }
+
+
     exercises.push({
       id: exercises.length + 1,
       title: exerciseName.value,
