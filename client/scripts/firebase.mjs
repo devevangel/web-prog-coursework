@@ -33,7 +33,6 @@ export async function handleSignInWithGoogle() {
     };
 
     handleSetAccountProfile(userData);
-    console.log(userData);
   } catch (error) {
     console.log(error.message);
   }

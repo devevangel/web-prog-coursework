@@ -25,6 +25,8 @@ let countDownWidget;
 let circleProgressBar;
 let exerciseGuideWidget;
 let deltaPercentage = 0;
+let prevExerciseTextWidget;
+let nextExerciseTextWidget;
 
 
 async function getAllExercisesForWorkout() {
@@ -43,7 +45,7 @@ function startTimer() {
     currentExercise = exerciseListCopy[0];
     currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
     setCurrentExerciseView();
-    timerInterval = setInterval(calcTime, 1000);
+    timerInterval = setInterval(calcTime, 100);
     startBtn.textContent = 'Pause ⏸️';
     return;
   }
@@ -74,6 +76,10 @@ function calcTime() {
   const seconds = time.getSeconds().toString().padStart(2, '0');
   timerWidget.textContent = `${minutes}:${seconds}`;
 
+  if (exerciseListCopy[1]) {
+    nextExerciseTextWidget.textContent = exerciseListCopy[1].title;
+  }
+
   if (currentDurationInMilli <= 0) {
     moveToNextExercise();
   }
@@ -84,6 +90,7 @@ function calcTime() {
 
 function moveToNextExercise() {
   clearInterval(timerInterval);
+  prevExerciseTextWidget.textContent = exerciseListCopy[0].title;
   exerciseListCopy.shift();
   currentExercise = exerciseListCopy[0];
   if (currentExercise && currentExercise.duration) {
@@ -99,10 +106,11 @@ function handleUserFinishWorkout() {
   clearPrevExerciseSteps();
   resetTimer();
   startBtn.textContent = ' Start ▶️';
+  exerciseGuideWidget.textContent = '';
 }
 
 function playPausedTimer() {
-  timerInterval = setInterval(calcTime, 1000);
+  timerInterval = setInterval(calcTime, 100);
 }
 
 function displayWaitTimerToNextExercise() {
@@ -125,7 +133,7 @@ function displayWaitTimerToNextExercise() {
         btn.classList.remove('hide');
       });
       currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
-      timerInterval = setInterval(calcTime, 1000);
+      timerInterval = setInterval(calcTime, 100);
       setCurrentExerciseView();
     }
     count--;
@@ -142,16 +150,17 @@ function resetTimer() {
   isTimerStarted = false;
   timerWidget.textContent = '00:00';
   deltaPercentage = 0;
-  circleProgressBar.style.setProperty('--progress', `${deltaPercentage}%`);
+  circleProgressBar.style.setProperty('--progress', '0%');
   startBtn.textContent = ' Start ▶️';
+  prevExerciseTextWidget.textContent = '';
+  nextExerciseTextWidget.textContent = '';
 }
 
 function exitWorkout() {
   appState.upateState('path', '/workout');
   appState.upateState('appPath', '/account/workout');
   window.history.pushState(null, null, '/workout');
-  timerSound.pause();
-  timerSound.currentTime = 0;
+  resetTimer();
   mountPageRouter();
 }
 
@@ -171,7 +180,7 @@ function clearPrevExerciseSteps() {
 
 function setCurrentExerciseView() {
   clearPrevExerciseSteps();
-  exerciseNameWidget.textContent = `Activity: ${exerciseListCopy[0].title}`;
+  exerciseNameWidget.textContent = `Ongoing Activity: ${currentExercise.title}`;
   if (exerciseListCopy[0].directions && exerciseListCopy[0].directions.length > 0) {
     exerciseGuideWidget.textContent = exerciseListCopy[0].directions;
   }
@@ -191,6 +200,8 @@ function mountPageView() {
   countDownWidget = exerciseViewClone.querySelector('.next-exercise-cd');
   circleProgressBar = exerciseViewClone.querySelector('.circular-progress-bar');
   exerciseGuideWidget = exerciseViewClone.querySelector('.guide-text-container');
+  prevExerciseTextWidget = exerciseViewClone.querySelector('.prev-exercise-text');
+  nextExerciseTextWidget = exerciseViewClone.querySelector('.next-exercise-text');
 
   startBtn.addEventListener('click', () => {
     startTimer();
@@ -202,6 +213,9 @@ function mountPageView() {
 
   workoutName.textContent = appState.state.workout.title;
   exercisePage.append(exerciseViewClone);
+  if (exerciseListCopy[1]) {
+    nextExerciseTextWidget.textContent = exerciseListCopy[1].title;
+  }
   setCurrentExerciseView();
   exercisePage.classList.remove('hide');
 }

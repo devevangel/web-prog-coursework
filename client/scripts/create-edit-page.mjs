@@ -103,87 +103,66 @@ function handleAddActivity() {
   if (exerciseName.value.length === 0 || exerciseGuide.value.length === 0 || Number(exerciseDuration.value) === 0) {
     exerciseFormInfoTextWdiget.classList.add('error-text');
     exerciseFormInfoTextWdiget.textContent = 'activity requires a name, guide and duration';
-  } else {
-    if (isEditActivity) {
-      isEditActivity = false;
-      addExerciseBtn.textContent = 'Add Exercise';
-      exercises.forEach((item) => {
-        if (item.id === activityToEditId) {
-          item.title = exerciseName.value;
-          item.duration = exerciseDuration.value;
-          item.directions = exerciseGuide.value;
-        }
-      });
+    return;
+  }
 
-      newActivities.forEach((item) => {
-        if (item.id === activityToEditId) {
-          item.title = exerciseName.value;
-          item.duration = exerciseDuration.value;
-          item.directions = exerciseGuide.value;
-        }
-      });
 
-      exerciseName.value = '';
-      exerciseGuide.value = '';
-      exerciseDuration.value = 1;
-      clearPrevMiniCards();
-      renderAddedActivities();
-      return;
-    }
+  if (isEditActivity) {
+    isEditActivity = false;
+    addExerciseBtn.textContent = 'Add Exercise';
+    exercises.forEach((item) => {
+      if (item.id === activityToEditId) {
+        item.title = exerciseName.value;
+        item.duration = exerciseDuration.value;
+        item.directions = exerciseGuide.value;
+      }
+    });
 
-    if (isEditWorkout) {
-      const newActivityId = new Date();
-      newActivities.push({
-        id: newActivityId,
-        title: exerciseName.value,
-        directions: exerciseGuide.value,
-        duration: exerciseDuration.value,
-      });
-      exercises.push({
-        id: newActivityId,
-        title: exerciseName.value,
-        directions: exerciseGuide.value,
-        duration: exerciseDuration.value,
-      });
-    } else {
-      exercises.push({
-        id: exercises.length + 1,
-        title: exerciseName.value,
-        directions: exerciseGuide.value,
-        duration: exerciseDuration.value,
-      });
-    }
-
+    newActivities.forEach((item) => {
+      if (item.id === activityToEditId) {
+        item.title = exerciseName.value;
+        item.duration = exerciseDuration.value;
+        item.directions = exerciseGuide.value;
+      }
+    });
 
     exerciseName.value = '';
     exerciseGuide.value = '';
     exerciseDuration.value = 1;
     clearPrevMiniCards();
     renderAddedActivities();
+    return;
   }
-}
 
-function handleAddRestActivity() {
-  exercises.push({
-    id: exercises.length + 1,
-    title: 'Rest',
-    directions: 'Take some rest',
-    duration: 1,
-  });
+  if (isEditWorkout) {
+    const newActivityId = new Date();
+    newActivities.push({
+      id: newActivityId,
+      title: exerciseName.value,
+      directions: exerciseGuide.value,
+      duration: exerciseDuration.value,
+    });
+    exercises.push({
+      id: newActivityId,
+      title: exerciseName.value,
+      directions: exerciseGuide.value,
+      duration: exerciseDuration.value,
+    });
+  } else {
+    exercises.push({
+      id: exercises.length + 1,
+      title: exerciseName.value,
+      directions: exerciseGuide.value,
+      duration: exerciseDuration.value,
+    });
+  }
 
+
+  exerciseName.value = '';
+  exerciseGuide.value = '';
+  exerciseDuration.value = 1;
   clearPrevMiniCards();
   renderAddedActivities();
-}
-
-function getTotalWorkoutDuration() {
-  return exercises.reduce((totalDuration, item) => totalDuration + Number(item.duration), 0);
-}
-
-function moveBackToWokroutsPage() {
-  appState.upateState('path', '/workout');
-  appState.upateState('appPath', '/account/workout');
-  window.history.pushState(null, null, '/workout');
-  mountPageRouter();
 }
 
 async function handleCreateHiit() {
@@ -277,6 +256,30 @@ async function handleCreateHiit() {
       }
     }
   }
+}
+
+
+function handleAddRestActivity() {
+  exercises.push({
+    id: exercises.length + 1,
+    title: 'Rest',
+    directions: 'Take some rest',
+    duration: 1,
+  });
+
+  clearPrevMiniCards();
+  renderAddedActivities();
+}
+
+function getTotalWorkoutDuration() {
+  return exercises.reduce((totalDuration, item) => totalDuration + Number(item.duration), 0);
+}
+
+function moveBackToWokroutsPage() {
+  appState.upateState('path', '/workout');
+  appState.upateState('appPath', '/account/workout');
+  window.history.pushState(null, null, '/workout');
+  mountPageRouter();
 }
 
 function returnBool(val) {

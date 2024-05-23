@@ -25,6 +25,8 @@
     <button class="generic-btn logout-btn">Logout</button>
   </aside>
 </nav>
+
+<section class="page-container exercise-list-page hide"></section>
 <section class="page-container auth-page hide"></section>
 <section class="page-container public-user-workouts hide"></section>
 <section class="page-container exercise-page hide"></section>
@@ -76,8 +78,18 @@
 
 <template id="exercise-view">
   <section class="exercise-content clone">
-    <h3 class="workout-name-text">Workout:</h3>
-    <h4 class="exercise-name-text">Activity:</h4>
+    <h3 class="workout-name-text"></h3>
+    <h4 class="exercise-name-text"></h4>
+
+    <aside class="prev-exercise-holder">
+      <p>Previous Activity</p>
+      <p class="prev-exercise-text center-text"></p>
+    </aside>
+
+    <aside class="next-exercise-holder">
+      <p>Next Activity</p>
+      <p class="next-exercise-text center-text"></p>
+    </aside>
 
     <aside class="about-exercise">
       <h3>Exercise Guide</h3>
@@ -174,6 +186,7 @@
       <textarea
         class="form-input exercise-guide"
         placeholder="exercise guide"
+        maxlength="200"
       ></textarea>
       <label class="form-label">Activity Duration(mins):</label>
       <input
@@ -202,4 +215,20 @@
   <button class="login-with-google-btn generic-btn clone">
     Signin With Google
   </button>
+</template>
+
+<template id="exercise-list-template">
+  <section class="exercise-list-holder">
+    <h3 class="center-text workout-form-heading">Exercise List</h3>
+    <section class="exercise-list-container"></section>
+    <button class="start-workout-btn">start</button>
+  </section>
+</template>
+
+<template class="exercise-item-template">
+  <aside class="exercise-list-item clone">
+    <p class="center-text exercise-item-name-text"></p>
+    <p class="exercise-item-guide-text"></p>
+    <p class="right-text exercise-item-duration-text">minute(s)</p>
+  </aside>
 </template>

@@ -388,6 +388,19 @@ input {
   align-items: center;
   margin-top: 8em;
   row-gap: 2em;
+  position: relative;
+}
+
+.prev-exercise-holder {
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+
+.next-exercise-holder {
+  position: absolute;
+  right: 0;
+  top: 50%;
 }
 
 .workout-btn-controls {
@@ -456,6 +469,32 @@ input {
   left: 0;
 }
 
+.exercise-list-page {
+  margin-top: 2em;
+}
+
+.exercise-list-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+  align-items: center;
+  margin-top: 0.5em;
+}
+
+.exercise-list-item {
+  width: 80%;
+  background-color: #42484d;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
+  height: fit-content;
+  min-height: 5em;
+  border-radius: 1em;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+
 .done {
   background-color: ghostwhite;
 }
@@ -479,12 +518,24 @@ input {
   animation: shrinkAnimation 5s 5s forwards;
 }
 
+.prev-exercise-text {
+  color: #e4745d;
+}
+
+.next-exercise-text {
+  color: #e4745d;
+}
+
 .center-text {
   text-align: center;
 }
 
 .left-text {
   text-align: left;
+}
+
+.right-text {
+  text-align: right;
 }
 
 .border-right {
@@ -495,12 +546,16 @@ input {
   border-left: 0.1em;
 }
 
-.right-text {
-  text-align: right;
+.exercise-list-holder {
+  margin-top: 2em;
 }
 
 .form-info-text {
   margin-bottom: 0.3em;
+}
+
+.exercise-item-duration-text {
+  color: #38ce0a;
 }
 
 .form-container {
