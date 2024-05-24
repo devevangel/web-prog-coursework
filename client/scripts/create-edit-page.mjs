@@ -29,12 +29,21 @@ let isEditActivity = false;
 let isEditWorkout = false;
 let activityToEditId;
 
+/**
+ * Retrieves all exercises associated with a workout.
+ * @returns {Promise<Array>} - A promise that resolves to an array of exercise objects.
+ */
 async function getAllExercisesForWorkout() {
   const result = await fetchData(`http://localhost:8080/exercises/${appState.state.workout.id}`);
   return result.exercises;
 }
 
 
+/**
+ * Handles the deletion of an exercise from the workout.
+ * @param {HTMLElement} clonedNode - The cloned DOM node representing the exercise mini card.
+ * @param {string} id - The ID of the exercise to be deleted.
+ */
 function handleDeleteExercise(clonedNode, id) {
   if (isEditWorkout) {
     deletedActivityIds.push(id);
@@ -47,6 +56,10 @@ function handleDeleteExercise(clonedNode, id) {
   renderAddedActivities();
 }
 
+/**
+ * Handles editing an existing exercise.
+ * @param {Object} exercise - The exercise object to be edited.
+ */
 function handleEditExercise(exercise) {
   const exerciseName = exerciseFormClone.querySelector('.exercise-name');
   const exerciseGuide = exerciseFormClone.querySelector('.exercise-guide');
@@ -59,11 +72,17 @@ function handleEditExercise(exercise) {
   activityToEditId = exercise.id;
 }
 
+/**
+ * Clears previously rendered exercise mini cards.
+ */
 function clearPrevMiniCards() {
   const miniCards = document.querySelectorAll('.exercise-mini-card');
   miniCards.forEach((miniCard) => miniCard.remove());
 }
 
+/**
+ * Renders added activities (exercise mini cards) on the form.
+ */
 function renderAddedActivities() {
   const listHolder = exerciseFormClone.querySelector('.exercise-mini-holder');
   exercises.forEach((exerciseItem) => {
@@ -89,6 +108,9 @@ function renderAddedActivities() {
   });
 }
 
+/**
+ * Handles the addition of a new activity (exercise) to the workout.
+ */
 function handleAddActivity() {
   if (exerciseFormInfoTextWdiget) {
     exerciseFormInfoTextWdiget.classList.remove('error-text');
@@ -165,6 +187,9 @@ function handleAddActivity() {
   renderAddedActivities();
 }
 
+/**
+ * Handles the creation or editing of a HIIT workout.
+ */
 async function handleCreateHiit() {
   if (workoutFormInfoTextWdiget) {
     workoutFormInfoTextWdiget.classList.remove('error-text');
@@ -258,7 +283,9 @@ async function handleCreateHiit() {
   }
 }
 
-
+/**
+ * Handles the addition of a rest activity to the workout.
+ */
 function handleAddRestActivity() {
   exercises.push({
     id: exercises.length + 1,
@@ -271,10 +298,17 @@ function handleAddRestActivity() {
   renderAddedActivities();
 }
 
+/**
+ * Calculates the total duration of the workout based on the durations of individual exercises.
+ * @returns {number} - The total duration of the workout in minutes.
+ */
 function getTotalWorkoutDuration() {
   return exercises.reduce((totalDuration, item) => totalDuration + Number(item.duration), 0);
 }
 
+/**
+ * Redirects the user back to the workouts page.
+ */
 function moveBackToWokroutsPage() {
   appState.upateState('path', '/workout');
   appState.upateState('appPath', '/account/workout');
@@ -282,12 +316,20 @@ function moveBackToWokroutsPage() {
   mountPageRouter();
 }
 
+/**
+ * Converts a numerical value to a boolean.
+ * @param {number} val - The numerical value to be converted.
+ * @returns {boolean} - The converted boolean value.
+ */
 function returnBool(val) {
   if (val === 1) return true;
 
   if (val === 0) return false;
 }
 
+/**
+ * Sets up the edit view for an existing workout.
+ */
 async function setupEditView() {
   exercises = await getAllExercisesForWorkout();
   const workoutToEdit = appState.state.workout;
@@ -313,6 +355,9 @@ async function setupEditView() {
   isPublic.checked = returnBool(workoutToEdit.is_public);
 }
 
+/**
+ * Mounts the create workout page, including form elements and event listeners.
+ */
 async function mountCreateWorkoutPage() {
   workoutFormClone = createWorkoutFormTemplate.content.cloneNode(true).firstElementChild;
   exerciseFormClone = createExerciseFormTemplate.content.cloneNode(true).firstElementChild;
@@ -335,6 +380,9 @@ async function mountCreateWorkoutPage() {
   createWorkoutPage.classList.remove('hide');
 }
 
+/**
+ * Sets up the create workout page.
+ */
 export function setupCreateWorkoutPage() {
   mountCreateWorkoutPage();
 }

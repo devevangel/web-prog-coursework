@@ -18,6 +18,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
+/**
+ * Handles signing in with Google authentication provider.
+ * @returns {Promise<void>} - A promise that resolves when the sign-in process is complete.
+ */
 export async function handleSignInWithGoogle() {
   try {
     const result = await signInWithPopup(auth, provider);

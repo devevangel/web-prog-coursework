@@ -2,6 +2,12 @@ import uuid from 'uuid-random';
 import { currentTime } from '../utils.js';
 import dbConn from '../db.js';
 
+/**
+ * Handler for listing exercises of a workout.
+ * Retrieves all exercises associated with a specific workout from the database.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function listExercises(req, res) {
   try {
     const db = await dbConn;
@@ -22,6 +28,11 @@ export async function listExercises(req, res) {
 }
 
 
+/**
+ * Adds a list of exercises to a workout in the database.
+ * @param {Array} exercises - List of exercises to be added.
+ * @param {string} workoutId - ID of the workout to which the exercises will be added.
+ */
 export async function addExercisesToWorkout(exercises, workoutId) {
   const db = await dbConn;
 
@@ -49,11 +60,19 @@ export async function addExercisesToWorkout(exercises, workoutId) {
   });
 }
 
+/**
+ * Deletes all exercises associated with a specific workout from the database.
+ * @param {string} workoutId - ID of the workout whose exercises will be deleted.
+ */
 export async function deleteWorkoutExercises(workoutId) {
   const db = await dbConn;
   await db.run('DELETE FROM exercises WHERE workout_id = ?', workoutId);
 }
 
+/**
+ * Deletes a list of exercises from the database based on their IDs.
+ * @param {Array} exerciseIds - List of exercise IDs to be deleted.
+ */
 export async function deleteExercises(exerciseIds) {
   const db = await dbConn;
   exerciseIds.forEach(async (id) => {
@@ -61,7 +80,10 @@ export async function deleteExercises(exerciseIds) {
   });
 }
 
-
+/**
+ * Updates the details of a list of exercises in the database.
+ * @param {Array} exercises - List of exercises with updated details.
+ */
 export async function updateExercises(exercises) {
   const db = await dbConn;
   exercises.forEach(async (exercise) => {

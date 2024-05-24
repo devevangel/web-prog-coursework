@@ -5,6 +5,12 @@ import { currentTime } from '../utils.js';
 
 import { addExercisesToWorkout, deleteExercises, deleteWorkoutExercises, updateExercises } from './exercise.js';
 
+/**
+ * Handler for listing public workouts.
+ * Retrieves all public workouts from the database and sends them as a JSON response.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function listWorkouts(req, res) {
   try {
     const db = await dbConn;
@@ -33,6 +39,12 @@ export async function listWorkouts(req, res) {
   }
 }
 
+/**
+ * Handler for listing private workouts of a specific user.
+ * Retrieves private workouts belonging to the specified user from the database and sends them as a JSON response.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function listMyWorkouts(req, res) {
   try {
     const { ownerId } = req.params;
@@ -73,6 +85,12 @@ export async function listMyWorkouts(req, res) {
   }
 }
 
+/**
+ * Handler for creating a new workout.
+ * Inserts a new workout into the database and associates it with exercises provided in the request body.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function createWorkout(req, res) {
   try {
     const db = await dbConn;
@@ -137,6 +155,12 @@ export async function createWorkout(req, res) {
   }
 }
 
+/**
+ * Handler for deleting a workout.
+ * Deletes the specified workout from the database.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function deleteWorkout(req, res) {
   try {
     const { id } = req.params;
@@ -157,6 +181,12 @@ export async function deleteWorkout(req, res) {
   }
 }
 
+/**
+ * Handler for liking or unliking a workout.
+ * Updates the like status of the specified workout and sends the updated workout as a JSON response.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function likeWorkout(req, res) {
   try {
     const { userId, action } = req.body;
@@ -201,6 +231,12 @@ export async function likeWorkout(req, res) {
   }
 }
 
+/**
+ * Handler for locking or unlocking a workout.
+ * Updates the visibility status of the specified workout (public or private) and sends the updated workout as a JSON response.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function lockWorkout(req, res) {
   try {
     const { id } = req.params;
@@ -231,6 +267,12 @@ export async function lockWorkout(req, res) {
   }
 }
 
+/**
+ * Handler for updating an existing workout.
+ * Updates the details of the specified workout in the database and its associated exercises.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 export async function updateWorkout(req, res) {
   try {
     const db = await dbConn;

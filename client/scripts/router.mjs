@@ -13,6 +13,9 @@ const userDisplayName = document.querySelector('.user-profile-name');
 const userDisplayPic = document.querySelector('.user-profile-image');
 
 
+/**
+ * Mounts the appropriate page based on the current path state.
+ */
 export function mountPageRouter() {
   cleanAppUI();
   handleToggleAppNav();
@@ -41,13 +44,9 @@ export function mountPageRouter() {
   }
 }
 
-export function loadBrowserUrlState() {
-  appState.upateState('path', '/account');
-  appState.upateState('appPath', '/account');
-  window.history.pushState(null, null, '/account');
-  mountPageRouter();
-}
-
+/**
+ * Handles the click event of the browser's back button.
+ */
 export function handleBrowserBackBtnClick() {
   switch (appState.state.appPath) {
     case '/account/workout':
@@ -77,6 +76,7 @@ export function handleBrowserBackBtnClick() {
     case '/account/workout/edit':
       appState.upateState('path', '/workout');
       appState.upateState('appPath', '/account/workout');
+
       window.history.pushState(null, null, '/workout');
       mountPageRouter();
       break;
@@ -90,6 +90,19 @@ export function handleBrowserBackBtnClick() {
   }
 }
 
+/**
+ * Loads the state of the browser URL and mounts the appropriate page.
+ */
+export function loadBrowserUrlState() {
+  appState.upateState('path', '/account');
+  appState.upateState('appPath', '/account');
+  window.history.pushState(null, null, '/account');
+  mountPageRouter();
+}
+
+/**
+ * Toggles the visibility of the application navigation bar based on the current path state.
+ */
 function handleToggleAppNav() {
   const navBar = document.querySelector('.app-nav-container');
   if (appState.state.path === '/account') {
@@ -100,6 +113,9 @@ function handleToggleAppNav() {
   }
 }
 
+/**
+ * Cleans the UI by removing cloned elements and hiding pages.
+ */
 function cleanAppUI() {
   const clones = document.querySelectorAll('.clone');
   const pages = document.querySelectorAll('.page-container');
@@ -107,12 +123,18 @@ function cleanAppUI() {
   clones.forEach((clone) => clone.remove());
 }
 
+/**
+ * Sets the display name and profile picture of the user in the UI.
+ */
 function handleSetSelectUser() {
   userDisplayName.textContent = appState.state.user.first_name;
   userDisplayPic.src = appState.state.user.profile_img;
 }
 
 
+/**
+ * Navigates to the workout page.
+ */
 function goToWorkoutPage() {
   cleanAppUI();
   appState.upateState('path', '/workout');
@@ -121,6 +143,9 @@ function goToWorkoutPage() {
   mountPageRouter();
 }
 
+/**
+ * Handles the logout action by resetting the path state and user data.
+ */
 function handleLogout() {
   appState.upateState('path', '/account');
   appState.upateState('appPath', '/account');
@@ -129,6 +154,6 @@ function handleLogout() {
   mountPageRouter();
 }
 
-
+// Event listeners
 appLogo.addEventListener('click', goToWorkoutPage);
 logoutBtn.addEventListener('click', handleLogout);

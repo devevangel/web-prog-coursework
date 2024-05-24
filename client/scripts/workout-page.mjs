@@ -12,11 +12,21 @@ let publicWorkoutBtn;
 let privateWorkoutBtn;
 let workoutPageNavClone;
 
+/**
+ * Retrieves all workouts from the server.
+ * @returns {Promise<Array>} A promise that resolves to an array of workouts.
+ */
 async function getAllWorkouts() {
   const data = await fetchData('http://localhost:8080/workouts');
   return data.workouts;
 }
 
+/**
+ * Handles the deletion of a workout.
+ * @param {string} id - The ID of the workout to delete.
+ * @param {HTMLElement} btn - The button element associated with the workout.
+ * @param {HTMLElement} clone - The cloned workout element.
+ */
 async function handleDeleteWorkout(id, btn, clone) {
   const data = await deleteData(`http://localhost:8080/workouts/${id}`);
   const { status } = data;
@@ -28,6 +38,9 @@ async function handleDeleteWorkout(id, btn, clone) {
   btn.textContent = '🗑️';
 }
 
+/**
+ * Retrieves and displays public workouts.
+ */
 async function handleGetPublicWorkouts() {
   privateWorkoutBtn.classList.remove('workout-nav-active');
   publicWorkoutBtn.classList.add('workout-nav-active');
@@ -41,6 +54,9 @@ async function handleGetPublicWorkouts() {
   }
 }
 
+/**
+ * Retrieves and displays private workouts for the current user.
+ */
 async function handleGetPrivateWorkouts() {
   publicWorkoutBtn.classList.remove('workout-nav-active');
   privateWorkoutBtn.classList.add('workout-nav-active');
@@ -53,7 +69,9 @@ async function handleGetPrivateWorkouts() {
   }
 }
 
-
+/**
+ * Navigates to the create workout page.
+ */
 function moveToCreateWorkout() {
   appState.upateState('path', '/create');
   appState.upateState('appPath', '/account/workout/create');
@@ -61,6 +79,9 @@ function moveToCreateWorkout() {
   mountPageRouter();
 }
 
+/**
+ * Mounts the view of the workout page.
+ */
 function mountPageView() {
   workoutPageNavClone = workoutPageNavTemplate.content.cloneNode(true).firstElementChild;
   workoutListContainer.classList.add('workout-list', 'clone');
@@ -77,6 +98,10 @@ function mountPageView() {
   userWorkoutPage.classList.remove('hide');
 }
 
+/**
+ * Handles the opening of a workout.
+ * @param {object} workout - The workout object to open.
+ */
 function handleOpenWorkout(workout) {
   appState.upateState('workout', workout);
   appState.upateState('path', '/view');
@@ -85,6 +110,10 @@ function handleOpenWorkout(workout) {
   mountPageRouter();
 }
 
+/**
+ * Navigates to the edit workout page.
+ * @param {object} workout - The workout object to edit.
+ */
 function moveToEditWorkout(workout) {
   appState.upateState('workout', workout);
   appState.upateState('path', '/edit');
@@ -93,6 +122,11 @@ function moveToEditWorkout(workout) {
   mountPageRouter();
 }
 
+/**
+ * Handles making a workout private or public.
+ * @param {object} workout - The workout object to update.
+ * @param {HTMLElement} lockWidget - The lock widget associated with the workout.
+ */
 async function handleMakeWorkoutPrivateOrPublic(workout, lockWidget) {
   let action;
   const prevLockStatus = lockWidget.textContent;
@@ -117,6 +151,12 @@ async function handleMakeWorkoutPrivateOrPublic(workout, lockWidget) {
   }
 }
 
+/**
+ * Handles liking or unliking a workout.
+ * @param {object} workout - The workout object to like/unlike.
+ * @param {HTMLElement} likeBtn - The like button associated with the workout.
+ * @param {HTMLElement} likesTextWidget - The widget displaying the number of likes.
+ */
 async function handleLikeOrUnlikeWorkout(workout, likeBtn, likesTextWidget) {
   const prevLike = likeBtn.textContent;
   let action;
@@ -140,6 +180,10 @@ async function handleLikeOrUnlikeWorkout(workout, likeBtn, likesTextWidget) {
   }
 }
 
+/**
+ * Displays a message when no workouts are available.
+ * @param {Array} workoutList - The list of workouts to check.
+ */
 function handleShowNoWorkouts(workoutList) {
   const prevNoWorkoutText = document.querySelector('.no-workout-text');
   if (prevNoWorkoutText) {
@@ -155,6 +199,11 @@ function handleShowNoWorkouts(workoutList) {
   }
 }
 
+/**
+ * Mounts the list view of public workouts.
+ * @param {Array} workouts - The list of public workouts to display.
+ * @param {string} scope - The scope of the workouts (PUBLIC or PRIVATE).
+ */
 function mountPublicWorkoutListView(workouts, scope) {
   handleShowNoWorkouts(workouts);
   workouts.forEach((workout) => {
@@ -229,6 +278,9 @@ function mountPublicWorkoutListView(workouts, scope) {
   });
 }
 
+/**
+ * Clears previously cloned workout cards.
+ */
 function clearPrevUICardClones() {
   if (cardClones.length > 0) {
     cardClones.forEach((clone) => {
@@ -237,10 +289,16 @@ function clearPrevUICardClones() {
   }
 }
 
+/**
+ * Mounts the user workout page view.
+ */
 export function mountPublicserWorkoutPage() {
   userWorkoutPage.classList.remove('hide');
 }
 
+/**
+ * Sets up the public user workout page.
+ */
 export async function setupPublicUserWorkoutPage() {
   workouts = await getAllWorkouts();
   mountPageView();

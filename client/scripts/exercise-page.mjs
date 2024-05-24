@@ -29,17 +29,28 @@ let prevExerciseTextWidget;
 let nextExerciseTextWidget;
 let isMute = false;
 
-
+/**
+ * Retrieves all exercises associated with the current workout.
+ * @returns {Promise<Array>} - A promise that resolves to an array of exercise objects.
+ */
 async function getAllExercisesForWorkout() {
   const result = await fetchData(`http://localhost:8080/exercises/${appState.state.workout.id}`);
   return result.exercises;
 }
 
+/**
+ * Converts duration from minutes to milliseconds.
+ * @param {number} duration - Duration in minutes.
+ * @returns {number} - Duration in milliseconds.
+ */
 function convertDurationToMilliseconds(duration) {
   const totalMilliSeconds = duration * 60000;
   return totalMilliSeconds;
 }
 
+/**
+ * Starts or pauses the workout timer.
+ */
 function startTimer() {
   if (isTimerStarted === false && isTimerPaused === false) {
     isTimerStarted = true;
@@ -70,6 +81,7 @@ function startTimer() {
   }
 }
 
+
 function calcTime() {
   timerSound.play();
   const time = new Date(currentDurationInMilli);
@@ -89,6 +101,9 @@ function calcTime() {
   updateProgressBar();
 }
 
+/**
+ * Moves to the next exercise in the workout.
+ */
 function moveToNextExercise() {
   clearInterval(timerInterval);
   prevExerciseTextWidget.textContent = exerciseListCopy[0].title;
@@ -102,6 +117,9 @@ function moveToNextExercise() {
   }
 }
 
+/**
+ * Handles actions when the workout is completed.
+ */
 function handleUserFinishWorkout() {
   exerciseNameWidget.textContent = 'Hurray workout complete!';
   clearPrevExerciseSteps();
@@ -141,6 +159,9 @@ function displayWaitTimerToNextExercise() {
   }, 1000);
 }
 
+/**
+ * Resets the workout timer and related variables.
+ */
 function resetTimer() {
   if (timerInterval) {
     clearInterval(timerInterval);
@@ -162,6 +183,9 @@ function resetTimer() {
   nextExerciseTextWidget.textContent = '';
 }
 
+/**
+ * Exits the workout and navigates back to the workouts page.
+ */
 function exitWorkout() {
   appState.upateState('path', '/view');
   appState.upateState('appPath', '/account/workout/view');
@@ -170,6 +194,9 @@ function exitWorkout() {
   mountPageRouter();
 }
 
+/**
+ * Updates the progress bar based on the elapsed time.
+ */
 function updateProgressBar() {
   if (deltaPercentage === 100) return;
   const deltaDuration = (totalDurationWorkedInMilli / totalDurationInMilli);
@@ -177,6 +204,9 @@ function updateProgressBar() {
   circleProgressBar.style.setProperty('--progress', `${deltaPercentage}%`);
 }
 
+/**
+ * Clears the previous exercise steps.
+ */
 function clearPrevExerciseSteps() {
   const prevSteps = document.querySelectorAll('.guide-text');
   prevSteps.forEach((stepItem) => {
@@ -184,6 +214,9 @@ function clearPrevExerciseSteps() {
   });
 }
 
+/**
+ * Sets the view for the current exercise.
+ */
 function setCurrentExerciseView() {
   clearPrevExerciseSteps();
   exerciseNameWidget.textContent = `Ongoing Activity: ${currentExercise.title}`;
@@ -192,6 +225,10 @@ function setCurrentExerciseView() {
   }
 }
 
+/**
+ * Handles muting/unmuting the timer sound.
+ * @param {HTMLElement} btnWidget - The mute/unmute button element.
+ */
 function handleMute(btnWidget) {
   if (isMute) {
     isMute = false;
@@ -205,6 +242,9 @@ function handleMute(btnWidget) {
 }
 
 
+/**
+ * Mounts the exercise page view.
+ */
 function mountPageView() {
   exerciseViewClone = exerciseViewTemplate.content.cloneNode(true).firstElementChild;
   const workoutName = exerciseViewClone.querySelector('.workout-name-text');
@@ -242,12 +282,16 @@ function mountPageView() {
   exercisePage.classList.remove('hide');
 }
 
-
+/**
+ * Mounts the exercise page.
+ */
 export function mountExercisePage() {
   exercisePage.classList.remove('hide');
 }
 
-
+/**
+ * Sets up the exercise page, including fetching exercises and mounting the page view.
+ */
 export async function setupExercisePage() {
   exerciseList = await getAllExercisesForWorkout();
   exerciseListCopy = [...exerciseList];
