@@ -79,9 +79,9 @@ function mountPageView() {
 
 function handleOpenWorkout(workout) {
   appState.upateState('workout', workout);
-  appState.upateState('path', '/exercise');
-  appState.upateState('appPath', '/account/workout/exercise');
-  window.history.pushState(null, null, '/exercise');
+  appState.upateState('path', '/view');
+  appState.upateState('appPath', '/account/workout/view');
+  window.history.pushState(null, null, '/view');
   mountPageRouter();
 }
 

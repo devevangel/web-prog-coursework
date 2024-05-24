@@ -57,11 +57,14 @@ input {
 }
 
 .auth-page {
+  display: flex;
+  flex-direction: column;
   width: 100% !important;
   height: 100vh !important;
-  justify-content: center !important;
+  justify-content: space-around !important;
   align-items: center !important;
   margin: 0 !important;
+  row-gap: 2em;
 }
 
 .user-profile-container {
@@ -479,7 +482,9 @@ input {
   flex-direction: column;
   row-gap: 0.5em;
   align-items: center;
-  margin-top: 0.5em;
+  min-height: 27em;
+  max-height: 20em;
+  overflow-y: auto;
 }
 
 .exercise-list-item {
@@ -548,6 +553,48 @@ input {
 
 .exercise-list-holder {
   margin-top: 2em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  row-gap: 2em;
+}
+
+.start-workout-btn {
+  width: 15em;
+  height: 2em;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.exercise-list-btn-controls {
+  width: 100%;
+  display: flex;
+  column-gap: 1.5em;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-exercise-list-btn {
+  width: 15em;
+  height: 2em;
+  font-size: 1.2em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 0.1em solid rgb(243, 19, 19);
+  cursor: pointer;
+  border-radius: 5em;
+  background-color: transparent;
+  padding: 1.3em 1.2em;
+}
+
+.close-exercise-list-btn:hover {
+  background-color: rgb(243, 19, 19);
+  color: white;
 }
 
 .form-info-text {
@@ -668,6 +715,75 @@ input {
   flex-direction: row;
   column-gap: 2em;
   justify-content: center;
+}
+
+.landing-page-features-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 2em;
+  column-gap: 2em;
+}
+
+.feature-card {
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 1);
+  background-color: #2c3136;
+  width: 20em;
+  height: 12em;
+  border-radius: 0.8em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.feature-title {
+  font-size: 1.4em;
+  color: #e4745d;
+}
+
+.feature-about {
+  font-size: 0.9em;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-page-feature-header {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.landing-page-huge-text-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  row-gap: 0.5em;
+}
+
+.landing-page-sub-text {
+  font-weight: 500;
+}
+
+.landing-page-head-text {
+  font-weight: 700;
+  font-size: 2.5em;
+  color: #e4745d;
+}
+
+.cta-btns {
+  display: flex;
+  column-gap: 1em;
+  justify-content: center;
+  padding: 0.5em;
 }
 
 @media only screen and (min-width: 600px) {

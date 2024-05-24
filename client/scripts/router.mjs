@@ -4,6 +4,7 @@ import {
 } from './workout-page.mjs';
 import { setupExercisePage } from './exercise-page.mjs';
 import { setupCreateWorkoutPage } from './create-edit-page.mjs';
+import { setupExerciseListPage } from './exercise-list-page.mjs';
 import appState from '../state.mjs';
 
 const appLogo = document.querySelector('.appbar-menu-container');
@@ -21,6 +22,9 @@ export function mountPageRouter() {
       break;
     case '/workout':
       setupPublicUserWorkoutPage();
+      break;
+    case '/view':
+      setupExerciseListPage();
       break;
     case '/exercise':
       setupExercisePage();
@@ -40,7 +44,6 @@ export function mountPageRouter() {
 export function loadBrowserUrlState() {
   appState.upateState('path', '/account');
   appState.upateState('appPath', '/account');
-  appState.upateState('user', {});
   window.history.pushState(null, null, '/account');
   mountPageRouter();
 }
@@ -50,28 +53,30 @@ export function handleBrowserBackBtnClick() {
     case '/account/workout':
       appState.upateState('path', '/account');
       appState.upateState('appPath', '/account');
-      appState.upateState('user', {});
       window.history.pushState(null, null, '/account');
       mountPageRouter();
       break;
-    case '/account/workout/exercise':
+    case '/account/workout/view':
       appState.upateState('path', '/workout');
       appState.upateState('appPath', '/account/workout');
-      appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
+      mountPageRouter();
+      break;
+    case '/account/workout/view/exercise':
+      appState.upateState('path', '/view');
+      appState.upateState('appPath', '/account/workout/view');
+      window.history.pushState(null, null, '/view');
       mountPageRouter();
       break;
     case '/account/workout/create':
       appState.upateState('path', '/workout');
       appState.upateState('appPath', '/account/workout');
-      appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
       mountPageRouter();
       break;
     case '/account/workout/edit':
       appState.upateState('path', '/workout');
       appState.upateState('appPath', '/account/workout');
-      appState.upateState('workout', {});
       window.history.pushState(null, null, '/workout');
       mountPageRouter();
       break;

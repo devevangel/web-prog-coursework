@@ -6,8 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
   href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-  rel="stylesheet"
-/>
+  rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <title>AIM</title>
 <script type="module" src="scripts/index.mjs" defer></script>
@@ -16,18 +15,46 @@
 <nav class="app-nav-container hide">
   <aside class="appbar-menu-container">❚█══█❚ AIM</aside>
   <aside class="user-profile-container">
-    <img
-      class="user-profile-image"
-      alt="profile-img"
-      src="https://robohash.org/dfsgd"
-    />
+    <img class="user-profile-image" alt="profile-img" src="https://robohash.org/dfsgd" />
     <span class="user-profile-name">Evangel</span>
     <button class="generic-btn logout-btn">Logout</button>
   </aside>
 </nav>
 
+<section class="page-container auth-page hide">
+  <aside class="landing-page-huge-text-section">
+    <h2 class="landing-page-head-text">Welcome to AIM Fitness</h2>
+    <h4 class="landing-page-sub-text">The only fitness app you'll ever need</4>
+      <section class="cta-btns">
+        <button class="generic-btn try-now-btn">Try Now</button>
+        <!-- <button class="generic-btn login-with-google-btn">Login With Google</button> -->
+      </section>
+  </aside>
+  <section>
+    <h5 class="landing-page-feature-header">Features</h5>
+    <section class="landing-page-features-list">
+      <aside class="feature-card">
+        <h5 class="feature-title">Create Custom Workouts</h5>
+        <p class="feature-about">Design personalized workouts tailored to your specific needs, body type, and strength
+          level.</p>
+        <button class="generic-btn try-now-btn">Try Now</button>
+      </aside>
+      <aside class="feature-card">
+        <h5 class="feature-title">Share Workouts</h5>
+        <p class="feature-about">Share your workouts with other users and let them join you on your fitness journey.</p>
+        <button class="generic-btn try-now-btn">Try Now</button>
+      </aside>
+      <aside class="feature-card">
+        <h5 class="feature-title">Explore Workouts</h5>
+        <p class="feature-about">Don't have a workout? No problem. Discover workouts shared by other users on the app,
+          and don't forget to
+          leave a like if you enjoy them.</p>
+        <button class="generic-btn try-now-btn">Try Now</button>
+      </aside>
+    </section>
+  </section>
+</section>
 <section class="page-container exercise-list-page hide"></section>
-<section class="page-container auth-page hide"></section>
 <section class="page-container public-user-workouts hide"></section>
 <section class="page-container exercise-page hide"></section>
 <section class="page-container create-workout-page hide"></section>
@@ -82,12 +109,12 @@
     <h4 class="exercise-name-text"></h4>
 
     <aside class="prev-exercise-holder">
-      <p>Previous Activity</p>
+      <p>Previous</p>
       <p class="prev-exercise-text center-text"></p>
     </aside>
 
     <aside class="next-exercise-holder">
-      <p>Next Activity</p>
+      <p>Next</p>
       <p class="next-exercise-text center-text"></p>
     </aside>
 
@@ -116,6 +143,7 @@
         Reset 🔄
       </button>
       <button class="workout-btn-control workout-exit-btn">Exit ⏹️</button>
+      <button class="workout-btn-control workout-mute-btn">Mute 🔊</button>
     </aside>
   </section>
 </template>
@@ -125,12 +153,8 @@
     <p class="mini-card-title" title="activity title"></p>
     <p class="mini-card-duration" title="activity duration"></p>
     <aside class="mini-btn-holder">
-      <span class="mini-exercise-btn edit-mini-btn" title="edit activity"
-        >✏️</span
-      >
-      <span class="mini-exercise-btn delete-mini-btn" title="delete activity"
-        >🗑️</span
-      >
+      <span class="mini-exercise-btn edit-mini-btn" title="edit activity">✏️</span>
+      <span class="mini-exercise-btn delete-mini-btn" title="delete activity">🗑️</span>
     </aside>
   </section>
 </template>
@@ -142,33 +166,21 @@
       <label class="form-label">Workout Title:</label>
       <input class="form-input workout-title" name="title" type="text" />
       <label class="form-label">Target Areas:</label>
-      <input
-        class="form-input workout-target_area"
-        name="targeted_areas"
-        type="text"
-        placeholder="muscles, strength, calfs"
-      />
+      <input class="form-input workout-target_area" name="targeted_areas" type="text"
+        placeholder="muscles, strength, calfs" />
       <label class="form-label">Workout Tags:</label>
-      <input
-        class="form-input workout-tag"
-        type="text"
-        name="tags"
-        placeholder="strength training, muscle building, endurance"
-      />
+      <input class="form-input workout-tag" type="text" name="tags"
+        placeholder="strength training, muscle building, endurance" />
       <label class="form-label">About Workout:</label>
-      <textarea
-        class="form-input workout-desc"
-        name="description"
-        placeholder="something great goes here..."
-      ></textarea>
+      <textarea class="form-input workout-desc" name="description"
+        placeholder="something great goes here..."></textarea>
       <label class="form-label">Workout Level:</label>
       <select class="form-input workout-level" name="level">
         <option>Easy</option>
         <option>Medium</option>
         <option>Hard</option>
       </select>
-      <label class="form-label"
-        >Make public:
+      <label class="form-label">Make public:
         <input type="checkbox" class="workout-status" name="status" />
       </label>
     </aside>
@@ -183,19 +195,9 @@
       <label class="form-label">Activity Name:</label>
       <input class="form-input exercise-name" type="text" placeholder="" />
       <label class="form-label">Activity Guide:</label>
-      <textarea
-        class="form-input exercise-guide"
-        placeholder="exercise guide"
-        maxlength="200"
-      ></textarea>
+      <textarea class="form-input exercise-guide" placeholder="exercise guide" maxlength="200"></textarea>
       <label class="form-label">Activity Duration(mins):</label>
-      <input
-        class="form-input exercise-duration"
-        type="number"
-        value="1"
-        min="1"
-        max="30"
-      />
+      <input class="form-input exercise-duration" type="number" value="1" min="1" max="30" />
 
       <p class="center-text form-info-text-workout"></p>
       <p class="center-text form-info-text-exercise"></p>
@@ -211,24 +213,21 @@
   </section>
 </template>
 
-<template id="google-auth-template">
-  <button class="login-with-google-btn generic-btn clone">
-    Signin With Google
-  </button>
-</template>
-
 <template id="exercise-list-template">
-  <section class="exercise-list-holder">
+  <section class="exercise-list-holder clone">
     <h3 class="center-text workout-form-heading">Exercise List</h3>
     <section class="exercise-list-container"></section>
-    <button class="start-workout-btn">start</button>
+    <section class="exercise-list-btn-controls">
+      <button class="start-workout-btn generic-btn">start</button>
+    <button class="close-exercise-list-btn">close</button>
+    </section>
   </section>
 </template>
 
-<template class="exercise-item-template">
+<template id="exercise-item-template">
   <aside class="exercise-list-item clone">
     <p class="center-text exercise-item-name-text"></p>
     <p class="exercise-item-guide-text"></p>
-    <p class="right-text exercise-item-duration-text">minute(s)</p>
+    <p class="right-text exercise-item-duration-text"></p>
   </aside>
 </template>

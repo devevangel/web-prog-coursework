@@ -27,6 +27,7 @@ let exerciseGuideWidget;
 let deltaPercentage = 0;
 let prevExerciseTextWidget;
 let nextExerciseTextWidget;
+let isMute = false;
 
 
 async function getAllExercisesForWorkout() {
@@ -141,7 +142,12 @@ function displayWaitTimerToNextExercise() {
 }
 
 function resetTimer() {
-  clearInterval(timerInterval);
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+  if (countDownInterval) {
+    clearInterval(countDownInterval);
+  }
   exerciseListCopy = [...exerciseList];
   currentExercise = {};
   currentDurationInMilli = 0;
@@ -157,9 +163,9 @@ function resetTimer() {
 }
 
 function exitWorkout() {
-  appState.upateState('path', '/workout');
-  appState.upateState('appPath', '/account/workout');
-  window.history.pushState(null, null, '/workout');
+  appState.upateState('path', '/view');
+  appState.upateState('appPath', '/account/workout/view');
+  window.history.pushState(null, null, '/view');
   resetTimer();
   mountPageRouter();
 }
@@ -186,6 +192,18 @@ function setCurrentExerciseView() {
   }
 }
 
+function handleMute(btnWidget) {
+  if (isMute) {
+    isMute = false;
+    btnWidget.textContent = 'Mute 🔊';
+    timerSound.muted = false;
+  } else {
+    btnWidget.textContent = 'Unmute 🔇';
+    timerSound.muted = true;
+    isMute = true;
+  }
+}
+
 
 function mountPageView() {
   exerciseViewClone = exerciseViewTemplate.content.cloneNode(true).firstElementChild;
@@ -194,6 +212,7 @@ function mountPageView() {
   startBtn = exerciseViewClone.querySelector('.workout-start-btn');
   const resetBtn = exerciseViewClone.querySelector('.workout-stop-btn');
   const exitBtn = exerciseViewClone.querySelector('.workout-exit-btn');
+  const muteBtn = exerciseViewClone.querySelector('.workout-mute-btn');
   btnControlsToHide = exerciseViewClone.querySelectorAll('.btn-control-hide');
   timerWidget = exerciseViewClone.querySelector('.timer-text');
   countDownContainerWidget = exerciseViewClone.querySelector('.count-down-container');
@@ -210,6 +229,9 @@ function mountPageView() {
     resetTimer();
   });
   exitBtn.addEventListener('click', exitWorkout);
+  muteBtn.addEventListener('click', () => {
+    handleMute(muteBtn);
+  });
 
   workoutName.textContent = appState.state.workout.title;
   exercisePage.append(exerciseViewClone);
