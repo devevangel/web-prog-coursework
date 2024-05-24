@@ -74,6 +74,14 @@ I chose the current structure of my codebase to avoid issues of plagiarism. Many
 
 [ChatGPT](https://arxiv.org/abs/2303.08774) was used in my application to help in writing code documentation, as well as code comments. I found this very much helpful, as it was able to save time, and most of the time, it gave near-perfect documentation and code comments.
 
+### Here some sample prompts I used from ChatGPT 
+1. help rewrite this writeup for my readme file about the app I built for my coursework
+2. write me clean and concise comments for my. for functions that are exported ensure to make sue of the JavaScript JSDoc commenting style to ensure the exported function is well described.
+3. js code to get current time in miiliseconds
+4. rewrite this json array of objects by adding a new field into each object called workout_id with and empty string
+
+### Note I added the prompts with the typos to show authenticity
+
 ## Refrences
 
 #### ChatGPT
