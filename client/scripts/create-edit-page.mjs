@@ -34,7 +34,7 @@ let activityToEditId;
  * @returns {Promise<Array>} - A promise that resolves to an array of exercise objects.
  */
 async function getAllExercisesForWorkout() {
-  const result = await fetchData(`http://localhost:8080/exercises/${appState.state.workout.id}`);
+  const result = await fetchData(`http://localhost:8000/exercises/${appState.state.workout.id}`);
   return result.exercises;
 }
 
@@ -227,7 +227,7 @@ async function handleCreateHiit() {
         deletedExerciseIds: deletedActivityIds,
         newExercises: newActivities,
       };
-      const res = await postData(`http://localhost:8080/workouts/edit/${appState.state.workout.id}`, workoutInfo, 'PUT');
+      const res = await postData(`http://localhost:8000/workouts/edit/${appState.state.workout.id}`, workoutInfo, 'PUT');
       const { status } = res;
 
       if (status === 'success') {
@@ -259,7 +259,7 @@ async function handleCreateHiit() {
         exercises,
       };
 
-      const res = await postData('http://localhost:8080/workouts', workoutInfo, 'POST');
+      const res = await postData('http://localhost:8000/workouts', workoutInfo, 'POST');
       const { status } = res;
 
 
