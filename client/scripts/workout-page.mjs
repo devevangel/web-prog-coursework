@@ -17,7 +17,7 @@ let workoutPageNavClone;
  * @returns {Promise<Array>} A promise that resolves to an array of workouts.
  */
 async function getAllWorkouts() {
-  const data = await fetchData('http://localhost:8080/workouts');
+  const data = await fetchData('http://localhost:80/workouts');
   return data.workouts;
 }
 
@@ -28,7 +28,7 @@ async function getAllWorkouts() {
  * @param {HTMLElement} clone - The cloned workout element.
  */
 async function handleDeleteWorkout(id, btn, clone) {
-  const data = await deleteData(`http://localhost:8080/workouts/${id}`);
+  const data = await deleteData(`http://localhost:80/workouts/${id}`);
   const { status } = data;
   if (status === 'success') {
     clone.remove();
@@ -45,7 +45,7 @@ async function handleGetPublicWorkouts() {
   privateWorkoutBtn.classList.remove('workout-nav-active');
   publicWorkoutBtn.classList.add('workout-nav-active');
 
-  const data = await fetchData('http://localhost:8080/workouts');
+  const data = await fetchData('http://localhost:80/workouts');
   const { status, workouts } = data;
 
   if (status === 'success') {
@@ -61,7 +61,7 @@ async function handleGetPrivateWorkouts() {
   publicWorkoutBtn.classList.remove('workout-nav-active');
   privateWorkoutBtn.classList.add('workout-nav-active');
 
-  const data = await fetchData(`http://localhost:8080/workouts/me/${appState.state.user.id}`);
+  const data = await fetchData(`http://localhost:80/workouts/me/${appState.state.user.id}`);
   const { status, workouts } = data;
   if (status === 'success') {
     clearPrevUICardClones();
