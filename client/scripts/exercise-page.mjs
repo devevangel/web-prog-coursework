@@ -34,7 +34,7 @@ let isMute = false;
  * @returns {Promise<Array>} - A promise that resolves to an array of exercise objects.
  */
 async function getAllExercisesForWorkout() {
-  const result = await fetchData(`http://localhost:8000/exercises/${appState.state.workout.id}`);
+  const result = await fetchData(`http://localhost:80/exercises/${appState.state.workout.id}`);
   return result.exercises;
 }
 
