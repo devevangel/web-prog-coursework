@@ -57,7 +57,7 @@ function startTimer() {
     currentExercise = exerciseListCopy[0];
     currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
     setCurrentExerciseView();
-    timerInterval = setInterval(calcTime, 100);
+    timerInterval = setInterval(calcTime, 1000);
     startBtn.textContent = 'Pause ⏸️';
     return;
   }
@@ -129,7 +129,7 @@ function handleUserFinishWorkout() {
 }
 
 function playPausedTimer() {
-  timerInterval = setInterval(calcTime, 100);
+  timerInterval = setInterval(calcTime, 1000);
 }
 
 function displayWaitTimerToNextExercise() {
@@ -152,7 +152,7 @@ function displayWaitTimerToNextExercise() {
         btn.classList.remove('hide');
       });
       currentDurationInMilli = convertDurationToMilliseconds(currentExercise.duration);
-      timerInterval = setInterval(calcTime, 100);
+      timerInterval = setInterval(calcTime, 1000);
       setCurrentExerciseView();
     }
     count--;
