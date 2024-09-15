@@ -181,6 +181,7 @@ function resetTimer() {
   startBtn.textContent = ' Start ▶️';
   prevExerciseTextWidget.textContent = '';
   nextExerciseTextWidget.textContent = '';
+  exerciseNameWidget.textContent = ''
 }
 
 /**
@@ -219,7 +220,7 @@ function clearPrevExerciseSteps() {
  */
 function setCurrentExerciseView() {
   clearPrevExerciseSteps();
-  exerciseNameWidget.textContent = `Ongoing Activity: ${currentExercise.title}`;
+  exerciseNameWidget.textContent = `Ongoing Activity: ${currentExercise.title ? currentExercise.title : ''}`;
   if (exerciseListCopy[0].directions && exerciseListCopy[0].directions.length > 0) {
     exerciseGuideWidget.textContent = exerciseListCopy[0].directions;
   }

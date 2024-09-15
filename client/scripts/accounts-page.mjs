@@ -1,9 +1,9 @@
 import { mountPageRouter } from './router.mjs';
-// import { handleSignInWithGoogle } from './firebase.mjs';
+import { handleSignInWithGoogle } from './firebase.mjs';
 import appState from '../state.mjs';
 
 const authPage = document.querySelector('.auth-page');
-// const authBtn = document.querySelector('.login-with-google-btn');
+const authBtn = document.querySelector('.login-with-google-btn');
 
 /**
  * Updates the user account profile and navigates to the workout page.
@@ -52,7 +52,7 @@ export function setupAccountPage() {
   }
 
   mountAccountPage();
-  // authBtn.addEventListener('click', handleSignInWithGoogle);
+  authBtn.addEventListener('click', handleSignInWithGoogle);
   const tryNowBtns = document.querySelectorAll('.try-now-btn');
   tryNowBtns.forEach((btn) => {
     btn.addEventListener('click', handleQuickLogin);
